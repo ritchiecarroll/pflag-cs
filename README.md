@@ -19,8 +19,7 @@ rebuild of the same Go version adds a fourth, revision part: `1.0.9.N`, where N 
 assembly, the module's root package.
 
 unofficial go2cs C# conversion of github.com/spf13/pflag v1.0.9, built on the Go 1.24.13 standard library; not
-affiliated with or endorsed by the pflag maintainers or the Go project. Security: that standard library carries no Go
-security fixes issued after Go 1.24.13; review before any production use.
+affiliated with or endorsed by the pflag maintainers or the Go project. Security: the Go standard library this package is built on includes no Go security fixes released after Go 1.24.13; review before any production use.
 
 ## What is here
 
