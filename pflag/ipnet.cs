@@ -10,7 +10,7 @@ partial struct ipNetValue /*global::go.net_package.IPNet*/;
 
 internal static @string String(this ipNetValue ipnet) {
     ref var n = ref heap<net.IPNet>(out var Ꮡn);
-    n = ((net.IPNet)ipnet);
+    n = (net.IPNet)ipnet;
     return Ꮡn.String();
 }
 
@@ -19,15 +19,12 @@ internal static error Set(this ref ipNetValue ipnet, @string value) {
     if (err != default!) {
         return err;
     }
-    ipnet = ((ipNetValue)(n.Value));
+    ipnet = (ipNetValue)(n.Value);
     return default!;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string ipNetˢ = "ipNet"u8;
-
 internal static @string Type(this ref ipNetValue _) {
-    return ipNetˢ;
+    return "ipNet";
 }
 
 internal static ж<ipNetValue> newIPNetValue(net.IPNet val, ж<net.IPNet> Ꮡp) {
@@ -46,7 +43,7 @@ internal static (any, error) ipNetConv(@string sval) {
 }
 
 public static (net.IPNet, error) GetIPNet(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, ipNetˢ, ipNetConv);
+    var (val, err) = Ꮡf.getFlagType(name, "ipNet", ipNetConv);
     if (err != default!) {
         return (new net.IPNet(nil), err);
     }
@@ -54,7 +51,7 @@ public static (net.IPNet, error) GetIPNet(this ж<FlagSet> Ꮡf, @string name) {
 }
 
 public static void IPNetVar(this ж<FlagSet> Ꮡf, ж<net.IPNet> Ꮡp, @string name, net.IPNet value, @string usage) {
-    Ꮡf.VarP(new ipNetValueжValue(newIPNetValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new ipNetValueжValue(newIPNetValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void IPNetVarP(this ж<FlagSet> Ꮡf, ж<net.IPNet> Ꮡp, @string name, @string shorthand, net.IPNet value, @string usage) {
@@ -62,7 +59,7 @@ public static void IPNetVarP(this ж<FlagSet> Ꮡf, ж<net.IPNet> Ꮡp, @string 
 }
 
 public static void IPNetVar(ж<net.IPNet> Ꮡp, @string name, net.IPNet value, @string usage) {
-    CommandLine.VarP(new ipNetValueжValue(newIPNetValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new ipNetValueжValue(newIPNetValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void IPNetVarP(ж<net.IPNet> Ꮡp, @string name, @string shorthand, net.IPNet value, @string usage) {
@@ -71,7 +68,7 @@ public static void IPNetVarP(ж<net.IPNet> Ꮡp, @string name, @string shorthand
 
 public static ж<net.IPNet> IPNet(this ж<FlagSet> Ꮡf, @string name, net.IPNet value, @string usage) {
     var p = @new<net.IPNet>();
-    Ꮡf.IPNetVarP(p, name, ""u8, value, usage);
+    Ꮡf.IPNetVarP(p, name, "", value, usage);
     return p;
 }
 
@@ -82,7 +79,7 @@ public static ж<net.IPNet> IPNetP(this ж<FlagSet> Ꮡf, @string name, @string 
 }
 
 public static ж<net.IPNet> IPNet(@string name, net.IPNet value, @string usage) {
-    return CommandLine.IPNetP(name, ""u8, value, usage);
+    return CommandLine.IPNetP(name, "", value, usage);
 }
 
 public static ж<net.IPNet> IPNetP(@string name, @string shorthand, net.IPNet value, @string usage) {

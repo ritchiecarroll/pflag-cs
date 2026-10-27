@@ -18,7 +18,7 @@ using flag = flag_package;
 
 partial class pflag_package {
 
-public static error ErrHelp = errors.New("pflag: help requested"u8);
+public static error ErrHelp = errors.New("pflag: help requested");
 
 partial struct ErrorHandling /*num:nint*/;
 
@@ -85,7 +85,7 @@ internal static slice<ж<Flag>> sortFlags(map<NormalizedName, ж<Flag>> flags) {
     var list = new sort.StringSlice(len(flags));
     nint i = 0;
     foreach (var (k, _) in flags) {
-        list[i] = ((@string)k);
+        list[i] = (@string)k;
         i++;
     }
     list.Sort();
@@ -106,7 +106,7 @@ public static void SetNormalizeFunc(this ж<FlagSet> Ꮡf, Func<ж<FlagSet>, @st
         if (fname == nname) {
             continue;
         }
-        flag.Value.Name = ((@string)nname);
+        flag.Value.Name = (@string)nname;
         delete(f.formal, fname);
         f.formal[nname] = flag;
         {
@@ -122,7 +122,7 @@ public static Func<ж<FlagSet>, @string, NormalizedName> GetNormalizeFunc(this r
     if (f.normalizeNameFunc != default!) {
         return f.normalizeNameFunc;
     }
-    return (ж<FlagSet> fΔ1, @string name) => ((NormalizedName)name);
+    return (ж<FlagSet> fΔ1, @string name) => (NormalizedName)name;
 }
 
 internal static NormalizedName normalizeFlagName(this ж<FlagSet> Ꮡf, @string name) {
@@ -418,16 +418,6 @@ internal static bool defaultIsZeroValue(this ref Flag f) {
 
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string valueˢ = "value"u8;
-internal static readonly @string floatˢ = "float"u8;
-internal static readonly @string intˢ = "int"u8;
-internal static readonly @string uintˢ = "uint"u8;
-internal static readonly @string stringsˢ = "strings"u8;
-internal static readonly @string intsˢ = "ints"u8;
-internal static readonly @string uintsˢ = "uints"u8;
-internal static readonly @string boolsˢ = "bools"u8;
-
 public static (@string name, @string usage) UnquoteUsage(ж<Flag> Ꮡflag) {
     @string name = default!;
     @string usage = default!;
@@ -450,31 +440,31 @@ public static (@string name, @string usage) UnquoteUsage(ж<Flag> Ꮡflag) {
     name = flag.Value.Type();
     var exprᴛ1 = name;
     if (exprᴛ1 == "bool"u8 || exprᴛ1 == "boolfunc"u8) {
-        name = ""u8;
+        name = "";
     }
     else if (exprᴛ1 == "func"u8) {
-        name = valueˢ;
+        name = "value";
     }
     else if (exprᴛ1 == "float64"u8) {
-        name = floatˢ;
+        name = "float";
     }
     else if (exprᴛ1 == "int64"u8) {
-        name = intˢ;
+        name = "int";
     }
     else if (exprᴛ1 == "uint64"u8) {
-        name = uintˢ;
+        name = "uint";
     }
     else if (exprᴛ1 == "stringSlice"u8) {
-        name = stringsˢ;
+        name = "strings";
     }
     else if (exprᴛ1 == "intSlice"u8) {
-        name = intsˢ;
+        name = "ints";
     }
     else if (exprᴛ1 == "uintSlice"u8) {
-        name = uintsˢ;
+        name = "uints";
     }
     else if (exprᴛ1 == "boolSlice"u8) {
-        name = boolsˢ;
+        name = "bools";
     }
 
     return (name, usage);
@@ -485,11 +475,11 @@ internal static (@string, @string) wrapN(nint i, nint slop, @string s) {
         return (s, "");
     }
 
-    nint w = strings.LastIndexAny(s.slice(0, i), " \t\n"u8);
+    nint w = strings.LastIndexAny(s.slice(0, i), " \t\n");
     if (w <= 0) {
         return (s, "");
     }
-    nint nlPos = strings.LastIndex(s.slice(0, i), "\n"u8);
+    nint nlPos = strings.LastIndex(s.slice(0, i), "\n");
     if (nlPos > 0 && nlPos < w) {
         return (s.slice(0, nlPos), s.slice(nlPos + 1));
     }
@@ -498,7 +488,7 @@ internal static (@string, @string) wrapN(nint i, nint slop, @string s) {
 
 internal static @string wrap(nint i, nint w, @string s) {
     if (w == 0) {
-        return strings.Replace(s, "\n"u8, "\n"u8 + strings.Repeat(" "u8, i), -1);
+        return strings.Replace(s, "\n", "\n"u8 + strings.Repeat(" ", i), -1);
     }
 
     nint wrap = w - i;
@@ -509,23 +499,23 @@ internal static @string wrap(nint i, nint w, @string s) {
     if (wrap < 24) {
         i = 16;
         wrap = w - i;
-        r += "\n"u8 + strings.Repeat(" "u8, i);
+        r += "\n"u8 + strings.Repeat(" ", i);
     }
     if (wrap < 24) {
-        return strings.Replace(s, "\n"u8, r, -1);
+        return strings.Replace(s, "\n", r, -1);
     }
 
     nint slop = 5;
     wrap = wrap - slop;
 
     (l, s) = wrapN(wrap, slop, s);
-    r = r + strings.Replace(l, "\n"u8, "\n"u8 + strings.Repeat(" "u8, i), -1);
+    r = r + strings.Replace(l, "\n", "\n"u8 + strings.Repeat(" ", i), -1);
 
     while (s != ""u8) {
         @string t = default!;
 
         (t, s) = wrapN(wrap, slop, s);
-        r = r + "\n"u8 + strings.Repeat(" "u8, i) + strings.Replace(t, "\n"u8, "\n"u8 + strings.Repeat(" "u8, i), -1);
+        r = r + "\n"u8 + strings.Repeat(" ", i) + strings.Replace(t, "\n", "\n"u8 + strings.Repeat(" ", i), -1);
     }
 
     return r;
@@ -543,7 +533,7 @@ public static @string FlagUsagesWrapped(this ref FlagSet f, nint cols) {
             return;
         }
 
-        @string line = ""u8;
+        @string line = "";
         if ((~flag).Shorthand != ""u8 && (~flag).ShorthandDeprecated == ""u8){
             line = fmt.Sprintf("  -%s, --%s"u8, (~flag).Shorthand, (~flag).Name);
         } else {
@@ -596,8 +586,8 @@ public static @string FlagUsagesWrapped(this ref FlagSet f, nint cols) {
     });
 
     foreach (var (_, line) in lines) {
-        nint sidx = strings.Index(line, "\x00"u8);
-        @string spacing = strings.Repeat(" "u8, maxlen - sidx);
+        nint sidx = strings.Index(line, "\x00");
+        @string spacing = strings.Repeat(" ", maxlen - sidx);
         fmt.Fprintln(new bytes_BufferжWriter(buf), line.slice(0, sidx), spacing, wrap(maxlen + 2, cols, line.slice(sidx + 1)));
     }
 
@@ -619,8 +609,7 @@ internal static void defaultUsage(ж<FlagSet> Ꮡf) {
     f.PrintDefaults();
 }
 
-public static Action Usage;
-internal static void initᴛUsage() { Usage = () => {
+[GoLazy] partial class lazyᴛUsage { public static Action Usage = () => {
     fmt.Fprintf(new os.FileжWriter(os.Stderr), "Usage of %s:\n"u8, os.Args[0]);
     PrintDefaults();
 }; }
@@ -635,7 +624,7 @@ public static nint NFlag() {
 
 public static @string Arg(this ref FlagSet f, nint i) {
     if (i < 0 || i >= len(f.args)) {
-        return ""u8;
+        return "";
     }
     return f.args[i];
 }
@@ -661,7 +650,7 @@ public static slice<@string> Args() {
 }
 
 public static void Var(this ж<FlagSet> Ꮡf, Value value, @string name, @string usage) {
-    Ꮡf.VarP(value, name, ""u8, usage);
+    Ꮡf.VarP(value, name, "", usage);
 }
 
 public static ж<Flag> VarPF(this ж<FlagSet> Ꮡf, Value value, @string name, @string shorthand, @string usage) {
@@ -696,7 +685,7 @@ public static void AddFlag(this ж<FlagSet> Ꮡf, ж<Flag> Ꮡflag) {
         f.formal = new map<NormalizedName, ж<Flag>>();
     }
 
-    flag.Name = ((@string)normalizedFlagName);
+    flag.Name = (@string)normalizedFlagName;
     f.formal[normalizedFlagName] = Ꮡflag;
     f.orderedFormal = append(f.orderedFormal, Ꮡflag);
 
@@ -735,7 +724,7 @@ public static void AddFlagSet(this ж<FlagSet> Ꮡf, ж<FlagSet> ᏑnewSet) {
 }
 
 public static void Var(Value value, @string name, @string usage) {
-    CommandLine.VarP(value, name, ""u8, usage);
+    CommandLine.VarP(value, name, "", usage);
 }
 
 public static void VarP(Value value, @string name, @string shorthand, @string usage) {
@@ -793,7 +782,7 @@ internal static (slice<@string> a, error err) parseLongArg(this ж<FlagSet> Ꮡf
         return (a, err);
     }
 
-    var split = strings.SplitN(name, "="u8, 2);
+    var split = strings.SplitN(name, "=", 2);
     name = split[0];
     var (flag, exists) = f.formal[Ꮡf.normalizeFlagName(name), ꟷ];
 
@@ -874,7 +863,7 @@ internal static (@string outShorts, slice<@string> outArgs, error err) parseSing
         }
         if (fallthrough || !matchᴛ1 && (f.ParseErrorsAllowlist.UnknownFlags)) {
             if (len(shorthands) > 2 && shorthands[1] == (rune)'=') {
-                outShorts = ""u8;
+                outShorts = "";
                 return (outShorts, outArgs, err);
             }
 
@@ -896,14 +885,14 @@ internal static (@string outShorts, slice<@string> outArgs, error err) parseSing
     @string value = default!;
     if (len(shorthands) > 2 && shorthands[1] == (rune)'='){
         value = shorthands[2..];
-        outShorts = ""u8;
+        outShorts = "";
     } else 
     if ((~flag).NoOptDefVal != ""u8){
         value = flag.Value.NoOptDefVal;
     } else 
     if (len(shorthands) > 1){
         value = shorthands[1..];
-        outShorts = ""u8;
+        outShorts = "";
     } else 
     if (len(args) > 0){
         value = args[0];

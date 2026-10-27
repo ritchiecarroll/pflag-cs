@@ -23,14 +23,16 @@ internal static ж<stringToStringValue> newStringToStringValue(map<@string, @str
 }
 
 internal static error Set(this ref stringToStringValue s, @string val) {
+    var ssᴷ = new stackAppend<@string>();
+
     slice<@string> ss = default!;
-    nint n = strings.Count(val, "="u8);
+    nint n = strings.Count(val, "=");
     switch (n) {
     case 0: {
         return fmt.Errorf("%s must be formatted as key=value"u8, val);
     }
     case 1: {
-        ss = append(ss, strings.Trim(val, @""""u8));
+        ss = append(ssᴷ, ss, strings.Trim(val, @""""));
         break;
     }
     default: {
@@ -45,7 +47,7 @@ internal static error Set(this ref stringToStringValue s, @string val) {
 
     var @out = new map<@string, @string>(len(ss));
     foreach (var (_, pair) in ss) {
-        var kv = strings.SplitN(pair, "="u8, 2);
+        var kv = strings.SplitN(pair, "=", 2);
         if (len(kv) != 2) {
             return fmt.Errorf("%s must be formatted as key=value"u8, pair);
         }
@@ -62,24 +64,24 @@ internal static error Set(this ref stringToStringValue s, @string val) {
     return default!;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string stringToStringˢ = "stringToString"u8;
-
 internal static @string Type(this ref stringToStringValue s) {
-    return stringToStringˢ;
+    return "stringToString";
 }
 
 internal static @string String(this ref stringToStringValue s) {
+    var keysᴷ = new stackAppend<@string>();
+    var recordsᴷ = new stackAppend<@string>();
+
     var keys = new slice<@string>(0, len(s.value.ValueSlot));
     foreach (var (k, _) in s.value.ValueSlot) {
-        keys = append(keys, k);
+        keys = append(keysᴷ, keys, k);
     }
     sort.Strings(keys);
 
-    var records = new slice<@string>(0, (len(s.value.ValueSlot) >> (int)(1)));
+    var records = new slice<@string>(0, (len(s.value.ValueSlot) >> 1));
     foreach (var (_, k) in keys) {
         @string v = (s.value.ValueSlot)[k];
-        records = append(records, k + "="u8 + v);
+        records = append(recordsᴷ, records, k + "="u8 + v);
     }
 
     ref var buf = ref heap(new bytes.Buffer(), out var Ꮡbuf);
@@ -94,7 +96,7 @@ internal static @string String(this ref stringToStringValue s) {
 }
 
 internal static (any, error) stringToStringConv(@string val) {
-    val = strings.Trim(val, "[]"u8);
+    val = strings.Trim(val, "[]");
     if (len(val) == 0) {
         return (new map<@string, @string>{}, default!);
     }
@@ -105,7 +107,7 @@ internal static (any, error) stringToStringConv(@string val) {
     }
     var @out = new map<@string, @string>(len(ss));
     foreach (var (_, pair) in ss) {
-        var kv = strings.SplitN(pair, "="u8, 2);
+        var kv = strings.SplitN(pair, "=", 2);
         if (len(kv) != 2) {
             return (default!, fmt.Errorf("%s must be formatted as key=value"u8, pair));
         }
@@ -115,7 +117,7 @@ internal static (any, error) stringToStringConv(@string val) {
 }
 
 public static (map<@string, @string>, error) GetStringToString(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, stringToStringˢ, stringToStringConv);
+    var (val, err) = Ꮡf.getFlagType(name, "stringToString", stringToStringConv);
     if (err != default!) {
         return (new map<@string, @string>{}, err);
     }
@@ -123,7 +125,7 @@ public static (map<@string, @string>, error) GetStringToString(this ж<FlagSet> 
 }
 
 public static void StringToStringVar(this ж<FlagSet> Ꮡf, ж<map<@string, @string>> Ꮡp, @string name, map<@string, @string> value, @string usage) {
-    Ꮡf.VarP(new stringToStringValueжValue(newStringToStringValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new stringToStringValueжValue(newStringToStringValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void StringToStringVarP(this ж<FlagSet> Ꮡf, ж<map<@string, @string>> Ꮡp, @string name, @string shorthand, map<@string, @string> value, @string usage) {
@@ -131,7 +133,7 @@ public static void StringToStringVarP(this ж<FlagSet> Ꮡf, ж<map<@string, @st
 }
 
 public static void StringToStringVar(ж<map<@string, @string>> Ꮡp, @string name, map<@string, @string> value, @string usage) {
-    CommandLine.VarP(new stringToStringValueжValue(newStringToStringValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new stringToStringValueжValue(newStringToStringValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void StringToStringVarP(ж<map<@string, @string>> Ꮡp, @string name, @string shorthand, map<@string, @string> value, @string usage) {
@@ -141,7 +143,7 @@ public static void StringToStringVarP(ж<map<@string, @string>> Ꮡp, @string na
 public static ж<map<@string, @string>> StringToString(this ж<FlagSet> Ꮡf, @string name, map<@string, @string> value, @string usage) {
     ref var p = ref heap<map<@string, @string>>(out var Ꮡp);
     p = new map<@string, @string>{};
-    Ꮡf.StringToStringVarP(Ꮡp, name, ""u8, value, usage);
+    Ꮡf.StringToStringVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
@@ -153,7 +155,7 @@ public static ж<map<@string, @string>> StringToStringP(this ж<FlagSet> Ꮡf, @
 }
 
 public static ж<map<@string, @string>> StringToString(@string name, map<@string, @string> value, @string usage) {
-    return CommandLine.StringToStringP(name, ""u8, value, usage);
+    return CommandLine.StringToStringP(name, "", value, usage);
 }
 
 public static ж<map<@string, @string>> StringToStringP(@string name, @string shorthand, map<@string, @string> value, @string usage) {

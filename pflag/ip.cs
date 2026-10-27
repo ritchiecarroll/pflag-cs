@@ -27,12 +27,12 @@ internal static error Set(this ref ipValue i, @string s) {
     if (ip == default!) {
         return fmt.Errorf("failed to parse IP: %q"u8, s);
     }
-    i = ((ipValue)ip);
+    i = (ipValue)ip;
     return default!;
 }
 
 internal static @string Type(this ref ipValue i) {
-    return "ip"u8;
+    return "ip";
 }
 
 internal static (any, error) ipConv(@string sval) {
@@ -44,7 +44,7 @@ internal static (any, error) ipConv(@string sval) {
 }
 
 public static (net.IP, error) GetIP(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, "ip"u8, ipConv);
+    var (val, err) = Ꮡf.getFlagType(name, "ip", ipConv);
     if (err != default!) {
         return (default!, err);
     }
@@ -52,7 +52,7 @@ public static (net.IP, error) GetIP(this ж<FlagSet> Ꮡf, @string name) {
 }
 
 public static void IPVar(this ж<FlagSet> Ꮡf, ж<net.IP> Ꮡp, @string name, net.IP value, @string usage) {
-    Ꮡf.VarP(new ipValueжValue(newIPValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new ipValueжValue(newIPValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void IPVarP(this ж<FlagSet> Ꮡf, ж<net.IP> Ꮡp, @string name, @string shorthand, net.IP value, @string usage) {
@@ -60,7 +60,7 @@ public static void IPVarP(this ж<FlagSet> Ꮡf, ж<net.IP> Ꮡp, @string name, 
 }
 
 public static void IPVar(ж<net.IP> Ꮡp, @string name, net.IP value, @string usage) {
-    CommandLine.VarP(new ipValueжValue(newIPValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new ipValueжValue(newIPValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void IPVarP(ж<net.IP> Ꮡp, @string name, @string shorthand, net.IP value, @string usage) {
@@ -69,7 +69,7 @@ public static void IPVarP(ж<net.IP> Ꮡp, @string name, @string shorthand, net.
 
 public static ж<net.IP> IP(this ж<FlagSet> Ꮡf, @string name, net.IP value, @string usage) {
     var p = @new<net.IP>();
-    Ꮡf.IPVarP(p, name, ""u8, value, usage);
+    Ꮡf.IPVarP(p, name, "", value, usage);
     return p;
 }
 
@@ -80,7 +80,7 @@ public static ж<net.IP> IPP(this ж<FlagSet> Ꮡf, @string name, @string shorth
 }
 
 public static ж<net.IP> IP(@string name, net.IP value, @string usage) {
-    return CommandLine.IPP(name, ""u8, value, usage);
+    return CommandLine.IPP(name, "", value, usage);
 }
 
 public static ж<net.IP> IPP(@string name, @string shorthand, net.IP value, @string usage) {

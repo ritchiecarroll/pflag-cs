@@ -20,10 +20,10 @@ internal static ж<stringToInt64Value> newStringToInt64Value(map<@string, int64>
 }
 
 internal static error Set(this ref stringToInt64Value s, @string val) {
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new map<@string, int64>(len(ss));
     foreach (var (_, pair) in ss) {
-        var kv = strings.SplitN(pair, "="u8, 2);
+        var kv = strings.SplitN(pair, "=", 2);
         if (len(kv) != 2) {
             return fmt.Errorf("%s must be formatted as key=value"u8, pair);
         }
@@ -44,11 +44,8 @@ internal static error Set(this ref stringToInt64Value s, @string val) {
     return default!;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string stringToInt64ˢ = "stringToInt64"u8;
-
 internal static @string Type(this ref stringToInt64Value s) {
-    return stringToInt64ˢ;
+    return "stringToInt64";
 }
 
 internal static @string String(this ref stringToInt64Value s) {
@@ -67,14 +64,14 @@ internal static @string String(this ref stringToInt64Value s) {
 }
 
 internal static (any, error) stringToInt64Conv(@string val) {
-    val = strings.Trim(val, "[]"u8);
+    val = strings.Trim(val, "[]");
     if (len(val) == 0) {
         return (new map<@string, int64>{}, default!);
     }
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new map<@string, int64>(len(ss));
     foreach (var (_, pair) in ss) {
-        var kv = strings.SplitN(pair, "="u8, 2);
+        var kv = strings.SplitN(pair, "=", 2);
         if (len(kv) != 2) {
             return (default!, fmt.Errorf("%s must be formatted as key=value"u8, pair));
         }
@@ -88,7 +85,7 @@ internal static (any, error) stringToInt64Conv(@string val) {
 }
 
 public static (map<@string, int64>, error) GetStringToInt64(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, stringToInt64ˢ, stringToInt64Conv);
+    var (val, err) = Ꮡf.getFlagType(name, "stringToInt64", stringToInt64Conv);
     if (err != default!) {
         return (new map<@string, int64>{}, err);
     }
@@ -96,7 +93,7 @@ public static (map<@string, int64>, error) GetStringToInt64(this ж<FlagSet> Ꮡ
 }
 
 public static void StringToInt64Var(this ж<FlagSet> Ꮡf, ж<map<@string, int64>> Ꮡp, @string name, map<@string, int64> value, @string usage) {
-    Ꮡf.VarP(new stringToInt64ValueжValue(newStringToInt64Value(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new stringToInt64ValueжValue(newStringToInt64Value(value, Ꮡp)), name, "", usage);
 }
 
 public static void StringToInt64VarP(this ж<FlagSet> Ꮡf, ж<map<@string, int64>> Ꮡp, @string name, @string shorthand, map<@string, int64> value, @string usage) {
@@ -104,7 +101,7 @@ public static void StringToInt64VarP(this ж<FlagSet> Ꮡf, ж<map<@string, int6
 }
 
 public static void StringToInt64Var(ж<map<@string, int64>> Ꮡp, @string name, map<@string, int64> value, @string usage) {
-    CommandLine.VarP(new stringToInt64ValueжValue(newStringToInt64Value(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new stringToInt64ValueжValue(newStringToInt64Value(value, Ꮡp)), name, "", usage);
 }
 
 public static void StringToInt64VarP(ж<map<@string, int64>> Ꮡp, @string name, @string shorthand, map<@string, int64> value, @string usage) {
@@ -114,7 +111,7 @@ public static void StringToInt64VarP(ж<map<@string, int64>> Ꮡp, @string name,
 public static ж<map<@string, int64>> StringToInt64(this ж<FlagSet> Ꮡf, @string name, map<@string, int64> value, @string usage) {
     ref var p = ref heap<map<@string, int64>>(out var Ꮡp);
     p = new map<@string, int64>{};
-    Ꮡf.StringToInt64VarP(Ꮡp, name, ""u8, value, usage);
+    Ꮡf.StringToInt64VarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
@@ -126,7 +123,7 @@ public static ж<map<@string, int64>> StringToInt64P(this ж<FlagSet> Ꮡf, @str
 }
 
 public static ж<map<@string, int64>> StringToInt64(@string name, map<@string, int64> value, @string usage) {
-    return CommandLine.StringToInt64P(name, ""u8, value, usage);
+    return CommandLine.StringToInt64P(name, "", value, usage);
 }
 
 public static ж<map<@string, int64>> StringToInt64P(@string name, @string shorthand, map<@string, int64> value, @string usage) {

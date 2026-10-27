@@ -19,15 +19,12 @@ internal static error Set(this ref countValue i, @string s) {
         return default!;
     }
     var (v, err) = strconv.ParseInt(s, 0, 0);
-    i = ((countValue)(nint)v);
+    i = (countValue)(nint)v;
     return err;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string countˢ = "count"u8;
-
 internal static @string Type(this ref countValue i) {
-    return countˢ;
+    return "count";
 }
 
 internal static @string String(this ref countValue i) {
@@ -43,7 +40,7 @@ internal static (any, error) countConv(@string sval) {
 }
 
 public static (nint, error) GetCount(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, countˢ, countConv);
+    var (val, err) = Ꮡf.getFlagType(name, "count", countConv);
     if (err != default!) {
         return (0, err);
     }
@@ -51,12 +48,12 @@ public static (nint, error) GetCount(this ж<FlagSet> Ꮡf, @string name) {
 }
 
 public static void CountVar(this ж<FlagSet> Ꮡf, ж<nint> Ꮡp, @string name, @string usage) {
-    Ꮡf.CountVarP(Ꮡp, name, ""u8, usage);
+    Ꮡf.CountVarP(Ꮡp, name, "", usage);
 }
 
 public static void CountVarP(this ж<FlagSet> Ꮡf, ж<nint> Ꮡp, @string name, @string shorthand, @string usage) {
     var flag = Ꮡf.VarPF(new countValueжValue(newCountValue(0, Ꮡp)), name, shorthand, usage);
-    flag.Value.NoOptDefVal = "+1"u8;
+    flag.Value.NoOptDefVal = "+1";
 }
 
 public static void CountVar(ж<nint> Ꮡp, @string name, @string usage) {
@@ -69,7 +66,7 @@ public static void CountVarP(ж<nint> Ꮡp, @string name, @string shorthand, @st
 
 public static ж<nint> Count(this ж<FlagSet> Ꮡf, @string name, @string usage) {
     var p = @new<nint>();
-    Ꮡf.CountVarP(p, name, ""u8, usage);
+    Ꮡf.CountVarP(p, name, "", usage);
     return p;
 }
 
@@ -80,7 +77,7 @@ public static ж<nint> CountP(this ж<FlagSet> Ꮡf, @string name, @string short
 }
 
 public static ж<nint> Count(@string name, @string usage) {
-    return CommandLine.CountP(name, ""u8, usage);
+    return CommandLine.CountP(name, "", usage);
 }
 
 public static ж<nint> CountP(@string name, @string shorthand, @string usage) {

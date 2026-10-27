@@ -12,18 +12,12 @@ using flag = flag_package;
 
 partial class pflag_package {
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string testˢ = "-test."u8;
-
 internal static bool isGotestFlag(@string flag) {
-    return strings.HasPrefix(flag, testˢ);
+    return strings.HasPrefix(flag, "-test.");
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string testˢ2 = "test."u8;
-
 internal static bool isGotestShorthandFlag(@string flag) {
-    return strings.HasPrefix(flag, testˢ2);
+    return strings.HasPrefix(flag, "test.");
 }
 
 partial struct flagValueWrapper {
@@ -36,9 +30,6 @@ partial interface goBoolFlag :
 {
     bool IsBoolFlag();
 }
-
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string valueˢ2 = "Value"u8;
 
 internal static Value wrapFlagValue(goflag.Value v) {
     {
@@ -56,7 +47,7 @@ internal static Value wrapFlagValue(goflag.Value v) {
         t = t.Elem();
     }
 
-    pv.Value.flagType = strings.TrimSuffix(t.Name(), valueˢ2);
+    pv.Value.flagType = strings.TrimSuffix(t.Name(), "Value");
     return new flagValueWrapperжValue(pv);
 }
 
@@ -86,7 +77,7 @@ public static ж<Flag> PFlagFromGoFlag(ж<goflag.Flag> Ꮡgoflag) {
     }
     {
         var (fv, ok) = goflagΔ1.Value._<goBoolFlag>(ᐧ); if (ok && fv.IsBoolFlag()) {
-            flag.Value.NoOptDefVal = trueˢ;
+            flag.Value.NoOptDefVal = "true";
         }
     }
     return flag;

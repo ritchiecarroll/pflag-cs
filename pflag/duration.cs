@@ -15,15 +15,12 @@ internal static ж<durationValue> newDurationValue(time.Duration val, ж<time.Du
 
 internal static error Set(this ref durationValue d, @string s) {
     var (v, err) = time.ParseDuration(s);
-    d = ((durationValue)v);
+    d = (durationValue)v;
     return err;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string durationˢ = "duration"u8;
-
 internal static @string Type(this ref durationValue d) {
-    return durationˢ;
+    return "duration";
 }
 
 internal static @string String(this ж<durationValue> Ꮡd) {
@@ -36,7 +33,7 @@ internal static (any, error) durationConv(@string sval) {
 }
 
 public static (time.Duration, error) GetDuration(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, durationˢ, durationConv);
+    var (val, err) = Ꮡf.getFlagType(name, "duration", durationConv);
     if (err != default!) {
         return (0, err);
     }
@@ -44,7 +41,7 @@ public static (time.Duration, error) GetDuration(this ж<FlagSet> Ꮡf, @string 
 }
 
 public static void DurationVar(this ж<FlagSet> Ꮡf, ж<time.Duration> Ꮡp, @string name, time.Duration value, @string usage) {
-    Ꮡf.VarP(new durationValueжValue(newDurationValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new durationValueжValue(newDurationValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void DurationVarP(this ж<FlagSet> Ꮡf, ж<time.Duration> Ꮡp, @string name, @string shorthand, time.Duration value, @string usage) {
@@ -52,7 +49,7 @@ public static void DurationVarP(this ж<FlagSet> Ꮡf, ж<time.Duration> Ꮡp, @
 }
 
 public static void DurationVar(ж<time.Duration> Ꮡp, @string name, time.Duration value, @string usage) {
-    CommandLine.VarP(new durationValueжValue(newDurationValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new durationValueжValue(newDurationValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void DurationVarP(ж<time.Duration> Ꮡp, @string name, @string shorthand, time.Duration value, @string usage) {
@@ -61,7 +58,7 @@ public static void DurationVarP(ж<time.Duration> Ꮡp, @string name, @string sh
 
 public static ж<time.Duration> Duration(this ж<FlagSet> Ꮡf, @string name, time.Duration value, @string usage) {
     var p = @new<time.Duration>();
-    Ꮡf.DurationVarP(p, name, ""u8, value, usage);
+    Ꮡf.DurationVarP(p, name, "", value, usage);
     return p;
 }
 
@@ -72,7 +69,7 @@ public static ж<time.Duration> DurationP(this ж<FlagSet> Ꮡf, @string name, @
 }
 
 public static ж<time.Duration> Duration(@string name, time.Duration value, @string usage) {
-    return CommandLine.DurationP(name, ""u8, value, usage);
+    return CommandLine.DurationP(name, "", value, usage);
 }
 
 public static ж<time.Duration> DurationP(@string name, @string shorthand, time.Duration value, @string usage) {

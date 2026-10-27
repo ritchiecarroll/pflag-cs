@@ -7,7 +7,7 @@ using time = time_package;
 partial class pflag_package {
 
 partial struct timeValue {
-    public partial ref ж<time_package.Time> Time { get; }
+    /*embed*/ public ж<time_package.Time> Time;
     internal slice<@string> formats;
 }
 
@@ -32,7 +32,7 @@ internal static error Set(this ref timeValue d, @string s) {
         return default!;
     }
 
-    @string formatsString = ""u8;
+    @string formatsString = "";
     foreach (var (i, f) in d.formats) {
         if (i > 0) {
             formatsString += ", "u8;
@@ -43,16 +43,13 @@ internal static error Set(this ref timeValue d, @string s) {
     return fmt.Errorf("invalid time format `%s` must be one of: %s"u8, s, formatsString);
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string timeˢ = "time"u8;
-
 internal static @string Type(this ref timeValue d) {
-    return timeˢ;
+    return "time";
 }
 
 internal static @string String(this ref timeValue d) {
     if ((~d.Time).IsZero()){
-        return ""u8;
+        return "";
     } else {
         return (~d.Time).Format(time.RFC3339Nano);
     }
@@ -66,7 +63,7 @@ public static (time.Time, error) GetTime(this ж<FlagSet> Ꮡf, @string name) {
     }
 
     if ((~flag).Value.Type() != "time"u8) {
-        var err = fmt.Errorf("trying to get %s value of flag of type %s"u8, timeˢ, (~flag).Value.Type());
+        var err = fmt.Errorf("trying to get %s value of flag of type %s"u8, "time", (~flag).Value.Type());
         return (new time.Time(nil), err);
     }
 
@@ -79,7 +76,7 @@ public static (time.Time, error) GetTime(this ж<FlagSet> Ꮡf, @string name) {
 }
 
 public static void TimeVar(this ж<FlagSet> Ꮡf, ж<time.Time> Ꮡp, @string name, time.Time value, slice<@string> formats, @string usage) {
-    Ꮡf.TimeVarP(Ꮡp, name, ""u8, value, formats, usage);
+    Ꮡf.TimeVarP(Ꮡp, name, "", value, formats, usage);
 }
 
 public static void TimeVarP(this ж<FlagSet> Ꮡf, ж<time.Time> Ꮡp, @string name, @string shorthand, time.Time value, slice<@string> formats, @string usage) {
@@ -87,7 +84,7 @@ public static void TimeVarP(this ж<FlagSet> Ꮡf, ж<time.Time> Ꮡp, @string n
 }
 
 public static void TimeVar(ж<time.Time> Ꮡp, @string name, time.Time value, slice<@string> formats, @string usage) {
-    CommandLine.TimeVarP(Ꮡp, name, ""u8, value, formats, usage);
+    CommandLine.TimeVarP(Ꮡp, name, "", value, formats, usage);
 }
 
 public static void TimeVarP(ж<time.Time> Ꮡp, @string name, @string shorthand, time.Time value, slice<@string> formats, @string usage) {
@@ -95,7 +92,7 @@ public static void TimeVarP(ж<time.Time> Ꮡp, @string name, @string shorthand,
 }
 
 public static ж<time.Time> Time(this ж<FlagSet> Ꮡf, @string name, time.Time value, slice<@string> formats, @string usage) {
-    return Ꮡf.TimeP(name, ""u8, value, formats, usage);
+    return Ꮡf.TimeP(name, "", value, formats, usage);
 }
 
 public static ж<time.Time> TimeP(this ж<FlagSet> Ꮡf, @string name, @string shorthand, time.Time value, slice<@string> formats, @string usage) {
@@ -105,7 +102,7 @@ public static ж<time.Time> TimeP(this ж<FlagSet> Ꮡf, @string name, @string s
 }
 
 public static ж<time.Time> Time(@string name, time.Time value, slice<@string> formats, @string usage) {
-    return CommandLine.TimeP(name, ""u8, value, formats, usage);
+    return CommandLine.TimeP(name, "", value, formats, usage);
 }
 
 public static ж<time.Time> TimeP(@string name, @string shorthand, time.Time value, slice<@string> formats, @string usage) {

@@ -15,15 +15,12 @@ internal static ж<int16Value> newInt16Value(int16 val, ж<int16> Ꮡp) {
 
 internal static error Set(this ref int16Value i, @string s) {
     var (v, err) = strconv.ParseInt(s, 0, 16);
-    i = ((int16Value)(int16)v);
+    i = (int16Value)(int16)v;
     return err;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string int16ˢ = "int16"u8;
-
 internal static @string Type(this ref int16Value i) {
-    return int16ˢ;
+    return "int16";
 }
 
 internal static @string String(this ref int16Value i) {
@@ -33,13 +30,13 @@ internal static @string String(this ref int16Value i) {
 internal static (any, error) int16Conv(@string sval) {
     var (v, err) = strconv.ParseInt(sval, 0, 16);
     if (err != default!) {
-        return ((nint)(0), err);
+        return ((nint)0, err);
     }
     return ((int16)v, default!);
 }
 
 public static (int16, error) GetInt16(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, int16ˢ, int16Conv);
+    var (val, err) = Ꮡf.getFlagType(name, "int16", int16Conv);
     if (err != default!) {
         return (0, err);
     }
@@ -47,7 +44,7 @@ public static (int16, error) GetInt16(this ж<FlagSet> Ꮡf, @string name) {
 }
 
 public static void Int16Var(this ж<FlagSet> Ꮡf, ж<int16> Ꮡp, @string name, int16 value, @string usage) {
-    Ꮡf.VarP(new int16ValueжValue(newInt16Value(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new int16ValueжValue(newInt16Value(value, Ꮡp)), name, "", usage);
 }
 
 public static void Int16VarP(this ж<FlagSet> Ꮡf, ж<int16> Ꮡp, @string name, @string shorthand, int16 value, @string usage) {
@@ -55,7 +52,7 @@ public static void Int16VarP(this ж<FlagSet> Ꮡf, ж<int16> Ꮡp, @string name
 }
 
 public static void Int16Var(ж<int16> Ꮡp, @string name, int16 value, @string usage) {
-    CommandLine.VarP(new int16ValueжValue(newInt16Value(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new int16ValueжValue(newInt16Value(value, Ꮡp)), name, "", usage);
 }
 
 public static void Int16VarP(ж<int16> Ꮡp, @string name, @string shorthand, int16 value, @string usage) {
@@ -64,7 +61,7 @@ public static void Int16VarP(ж<int16> Ꮡp, @string name, @string shorthand, in
 
 public static ж<int16> Int16(this ж<FlagSet> Ꮡf, @string name, int16 value, @string usage) {
     var p = @new<int16>();
-    Ꮡf.Int16VarP(p, name, ""u8, value, usage);
+    Ꮡf.Int16VarP(p, name, "", value, usage);
     return p;
 }
 
@@ -75,7 +72,7 @@ public static ж<int16> Int16P(this ж<FlagSet> Ꮡf, @string name, @string shor
 }
 
 public static ж<int16> Int16(@string name, int16 value, @string usage) {
-    return CommandLine.Int16P(name, ""u8, value, usage);
+    return CommandLine.Int16P(name, "", value, usage);
 }
 
 public static ж<int16> Int16P(@string name, @string shorthand, int16 value, @string usage) {

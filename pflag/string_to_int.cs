@@ -20,10 +20,10 @@ internal static ж<stringToIntValue> newStringToIntValue(map<@string, nint> val,
 }
 
 internal static error Set(this ref stringToIntValue s, @string val) {
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new map<@string, nint>(len(ss));
     foreach (var (_, pair) in ss) {
-        var kv = strings.SplitN(pair, "="u8, 2);
+        var kv = strings.SplitN(pair, "=", 2);
         if (len(kv) != 2) {
             return fmt.Errorf("%s must be formatted as key=value"u8, pair);
         }
@@ -44,11 +44,8 @@ internal static error Set(this ref stringToIntValue s, @string val) {
     return default!;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string stringToIntˢ = "stringToInt"u8;
-
 internal static @string Type(this ref stringToIntValue s) {
-    return stringToIntˢ;
+    return "stringToInt";
 }
 
 internal static @string String(this ref stringToIntValue s) {
@@ -67,14 +64,14 @@ internal static @string String(this ref stringToIntValue s) {
 }
 
 internal static (any, error) stringToIntConv(@string val) {
-    val = strings.Trim(val, "[]"u8);
+    val = strings.Trim(val, "[]");
     if (len(val) == 0) {
         return (new map<@string, nint>{}, default!);
     }
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new map<@string, nint>(len(ss));
     foreach (var (_, pair) in ss) {
-        var kv = strings.SplitN(pair, "="u8, 2);
+        var kv = strings.SplitN(pair, "=", 2);
         if (len(kv) != 2) {
             return (default!, fmt.Errorf("%s must be formatted as key=value"u8, pair));
         }
@@ -88,7 +85,7 @@ internal static (any, error) stringToIntConv(@string val) {
 }
 
 public static (map<@string, nint>, error) GetStringToInt(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, stringToIntˢ, stringToIntConv);
+    var (val, err) = Ꮡf.getFlagType(name, "stringToInt", stringToIntConv);
     if (err != default!) {
         return (new map<@string, nint>{}, err);
     }
@@ -96,7 +93,7 @@ public static (map<@string, nint>, error) GetStringToInt(this ж<FlagSet> Ꮡf, 
 }
 
 public static void StringToIntVar(this ж<FlagSet> Ꮡf, ж<map<@string, nint>> Ꮡp, @string name, map<@string, nint> value, @string usage) {
-    Ꮡf.VarP(new stringToIntValueжValue(newStringToIntValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new stringToIntValueжValue(newStringToIntValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void StringToIntVarP(this ж<FlagSet> Ꮡf, ж<map<@string, nint>> Ꮡp, @string name, @string shorthand, map<@string, nint> value, @string usage) {
@@ -104,7 +101,7 @@ public static void StringToIntVarP(this ж<FlagSet> Ꮡf, ж<map<@string, nint>>
 }
 
 public static void StringToIntVar(ж<map<@string, nint>> Ꮡp, @string name, map<@string, nint> value, @string usage) {
-    CommandLine.VarP(new stringToIntValueжValue(newStringToIntValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new stringToIntValueжValue(newStringToIntValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void StringToIntVarP(ж<map<@string, nint>> Ꮡp, @string name, @string shorthand, map<@string, nint> value, @string usage) {
@@ -114,7 +111,7 @@ public static void StringToIntVarP(ж<map<@string, nint>> Ꮡp, @string name, @s
 public static ж<map<@string, nint>> StringToInt(this ж<FlagSet> Ꮡf, @string name, map<@string, nint> value, @string usage) {
     ref var p = ref heap<map<@string, nint>>(out var Ꮡp);
     p = new map<@string, nint>{};
-    Ꮡf.StringToIntVarP(Ꮡp, name, ""u8, value, usage);
+    Ꮡf.StringToIntVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
@@ -126,7 +123,7 @@ public static ж<map<@string, nint>> StringToIntP(this ж<FlagSet> Ꮡf, @string
 }
 
 public static ж<map<@string, nint>> StringToInt(@string name, map<@string, nint> value, @string usage) {
-    return CommandLine.StringToIntP(name, ""u8, value, usage);
+    return CommandLine.StringToIntP(name, "", value, usage);
 }
 
 public static ж<map<@string, nint>> StringToIntP(@string name, @string shorthand, map<@string, nint> value, @string usage) {

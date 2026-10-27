@@ -19,7 +19,7 @@ internal static ж<durationSliceValue> newDurationSliceValue(slice<time.Duration
 }
 
 internal static error Set(this ref durationSliceValue s, @string val) {
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new slice<time.Duration>(len(ss));
     foreach (var (i, d) in ss) {
         error err = default!;
@@ -37,11 +37,8 @@ internal static error Set(this ref durationSliceValue s, @string val) {
     return default!;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string durationSliceˢ = "durationSlice"u8;
-
 internal static @string Type(this ref durationSliceValue s) {
-    return durationSliceˢ;
+    return "durationSlice";
 }
 
 internal static @string String(this ref durationSliceValue s) {
@@ -49,7 +46,7 @@ internal static @string String(this ref durationSliceValue s) {
     foreach (var (i, d) in s.value.ValueSlot) {
         @out[i] = fmt.Sprintf("%s"u8, d);
     }
-    return "["u8 + strings.Join(@out, ","u8) + "]"u8;
+    return "["u8 + strings.Join(@out, ",") + "]"u8;
 }
 
 internal static (time.Duration, error) fromString(this ref durationSliceValue s, @string val) {
@@ -91,11 +88,11 @@ internal static slice<@string> GetSlice(this ref durationSliceValue s) {
 }
 
 internal static (any, error) durationSliceConv(@string val) {
-    val = strings.Trim(val, "[]"u8);
+    val = strings.Trim(val, "[]");
     if (len(val) == 0) {
         return (new time.Duration[]{}.slice(), default!);
     }
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new slice<time.Duration>(len(ss));
     foreach (var (i, d) in ss) {
         error err = default!;
@@ -108,7 +105,7 @@ internal static (any, error) durationSliceConv(@string val) {
 }
 
 public static (slice<time.Duration>, error) GetDurationSlice(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, durationSliceˢ, durationSliceConv);
+    var (val, err) = Ꮡf.getFlagType(name, "durationSlice", durationSliceConv);
     if (err != default!) {
         return (new time.Duration[]{}.slice(), err);
     }
@@ -116,7 +113,7 @@ public static (slice<time.Duration>, error) GetDurationSlice(this ж<FlagSet> �
 }
 
 public static void DurationSliceVar(this ж<FlagSet> Ꮡf, ж<slice<time.Duration>> Ꮡp, @string name, slice<time.Duration> value, @string usage) {
-    Ꮡf.VarP(new durationSliceValueжValue(newDurationSliceValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new durationSliceValueжValue(newDurationSliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void DurationSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<time.Duration>> Ꮡp, @string name, @string shorthand, slice<time.Duration> value, @string usage) {
@@ -124,7 +121,7 @@ public static void DurationSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<time.Durati
 }
 
 public static void DurationSliceVar(ж<slice<time.Duration>> Ꮡp, @string name, slice<time.Duration> value, @string usage) {
-    CommandLine.VarP(new durationSliceValueжValue(newDurationSliceValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new durationSliceValueжValue(newDurationSliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void DurationSliceVarP(ж<slice<time.Duration>> Ꮡp, @string name, @string shorthand, slice<time.Duration> value, @string usage) {
@@ -134,7 +131,7 @@ public static void DurationSliceVarP(ж<slice<time.Duration>> Ꮡp, @string name
 public static ж<slice<time.Duration>> DurationSlice(this ж<FlagSet> Ꮡf, @string name, slice<time.Duration> value, @string usage) {
     ref var p = ref heap<slice<time.Duration>>(out var Ꮡp);
     p = new time.Duration[]{}.slice();
-    Ꮡf.DurationSliceVarP(Ꮡp, name, ""u8, value, usage);
+    Ꮡf.DurationSliceVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
@@ -146,7 +143,7 @@ public static ж<slice<time.Duration>> DurationSliceP(this ж<FlagSet> Ꮡf, @st
 }
 
 public static ж<slice<time.Duration>> DurationSlice(@string name, slice<time.Duration> value, @string usage) {
-    return CommandLine.DurationSliceP(name, ""u8, value, usage);
+    return CommandLine.DurationSliceP(name, "", value, usage);
 }
 
 public static ж<slice<time.Duration>> DurationSliceP(@string name, @string shorthand, slice<time.Duration> value, @string usage) {

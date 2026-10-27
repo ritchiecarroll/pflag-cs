@@ -11,7 +11,7 @@ partial class pflag_package {
 partial struct bytesHexValue /*[]byte*/;
 
 internal static @string String(this bytesHexValue bytesHex) {
-    return fmt.Sprintf("%X"u8, ((slice<byte>)bytesHex));
+    return fmt.Sprintf("%X"u8, (slice<byte>)bytesHex);
 }
 
 internal static error Set(this ref bytesHexValue bytesHex, @string value) {
@@ -26,11 +26,8 @@ internal static error Set(this ref bytesHexValue bytesHex, @string value) {
     return default!;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string bytesHexˢ = "bytesHex"u8;
-
 internal static @string Type(this ref bytesHexValue _) {
-    return bytesHexˢ;
+    return "bytesHex";
 }
 
 internal static ж<bytesHexValue> newBytesHexValue(slice<byte> val, ж<slice<byte>> Ꮡp) {
@@ -51,7 +48,7 @@ internal static (any, error) bytesHexConv(@string sval) {
 }
 
 public static (slice<byte>, error) GetBytesHex(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, bytesHexˢ, bytesHexConv);
+    var (val, err) = Ꮡf.getFlagType(name, "bytesHex", bytesHexConv);
 
     if (err != default!) {
         return (new byte[]{}.slice(), err);
@@ -61,7 +58,7 @@ public static (slice<byte>, error) GetBytesHex(this ж<FlagSet> Ꮡf, @string na
 }
 
 public static void BytesHexVar(this ж<FlagSet> Ꮡf, ж<slice<byte>> Ꮡp, @string name, slice<byte> value, @string usage) {
-    Ꮡf.VarP(new bytesHexValueжValue(newBytesHexValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new bytesHexValueжValue(newBytesHexValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void BytesHexVarP(this ж<FlagSet> Ꮡf, ж<slice<byte>> Ꮡp, @string name, @string shorthand, slice<byte> value, @string usage) {
@@ -69,7 +66,7 @@ public static void BytesHexVarP(this ж<FlagSet> Ꮡf, ж<slice<byte>> Ꮡp, @st
 }
 
 public static void BytesHexVar(ж<slice<byte>> Ꮡp, @string name, slice<byte> value, @string usage) {
-    CommandLine.VarP(new bytesHexValueжValue(newBytesHexValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new bytesHexValueжValue(newBytesHexValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void BytesHexVarP(ж<slice<byte>> Ꮡp, @string name, @string shorthand, slice<byte> value, @string usage) {
@@ -78,7 +75,7 @@ public static void BytesHexVarP(ж<slice<byte>> Ꮡp, @string name, @string shor
 
 public static ж<slice<byte>> BytesHex(this ж<FlagSet> Ꮡf, @string name, slice<byte> value, @string usage) {
     var p = @new<slice<byte>>();
-    Ꮡf.BytesHexVarP(p, name, ""u8, value, usage);
+    Ꮡf.BytesHexVarP(p, name, "", value, usage);
     return p;
 }
 
@@ -89,7 +86,7 @@ public static ж<slice<byte>> BytesHexP(this ж<FlagSet> Ꮡf, @string name, @st
 }
 
 public static ж<slice<byte>> BytesHex(@string name, slice<byte> value, @string usage) {
-    return CommandLine.BytesHexP(name, ""u8, value, usage);
+    return CommandLine.BytesHexP(name, "", value, usage);
 }
 
 public static ж<slice<byte>> BytesHexP(@string name, @string shorthand, slice<byte> value, @string usage) {
@@ -99,7 +96,7 @@ public static ж<slice<byte>> BytesHexP(@string name, @string shorthand, slice<b
 partial struct bytesBase64Value /*[]byte*/;
 
 internal static @string String(this bytesBase64Value bytesBase64) {
-    return base64.StdEncoding.EncodeToString(((slice<byte>)bytesBase64));
+    return base64.StdEncoding.EncodeToString((slice<byte>)bytesBase64);
 }
 
 internal static error Set(this ref bytesBase64Value bytesBase64, @string value) {
@@ -114,11 +111,8 @@ internal static error Set(this ref bytesBase64Value bytesBase64, @string value) 
     return default!;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string bytesBase64ˢ = "bytesBase64"u8;
-
 internal static @string Type(this ref bytesBase64Value _) {
-    return bytesBase64ˢ;
+    return "bytesBase64";
 }
 
 internal static ж<bytesBase64Value> newBytesBase64Value(slice<byte> val, ж<slice<byte>> Ꮡp) {
@@ -138,7 +132,7 @@ internal static (any, error) bytesBase64ValueConv(@string sval) {
 }
 
 public static (slice<byte>, error) GetBytesBase64(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, bytesBase64ˢ, bytesBase64ValueConv);
+    var (val, err) = Ꮡf.getFlagType(name, "bytesBase64", bytesBase64ValueConv);
 
     if (err != default!) {
         return (new byte[]{}.slice(), err);
@@ -148,7 +142,7 @@ public static (slice<byte>, error) GetBytesBase64(this ж<FlagSet> Ꮡf, @string
 }
 
 public static void BytesBase64Var(this ж<FlagSet> Ꮡf, ж<slice<byte>> Ꮡp, @string name, slice<byte> value, @string usage) {
-    Ꮡf.VarP(new bytesBase64ValueжValue(newBytesBase64Value(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new bytesBase64ValueжValue(newBytesBase64Value(value, Ꮡp)), name, "", usage);
 }
 
 public static void BytesBase64VarP(this ж<FlagSet> Ꮡf, ж<slice<byte>> Ꮡp, @string name, @string shorthand, slice<byte> value, @string usage) {
@@ -156,7 +150,7 @@ public static void BytesBase64VarP(this ж<FlagSet> Ꮡf, ж<slice<byte>> Ꮡp, 
 }
 
 public static void BytesBase64Var(ж<slice<byte>> Ꮡp, @string name, slice<byte> value, @string usage) {
-    CommandLine.VarP(new bytesBase64ValueжValue(newBytesBase64Value(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new bytesBase64ValueжValue(newBytesBase64Value(value, Ꮡp)), name, "", usage);
 }
 
 public static void BytesBase64VarP(ж<slice<byte>> Ꮡp, @string name, @string shorthand, slice<byte> value, @string usage) {
@@ -165,7 +159,7 @@ public static void BytesBase64VarP(ж<slice<byte>> Ꮡp, @string name, @string s
 
 public static ж<slice<byte>> BytesBase64(this ж<FlagSet> Ꮡf, @string name, slice<byte> value, @string usage) {
     var p = @new<slice<byte>>();
-    Ꮡf.BytesBase64VarP(p, name, ""u8, value, usage);
+    Ꮡf.BytesBase64VarP(p, name, "", value, usage);
     return p;
 }
 
@@ -176,7 +170,7 @@ public static ж<slice<byte>> BytesBase64P(this ж<FlagSet> Ꮡf, @string name, 
 }
 
 public static ж<slice<byte>> BytesBase64(@string name, slice<byte> value, @string usage) {
-    return CommandLine.BytesBase64P(name, ""u8, value, usage);
+    return CommandLine.BytesBase64P(name, "", value, usage);
 }
 
 public static ж<slice<byte>> BytesBase64P(@string name, @string shorthand, slice<byte> value, @string usage) {

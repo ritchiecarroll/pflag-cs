@@ -19,7 +19,7 @@ internal static ж<int64SliceValue> newInt64SliceValue(slice<int64> val, ж<slic
 }
 
 internal static error Set(this ref int64SliceValue s, @string val) {
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new slice<int64>(len(ss));
     foreach (var (i, d) in ss) {
         error err = default!;
@@ -37,11 +37,8 @@ internal static error Set(this ref int64SliceValue s, @string val) {
     return default!;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string int64Sliceˢ = "int64Slice"u8;
-
 internal static @string Type(this ref int64SliceValue s) {
-    return int64Sliceˢ;
+    return "int64Slice";
 }
 
 internal static @string String(this ref int64SliceValue s) {
@@ -49,7 +46,7 @@ internal static @string String(this ref int64SliceValue s) {
     foreach (var (i, d) in s.value.ValueSlot) {
         @out[i] = fmt.Sprintf("%d"u8, d);
     }
-    return "["u8 + strings.Join(@out, ","u8) + "]"u8;
+    return "["u8 + strings.Join(@out, ",") + "]"u8;
 }
 
 internal static (int64, error) fromString(this ref int64SliceValue s, @string val) {
@@ -91,11 +88,11 @@ internal static slice<@string> GetSlice(this ref int64SliceValue s) {
 }
 
 internal static (any, error) int64SliceConv(@string val) {
-    val = strings.Trim(val, "[]"u8);
+    val = strings.Trim(val, "[]");
     if (len(val) == 0) {
         return (new int64[]{}.slice(), default!);
     }
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new slice<int64>(len(ss));
     foreach (var (i, d) in ss) {
         error err = default!;
@@ -108,7 +105,7 @@ internal static (any, error) int64SliceConv(@string val) {
 }
 
 public static (slice<int64>, error) GetInt64Slice(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, int64Sliceˢ, int64SliceConv);
+    var (val, err) = Ꮡf.getFlagType(name, "int64Slice", int64SliceConv);
     if (err != default!) {
         return (new int64[]{}.slice(), err);
     }
@@ -116,7 +113,7 @@ public static (slice<int64>, error) GetInt64Slice(this ж<FlagSet> Ꮡf, @string
 }
 
 public static void Int64SliceVar(this ж<FlagSet> Ꮡf, ж<slice<int64>> Ꮡp, @string name, slice<int64> value, @string usage) {
-    Ꮡf.VarP(new int64SliceValueжValue(newInt64SliceValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new int64SliceValueжValue(newInt64SliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void Int64SliceVarP(this ж<FlagSet> Ꮡf, ж<slice<int64>> Ꮡp, @string name, @string shorthand, slice<int64> value, @string usage) {
@@ -124,7 +121,7 @@ public static void Int64SliceVarP(this ж<FlagSet> Ꮡf, ж<slice<int64>> Ꮡp, 
 }
 
 public static void Int64SliceVar(ж<slice<int64>> Ꮡp, @string name, slice<int64> value, @string usage) {
-    CommandLine.VarP(new int64SliceValueжValue(newInt64SliceValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new int64SliceValueжValue(newInt64SliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void Int64SliceVarP(ж<slice<int64>> Ꮡp, @string name, @string shorthand, slice<int64> value, @string usage) {
@@ -134,7 +131,7 @@ public static void Int64SliceVarP(ж<slice<int64>> Ꮡp, @string name, @string s
 public static ж<slice<int64>> Int64Slice(this ж<FlagSet> Ꮡf, @string name, slice<int64> value, @string usage) {
     ref var p = ref heap<slice<int64>>(out var Ꮡp);
     p = new int64[]{}.slice();
-    Ꮡf.Int64SliceVarP(Ꮡp, name, ""u8, value, usage);
+    Ꮡf.Int64SliceVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
@@ -146,7 +143,7 @@ public static ж<slice<int64>> Int64SliceP(this ж<FlagSet> Ꮡf, @string name, 
 }
 
 public static ж<slice<int64>> Int64Slice(@string name, slice<int64> value, @string usage) {
-    return CommandLine.Int64SliceP(name, ""u8, value, usage);
+    return CommandLine.Int64SliceP(name, "", value, usage);
 }
 
 public static ж<slice<int64>> Int64SliceP(@string name, @string shorthand, slice<int64> value, @string usage) {

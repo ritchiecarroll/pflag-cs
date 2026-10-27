@@ -15,12 +15,12 @@ internal static ж<intValue> newIntValue(nint val, ж<nint> Ꮡp) {
 
 internal static error Set(this ref intValue i, @string s) {
     var (v, err) = strconv.ParseInt(s, 0, 64);
-    i = ((intValue)(nint)v);
+    i = (intValue)(nint)v;
     return err;
 }
 
 internal static @string Type(this ref intValue i) {
-    return intˢ;
+    return "int";
 }
 
 internal static @string String(this ref intValue i) {
@@ -33,7 +33,7 @@ internal static (any, error) intConv(@string sval) {
 }
 
 public static (nint, error) GetInt(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, intˢ, intConv);
+    var (val, err) = Ꮡf.getFlagType(name, "int", intConv);
     if (err != default!) {
         return (0, err);
     }
@@ -41,7 +41,7 @@ public static (nint, error) GetInt(this ж<FlagSet> Ꮡf, @string name) {
 }
 
 public static void IntVar(this ж<FlagSet> Ꮡf, ж<nint> Ꮡp, @string name, nint value, @string usage) {
-    Ꮡf.VarP(new intValueжValue(newIntValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new intValueжValue(newIntValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void IntVarP(this ж<FlagSet> Ꮡf, ж<nint> Ꮡp, @string name, @string shorthand, nint value, @string usage) {
@@ -49,7 +49,7 @@ public static void IntVarP(this ж<FlagSet> Ꮡf, ж<nint> Ꮡp, @string name, @
 }
 
 public static void IntVar(ж<nint> Ꮡp, @string name, nint value, @string usage) {
-    CommandLine.VarP(new intValueжValue(newIntValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new intValueжValue(newIntValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void IntVarP(ж<nint> Ꮡp, @string name, @string shorthand, nint value, @string usage) {
@@ -58,7 +58,7 @@ public static void IntVarP(ж<nint> Ꮡp, @string name, @string shorthand, nint 
 
 public static ж<nint> Int(this ж<FlagSet> Ꮡf, @string name, nint value, @string usage) {
     var p = @new<nint>();
-    Ꮡf.IntVarP(p, name, ""u8, value, usage);
+    Ꮡf.IntVarP(p, name, "", value, usage);
     return p;
 }
 
@@ -69,7 +69,7 @@ public static ж<nint> IntP(this ж<FlagSet> Ꮡf, @string name, @string shortha
 }
 
 public static ж<nint> Int(@string name, nint value, @string usage) {
-    return CommandLine.IntP(name, ""u8, value, usage);
+    return CommandLine.IntP(name, "", value, usage);
 }
 
 public static ж<nint> IntP(@string name, @string shorthand, nint value, @string usage) {

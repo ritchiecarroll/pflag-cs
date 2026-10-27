@@ -20,7 +20,7 @@ internal static ж<ipSliceValue> newIPSliceValue(slice<net.IP> val, ж<slice<net
 }
 
 internal static error Set(this ref ipSliceValue s, @string val) {
-    var rmQuote = strings.NewReplacer(@""""u8, "", @"'", "", "`", "");
+    var rmQuote = strings.NewReplacer(@"""", "", @"'", "", "`", "");
 
     var (ipStrSlice, err) = readAsCSV(rmQuote.Replace(val));
     if (err != default! && !AreEqual(err, io.EOF)) {
@@ -47,11 +47,8 @@ internal static error Set(this ref ipSliceValue s, @string val) {
     return default!;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string ipSliceˢ = "ipSlice"u8;
-
 internal static @string Type(this ref ipSliceValue s) {
-    return ipSliceˢ;
+    return "ipSlice";
 }
 
 internal static @string String(this ref ipSliceValue s) {
@@ -104,11 +101,11 @@ internal static slice<@string> GetSlice(this ref ipSliceValue s) {
 }
 
 internal static (any, error) ipSliceConv(@string val) {
-    val = strings.Trim(val, "[]"u8);
+    val = strings.Trim(val, "[]");
     if (len(val) == 0) {
         return (new net.IP[]{}.slice(), default!);
     }
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new slice<net.IP>(len(ss));
     foreach (var (i, sval) in ss) {
         var ip = net.ParseIP(strings.TrimSpace(sval));
@@ -121,7 +118,7 @@ internal static (any, error) ipSliceConv(@string val) {
 }
 
 public static (slice<net.IP>, error) GetIPSlice(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, ipSliceˢ, ipSliceConv);
+    var (val, err) = Ꮡf.getFlagType(name, "ipSlice", ipSliceConv);
     if (err != default!) {
         return (new net.IP[]{}.slice(), err);
     }
@@ -129,7 +126,7 @@ public static (slice<net.IP>, error) GetIPSlice(this ж<FlagSet> Ꮡf, @string n
 }
 
 public static void IPSliceVar(this ж<FlagSet> Ꮡf, ж<slice<net.IP>> Ꮡp, @string name, slice<net.IP> value, @string usage) {
-    Ꮡf.VarP(new ipSliceValueжValue(newIPSliceValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new ipSliceValueжValue(newIPSliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void IPSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<net.IP>> Ꮡp, @string name, @string shorthand, slice<net.IP> value, @string usage) {
@@ -137,7 +134,7 @@ public static void IPSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<net.IP>> Ꮡp, @s
 }
 
 public static void IPSliceVar(ж<slice<net.IP>> Ꮡp, @string name, slice<net.IP> value, @string usage) {
-    CommandLine.VarP(new ipSliceValueжValue(newIPSliceValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new ipSliceValueжValue(newIPSliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void IPSliceVarP(ж<slice<net.IP>> Ꮡp, @string name, @string shorthand, slice<net.IP> value, @string usage) {
@@ -147,7 +144,7 @@ public static void IPSliceVarP(ж<slice<net.IP>> Ꮡp, @string name, @string sho
 public static ж<slice<net.IP>> IPSlice(this ж<FlagSet> Ꮡf, @string name, slice<net.IP> value, @string usage) {
     ref var p = ref heap<slice<net.IP>>(out var Ꮡp);
     p = new net.IP[]{}.slice();
-    Ꮡf.IPSliceVarP(Ꮡp, name, ""u8, value, usage);
+    Ꮡf.IPSliceVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
@@ -159,7 +156,7 @@ public static ж<slice<net.IP>> IPSliceP(this ж<FlagSet> Ꮡf, @string name, @s
 }
 
 public static ж<slice<net.IP>> IPSlice(@string name, slice<net.IP> value, @string usage) {
-    return CommandLine.IPSliceP(name, ""u8, value, usage);
+    return CommandLine.IPSliceP(name, "", value, usage);
 }
 
 public static ж<slice<net.IP>> IPSliceP(@string name, @string shorthand, slice<net.IP> value, @string usage) {

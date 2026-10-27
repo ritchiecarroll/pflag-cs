@@ -8,19 +8,16 @@ internal static error Set(this funcValue f, @string s) {
     return f(s);
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string funcˢ = "func"u8;
-
 internal static @string Type(this funcValue f) {
-    return funcˢ;
+    return "func";
 }
 
 internal static @string String(this funcValue f) {
-    return ""u8;
+    return "";
 }
 
 public static void Func(this ж<FlagSet> Ꮡf, @string name, @string usage, Func<@string, error> fn) {
-    Ꮡf.FuncP(name, ""u8, usage, fn);
+    Ꮡf.FuncP(name, "", usage, fn);
 }
 
 public static void FuncP(this ж<FlagSet> Ꮡf, @string name, @string shorthand, @string usage, Func<@string, error> fn) {
@@ -29,7 +26,7 @@ public static void FuncP(this ж<FlagSet> Ꮡf, @string name, @string shorthand,
 }
 
 public static void Func(@string name, @string usage, Func<@string, error> fn) {
-    CommandLine.FuncP(name, ""u8, usage, fn);
+    CommandLine.FuncP(name, "", usage, fn);
 }
 
 public static void FuncP(@string name, @string shorthand, @string usage, Func<@string, error> fn) {

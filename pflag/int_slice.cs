@@ -19,7 +19,7 @@ internal static ж<intSliceValue> newIntSliceValue(slice<nint> val, ж<slice<nin
 }
 
 internal static error Set(this ref intSliceValue s, @string val) {
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new slice<nint>(len(ss));
     foreach (var (i, d) in ss) {
         error err = default!;
@@ -37,11 +37,8 @@ internal static error Set(this ref intSliceValue s, @string val) {
     return default!;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string intSliceˢ = "intSlice"u8;
-
 internal static @string Type(this ref intSliceValue s) {
-    return intSliceˢ;
+    return "intSlice";
 }
 
 internal static @string String(this ref intSliceValue s) {
@@ -49,7 +46,7 @@ internal static @string String(this ref intSliceValue s) {
     foreach (var (i, d) in s.value.ValueSlot) {
         @out[i] = fmt.Sprintf("%d"u8, d);
     }
-    return "["u8 + strings.Join(@out, ","u8) + "]"u8;
+    return "["u8 + strings.Join(@out, ",") + "]"u8;
 }
 
 internal static error Append(this ref intSliceValue s, @string val) {
@@ -83,11 +80,11 @@ internal static slice<@string> GetSlice(this ref intSliceValue s) {
 }
 
 internal static (any, error) intSliceConv(@string val) {
-    val = strings.Trim(val, "[]"u8);
+    val = strings.Trim(val, "[]");
     if (len(val) == 0) {
         return (new nint[]{}.slice(), default!);
     }
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new slice<nint>(len(ss));
     foreach (var (i, d) in ss) {
         error err = default!;
@@ -100,7 +97,7 @@ internal static (any, error) intSliceConv(@string val) {
 }
 
 public static (slice<nint>, error) GetIntSlice(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, intSliceˢ, intSliceConv);
+    var (val, err) = Ꮡf.getFlagType(name, "intSlice", intSliceConv);
     if (err != default!) {
         return (new nint[]{}.slice(), err);
     }
@@ -108,7 +105,7 @@ public static (slice<nint>, error) GetIntSlice(this ж<FlagSet> Ꮡf, @string na
 }
 
 public static void IntSliceVar(this ж<FlagSet> Ꮡf, ж<slice<nint>> Ꮡp, @string name, slice<nint> value, @string usage) {
-    Ꮡf.VarP(new intSliceValueжValue(newIntSliceValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new intSliceValueжValue(newIntSliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void IntSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<nint>> Ꮡp, @string name, @string shorthand, slice<nint> value, @string usage) {
@@ -116,7 +113,7 @@ public static void IntSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<nint>> Ꮡp, @st
 }
 
 public static void IntSliceVar(ж<slice<nint>> Ꮡp, @string name, slice<nint> value, @string usage) {
-    CommandLine.VarP(new intSliceValueжValue(newIntSliceValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new intSliceValueжValue(newIntSliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void IntSliceVarP(ж<slice<nint>> Ꮡp, @string name, @string shorthand, slice<nint> value, @string usage) {
@@ -126,7 +123,7 @@ public static void IntSliceVarP(ж<slice<nint>> Ꮡp, @string name, @string shor
 public static ж<slice<nint>> IntSlice(this ж<FlagSet> Ꮡf, @string name, slice<nint> value, @string usage) {
     ref var p = ref heap<slice<nint>>(out var Ꮡp);
     p = new nint[]{}.slice();
-    Ꮡf.IntSliceVarP(Ꮡp, name, ""u8, value, usage);
+    Ꮡf.IntSliceVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
@@ -138,7 +135,7 @@ public static ж<slice<nint>> IntSliceP(this ж<FlagSet> Ꮡf, @string name, @st
 }
 
 public static ж<slice<nint>> IntSlice(@string name, slice<nint> value, @string usage) {
-    return CommandLine.IntSliceP(name, ""u8, value, usage);
+    return CommandLine.IntSliceP(name, "", value, usage);
 }
 
 public static ж<slice<nint>> IntSliceP(@string name, @string shorthand, slice<nint> value, @string usage) {

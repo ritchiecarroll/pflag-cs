@@ -19,7 +19,7 @@ internal static ж<int32SliceValue> newInt32SliceValue(slice<int32> val, ж<slic
 }
 
 internal static error Set(this ref int32SliceValue s, @string val) {
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new slice<int32>(len(ss));
     foreach (var (i, d) in ss) {
         error err = default!;
@@ -39,11 +39,8 @@ internal static error Set(this ref int32SliceValue s, @string val) {
     return default!;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string int32Sliceˢ = "int32Slice"u8;
-
 internal static @string Type(this ref int32SliceValue s) {
-    return int32Sliceˢ;
+    return "int32Slice";
 }
 
 internal static @string String(this ref int32SliceValue s) {
@@ -51,7 +48,7 @@ internal static @string String(this ref int32SliceValue s) {
     foreach (var (i, d) in s.value.ValueSlot) {
         @out[i] = fmt.Sprintf("%d"u8, d);
     }
-    return "["u8 + strings.Join(@out, ","u8) + "]"u8;
+    return "["u8 + strings.Join(@out, ",") + "]"u8;
 }
 
 internal static (int32, error) fromString(this ref int32SliceValue s, @string val) {
@@ -97,11 +94,11 @@ internal static slice<@string> GetSlice(this ref int32SliceValue s) {
 }
 
 internal static (any, error) int32SliceConv(@string val) {
-    val = strings.Trim(val, "[]"u8);
+    val = strings.Trim(val, "[]");
     if (len(val) == 0) {
         return (new int32[]{}.slice(), default!);
     }
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new slice<int32>(len(ss));
     foreach (var (i, d) in ss) {
         error err = default!;
@@ -116,7 +113,7 @@ internal static (any, error) int32SliceConv(@string val) {
 }
 
 public static (slice<int32>, error) GetInt32Slice(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, int32Sliceˢ, int32SliceConv);
+    var (val, err) = Ꮡf.getFlagType(name, "int32Slice", int32SliceConv);
     if (err != default!) {
         return (new int32[]{}.slice(), err);
     }
@@ -124,7 +121,7 @@ public static (slice<int32>, error) GetInt32Slice(this ж<FlagSet> Ꮡf, @string
 }
 
 public static void Int32SliceVar(this ж<FlagSet> Ꮡf, ж<slice<int32>> Ꮡp, @string name, slice<int32> value, @string usage) {
-    Ꮡf.VarP(new int32SliceValueжValue(newInt32SliceValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new int32SliceValueжValue(newInt32SliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void Int32SliceVarP(this ж<FlagSet> Ꮡf, ж<slice<int32>> Ꮡp, @string name, @string shorthand, slice<int32> value, @string usage) {
@@ -132,7 +129,7 @@ public static void Int32SliceVarP(this ж<FlagSet> Ꮡf, ж<slice<int32>> Ꮡp, 
 }
 
 public static void Int32SliceVar(ж<slice<int32>> Ꮡp, @string name, slice<int32> value, @string usage) {
-    CommandLine.VarP(new int32SliceValueжValue(newInt32SliceValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new int32SliceValueжValue(newInt32SliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void Int32SliceVarP(ж<slice<int32>> Ꮡp, @string name, @string shorthand, slice<int32> value, @string usage) {
@@ -142,7 +139,7 @@ public static void Int32SliceVarP(ж<slice<int32>> Ꮡp, @string name, @string s
 public static ж<slice<int32>> Int32Slice(this ж<FlagSet> Ꮡf, @string name, slice<int32> value, @string usage) {
     ref var p = ref heap<slice<int32>>(out var Ꮡp);
     p = new int32[]{}.slice();
-    Ꮡf.Int32SliceVarP(Ꮡp, name, ""u8, value, usage);
+    Ꮡf.Int32SliceVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
@@ -154,7 +151,7 @@ public static ж<slice<int32>> Int32SliceP(this ж<FlagSet> Ꮡf, @string name, 
 }
 
 public static ж<slice<int32>> Int32Slice(@string name, slice<int32> value, @string usage) {
-    return CommandLine.Int32SliceP(name, ""u8, value, usage);
+    return CommandLine.Int32SliceP(name, "", value, usage);
 }
 
 public static ж<slice<int32>> Int32SliceP(@string name, @string shorthand, slice<int32> value, @string usage) {

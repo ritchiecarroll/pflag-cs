@@ -46,11 +46,8 @@ internal static slice<@string> GetSlice(this ref stringArrayValue s) {
     return @out;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string stringArrayˢ = "stringArray"u8;
-
 internal static @string Type(this ref stringArrayValue s) {
-    return stringArrayˢ;
+    return "stringArray";
 }
 
 internal static @string String(this ref stringArrayValue s) {
@@ -68,7 +65,7 @@ internal static (any, error) stringArrayConv(@string sval) {
 }
 
 public static (slice<@string>, error) GetStringArray(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, stringArrayˢ, stringArrayConv);
+    var (val, err) = Ꮡf.getFlagType(name, "stringArray", stringArrayConv);
     if (err != default!) {
         return (new @string[]{}.slice(), err);
     }
@@ -76,7 +73,7 @@ public static (slice<@string>, error) GetStringArray(this ж<FlagSet> Ꮡf, @str
 }
 
 public static void StringArrayVar(this ж<FlagSet> Ꮡf, ж<slice<@string>> Ꮡp, @string name, slice<@string> value, @string usage) {
-    Ꮡf.VarP(new stringArrayValueжValue(newStringArrayValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new stringArrayValueжValue(newStringArrayValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void StringArrayVarP(this ж<FlagSet> Ꮡf, ж<slice<@string>> Ꮡp, @string name, @string shorthand, slice<@string> value, @string usage) {
@@ -84,7 +81,7 @@ public static void StringArrayVarP(this ж<FlagSet> Ꮡf, ж<slice<@string>> Ꮡ
 }
 
 public static void StringArrayVar(ж<slice<@string>> Ꮡp, @string name, slice<@string> value, @string usage) {
-    CommandLine.VarP(new stringArrayValueжValue(newStringArrayValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new stringArrayValueжValue(newStringArrayValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void StringArrayVarP(ж<slice<@string>> Ꮡp, @string name, @string shorthand, slice<@string> value, @string usage) {
@@ -94,7 +91,7 @@ public static void StringArrayVarP(ж<slice<@string>> Ꮡp, @string name, @strin
 public static ж<slice<@string>> StringArray(this ж<FlagSet> Ꮡf, @string name, slice<@string> value, @string usage) {
     ref var p = ref heap<slice<@string>>(out var Ꮡp);
     p = new @string[]{}.slice();
-    Ꮡf.StringArrayVarP(Ꮡp, name, ""u8, value, usage);
+    Ꮡf.StringArrayVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
@@ -106,7 +103,7 @@ public static ж<slice<@string>> StringArrayP(this ж<FlagSet> Ꮡf, @string nam
 }
 
 public static ж<slice<@string>> StringArray(@string name, slice<@string> value, @string usage) {
-    return CommandLine.StringArrayP(name, ""u8, value, usage);
+    return CommandLine.StringArrayP(name, "", value, usage);
 }
 
 public static ж<slice<@string>> StringArrayP(@string name, @string shorthand, slice<@string> value, @string usage) {

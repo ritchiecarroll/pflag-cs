@@ -15,15 +15,12 @@ internal static ж<int64Value> newInt64Value(int64 val, ж<int64> Ꮡp) {
 
 internal static error Set(this ref int64Value i, @string s) {
     var (v, err) = strconv.ParseInt(s, 0, 64);
-    i = ((int64Value)v);
+    i = (int64Value)v;
     return err;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string int64ˢ = "int64"u8;
-
 internal static @string Type(this ref int64Value i) {
-    return int64ˢ;
+    return "int64";
 }
 
 internal static @string String(this ref int64Value i) {
@@ -36,7 +33,7 @@ internal static (any, error) int64Conv(@string sval) {
 }
 
 public static (int64, error) GetInt64(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, int64ˢ, int64Conv);
+    var (val, err) = Ꮡf.getFlagType(name, "int64", int64Conv);
     if (err != default!) {
         return (0, err);
     }
@@ -44,7 +41,7 @@ public static (int64, error) GetInt64(this ж<FlagSet> Ꮡf, @string name) {
 }
 
 public static void Int64Var(this ж<FlagSet> Ꮡf, ж<int64> Ꮡp, @string name, int64 value, @string usage) {
-    Ꮡf.VarP(new int64ValueжValue(newInt64Value(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new int64ValueжValue(newInt64Value(value, Ꮡp)), name, "", usage);
 }
 
 public static void Int64VarP(this ж<FlagSet> Ꮡf, ж<int64> Ꮡp, @string name, @string shorthand, int64 value, @string usage) {
@@ -52,7 +49,7 @@ public static void Int64VarP(this ж<FlagSet> Ꮡf, ж<int64> Ꮡp, @string name
 }
 
 public static void Int64Var(ж<int64> Ꮡp, @string name, int64 value, @string usage) {
-    CommandLine.VarP(new int64ValueжValue(newInt64Value(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new int64ValueжValue(newInt64Value(value, Ꮡp)), name, "", usage);
 }
 
 public static void Int64VarP(ж<int64> Ꮡp, @string name, @string shorthand, int64 value, @string usage) {
@@ -61,7 +58,7 @@ public static void Int64VarP(ж<int64> Ꮡp, @string name, @string shorthand, in
 
 public static ж<int64> Int64(this ж<FlagSet> Ꮡf, @string name, int64 value, @string usage) {
     var p = @new<int64>();
-    Ꮡf.Int64VarP(p, name, ""u8, value, usage);
+    Ꮡf.Int64VarP(p, name, "", value, usage);
     return p;
 }
 
@@ -72,7 +69,7 @@ public static ж<int64> Int64P(this ж<FlagSet> Ꮡf, @string name, @string shor
 }
 
 public static ж<int64> Int64(@string name, int64 value, @string usage) {
-    return CommandLine.Int64P(name, ""u8, value, usage);
+    return CommandLine.Int64P(name, "", value, usage);
 }
 
 public static ж<int64> Int64P(@string name, @string shorthand, int64 value, @string usage) {

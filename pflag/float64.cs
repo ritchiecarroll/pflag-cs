@@ -15,15 +15,12 @@ internal static ж<float64Value> newFloat64Value(float64 val, ж<float64> Ꮡp) 
 
 internal static error Set(this ref float64Value f, @string s) {
     var (v, err) = strconv.ParseFloat(s, 64);
-    f = ((float64Value)v);
+    f = (float64Value)v;
     return err;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string float64ˢ = "float64"u8;
-
 internal static @string Type(this ref float64Value f) {
-    return float64ˢ;
+    return "float64";
 }
 
 internal static @string String(this ref float64Value f) {
@@ -36,7 +33,7 @@ internal static (any, error) float64Conv(@string sval) {
 }
 
 public static (float64, error) GetFloat64(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, float64ˢ, float64Conv);
+    var (val, err) = Ꮡf.getFlagType(name, "float64", float64Conv);
     if (err != default!) {
         return (0D, err);
     }
@@ -44,7 +41,7 @@ public static (float64, error) GetFloat64(this ж<FlagSet> Ꮡf, @string name) {
 }
 
 public static void Float64Var(this ж<FlagSet> Ꮡf, ж<float64> Ꮡp, @string name, float64 value, @string usage) {
-    Ꮡf.VarP(new float64ValueжValue(newFloat64Value(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new float64ValueжValue(newFloat64Value(value, Ꮡp)), name, "", usage);
 }
 
 public static void Float64VarP(this ж<FlagSet> Ꮡf, ж<float64> Ꮡp, @string name, @string shorthand, float64 value, @string usage) {
@@ -52,7 +49,7 @@ public static void Float64VarP(this ж<FlagSet> Ꮡf, ж<float64> Ꮡp, @string 
 }
 
 public static void Float64Var(ж<float64> Ꮡp, @string name, float64 value, @string usage) {
-    CommandLine.VarP(new float64ValueжValue(newFloat64Value(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new float64ValueжValue(newFloat64Value(value, Ꮡp)), name, "", usage);
 }
 
 public static void Float64VarP(ж<float64> Ꮡp, @string name, @string shorthand, float64 value, @string usage) {
@@ -61,7 +58,7 @@ public static void Float64VarP(ж<float64> Ꮡp, @string name, @string shorthand
 
 public static ж<float64> Float64(this ж<FlagSet> Ꮡf, @string name, float64 value, @string usage) {
     var p = @new<float64>();
-    Ꮡf.Float64VarP(p, name, ""u8, value, usage);
+    Ꮡf.Float64VarP(p, name, "", value, usage);
     return p;
 }
 
@@ -72,7 +69,7 @@ public static ж<float64> Float64P(this ж<FlagSet> Ꮡf, @string name, @string 
 }
 
 public static ж<float64> Float64(@string name, float64 value, @string usage) {
-    return CommandLine.Float64P(name, ""u8, value, usage);
+    return CommandLine.Float64P(name, "", value, usage);
 }
 
 public static ж<float64> Float64P(@string name, @string shorthand, float64 value, @string usage) {

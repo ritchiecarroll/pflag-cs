@@ -19,7 +19,7 @@ internal static ж<float64SliceValue> newFloat64SliceValue(slice<float64> val, �
 }
 
 internal static error Set(this ref float64SliceValue s, @string val) {
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new slice<float64>(len(ss));
     foreach (var (i, d) in ss) {
         error err = default!;
@@ -37,11 +37,8 @@ internal static error Set(this ref float64SliceValue s, @string val) {
     return default!;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string float64Sliceˢ = "float64Slice"u8;
-
 internal static @string Type(this ref float64SliceValue s) {
-    return float64Sliceˢ;
+    return "float64Slice";
 }
 
 internal static @string String(this ref float64SliceValue s) {
@@ -49,7 +46,7 @@ internal static @string String(this ref float64SliceValue s) {
     foreach (var (i, d) in s.value.ValueSlot) {
         @out[i] = fmt.Sprintf("%f"u8, d);
     }
-    return "["u8 + strings.Join(@out, ","u8) + "]"u8;
+    return "["u8 + strings.Join(@out, ",") + "]"u8;
 }
 
 internal static (float64, error) fromString(this ref float64SliceValue s, @string val) {
@@ -91,11 +88,11 @@ internal static slice<@string> GetSlice(this ref float64SliceValue s) {
 }
 
 internal static (any, error) float64SliceConv(@string val) {
-    val = strings.Trim(val, "[]"u8);
+    val = strings.Trim(val, "[]");
     if (len(val) == 0) {
         return (new float64[]{}.slice(), default!);
     }
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new slice<float64>(len(ss));
     foreach (var (i, d) in ss) {
         error err = default!;
@@ -108,7 +105,7 @@ internal static (any, error) float64SliceConv(@string val) {
 }
 
 public static (slice<float64>, error) GetFloat64Slice(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, float64Sliceˢ, float64SliceConv);
+    var (val, err) = Ꮡf.getFlagType(name, "float64Slice", float64SliceConv);
     if (err != default!) {
         return (new float64[]{}.slice(), err);
     }
@@ -116,7 +113,7 @@ public static (slice<float64>, error) GetFloat64Slice(this ж<FlagSet> Ꮡf, @st
 }
 
 public static void Float64SliceVar(this ж<FlagSet> Ꮡf, ж<slice<float64>> Ꮡp, @string name, slice<float64> value, @string usage) {
-    Ꮡf.VarP(new float64SliceValueжValue(newFloat64SliceValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new float64SliceValueжValue(newFloat64SliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void Float64SliceVarP(this ж<FlagSet> Ꮡf, ж<slice<float64>> Ꮡp, @string name, @string shorthand, slice<float64> value, @string usage) {
@@ -124,7 +121,7 @@ public static void Float64SliceVarP(this ж<FlagSet> Ꮡf, ж<slice<float64>> �
 }
 
 public static void Float64SliceVar(ж<slice<float64>> Ꮡp, @string name, slice<float64> value, @string usage) {
-    CommandLine.VarP(new float64SliceValueжValue(newFloat64SliceValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new float64SliceValueжValue(newFloat64SliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void Float64SliceVarP(ж<slice<float64>> Ꮡp, @string name, @string shorthand, slice<float64> value, @string usage) {
@@ -134,7 +131,7 @@ public static void Float64SliceVarP(ж<slice<float64>> Ꮡp, @string name, @stri
 public static ж<slice<float64>> Float64Slice(this ж<FlagSet> Ꮡf, @string name, slice<float64> value, @string usage) {
     ref var p = ref heap<slice<float64>>(out var Ꮡp);
     p = new float64[]{}.slice();
-    Ꮡf.Float64SliceVarP(Ꮡp, name, ""u8, value, usage);
+    Ꮡf.Float64SliceVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
@@ -146,7 +143,7 @@ public static ж<slice<float64>> Float64SliceP(this ж<FlagSet> Ꮡf, @string na
 }
 
 public static ж<slice<float64>> Float64Slice(@string name, slice<float64> value, @string usage) {
-    return CommandLine.Float64SliceP(name, ""u8, value, usage);
+    return CommandLine.Float64SliceP(name, "", value, usage);
 }
 
 public static ж<slice<float64>> Float64SliceP(@string name, @string shorthand, slice<float64> value, @string usage) {

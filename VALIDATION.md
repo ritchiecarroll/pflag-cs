@@ -1,4 +1,6 @@
-> unofficial go2cs C# conversion of github.com/spf13/pflag v1.0.9, built on the Go 1.24.13 standard library; not affiliated with or endorsed by the pflag maintainers or the Go project. Security: that standard library carries no Go security fixes issued after Go 1.24.13; review before any production use.
+> unofficial go2cs C# conversion of github.com/spf13/pflag v1.0.9, built on the Go 1.26.10 standard library; not affiliated with or endorsed by the pflag maintainers or the Go project. Security: the Go standard library this package is built on includes no Go security fixes released after Go 1.26.10; review before any production use.
+
+> Flavors: this package carries RID-specific assemblies; its go2cs/source-metadata.txt describes the linux flavor's package metadata, and the windows and darwin flavors' metadata is not described.
 
 # `github.com/spf13/pflag` — module validation summary
 
@@ -9,7 +11,7 @@ Both sides of every reading were built with `-tags purego,math_big_pure_go,safe`
 
 | Package | Matched | Disclosed | Input digest | Proof |
 |:--|--:|--:|:--|:--|
-| `github.com/spf13/pflag` | 177 | 0 | `sha256-f1fe1ae88c96ff7ae3cb08a9e7a4d2cdd0785c4797be118724a2b08f6eeee6b3` | [index.md](index.md) |
+| `github.com/spf13/pflag` | 177 | 0 | `sha256-7c98969034a2f9cafe4092b331b0b65b0f05c0882e160d52dba2e8615e56819e` | [index.md](index.md) |
 
 **Total: 177 matched · 0 disclosed** across 1 package(s).
 

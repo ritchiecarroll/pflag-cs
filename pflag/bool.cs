@@ -21,15 +21,12 @@ internal static ж<boolValue> newBoolValue(bool val, ж<bool> Ꮡp) {
 
 internal static error Set(this ref boolValue b, @string s) {
     var (v, err) = strconv.ParseBool(s);
-    b = ((boolValue)v);
+    b = (boolValue)v;
     return err;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string boolˢ = "bool"u8;
-
 internal static @string Type(this ref boolValue b) {
-    return boolˢ;
+    return "bool";
 }
 
 internal static @string String(this ref boolValue b) {
@@ -46,7 +43,7 @@ internal static (any, error) boolConv(@string sval) {
 }
 
 public static (bool, error) GetBool(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, boolˢ, boolConv);
+    var (val, err) = Ꮡf.getFlagType(name, "bool", boolConv);
     if (err != default!) {
         return (false, err);
     }
@@ -54,28 +51,25 @@ public static (bool, error) GetBool(this ж<FlagSet> Ꮡf, @string name) {
 }
 
 public static void BoolVar(this ж<FlagSet> Ꮡf, ж<bool> Ꮡp, @string name, bool value, @string usage) {
-    Ꮡf.BoolVarP(Ꮡp, name, ""u8, value, usage);
+    Ꮡf.BoolVarP(Ꮡp, name, "", value, usage);
 }
-
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string trueˢ = "true"u8;
 
 public static void BoolVarP(this ж<FlagSet> Ꮡf, ж<bool> Ꮡp, @string name, @string shorthand, bool value, @string usage) {
     var flag = Ꮡf.VarPF(new boolValueжValue(newBoolValue(value, Ꮡp)), name, shorthand, usage);
-    flag.Value.NoOptDefVal = trueˢ;
+    flag.Value.NoOptDefVal = "true";
 }
 
 public static void BoolVar(ж<bool> Ꮡp, @string name, bool value, @string usage) {
-    BoolVarP(Ꮡp, name, ""u8, value, usage);
+    BoolVarP(Ꮡp, name, "", value, usage);
 }
 
 public static void BoolVarP(ж<bool> Ꮡp, @string name, @string shorthand, bool value, @string usage) {
     var flag = CommandLine.VarPF(new boolValueжValue(newBoolValue(value, Ꮡp)), name, shorthand, usage);
-    flag.Value.NoOptDefVal = trueˢ;
+    flag.Value.NoOptDefVal = "true";
 }
 
 public static ж<bool> Bool(this ж<FlagSet> Ꮡf, @string name, bool value, @string usage) {
-    return Ꮡf.BoolP(name, ""u8, value, usage);
+    return Ꮡf.BoolP(name, "", value, usage);
 }
 
 public static ж<bool> BoolP(this ж<FlagSet> Ꮡf, @string name, @string shorthand, bool value, @string usage) {
@@ -85,7 +79,7 @@ public static ж<bool> BoolP(this ж<FlagSet> Ꮡf, @string name, @string shorth
 }
 
 public static ж<bool> Bool(@string name, bool value, @string usage) {
-    return BoolP(name, ""u8, value, usage);
+    return BoolP(name, "", value, usage);
 }
 
 public static ж<bool> BoolP(@string name, @string shorthand, bool value, @string usage) {

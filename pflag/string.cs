@@ -12,19 +12,16 @@ internal static ж<stringValue> newStringValue(@string val, ж<@string> Ꮡp) {
 }
 
 internal static error Set(this ref stringValue s, @string val) {
-    s = ((stringValue)val);
+    s = (stringValue)val;
     return default!;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string stringˢ = "string"u8;
-
 internal static @string Type(this ref stringValue s) {
-    return stringˢ;
+    return "string";
 }
 
 internal static @string String(this ref stringValue s) {
-    return ((@string)(s));
+    return (@string)(s);
 }
 
 internal static (any, error) stringConv(@string sval) {
@@ -32,7 +29,7 @@ internal static (any, error) stringConv(@string sval) {
 }
 
 public static (@string, error) GetString(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, stringˢ, stringConv);
+    var (val, err) = Ꮡf.getFlagType(name, "string", stringConv);
     if (err != default!) {
         return ("", err);
     }
@@ -40,7 +37,7 @@ public static (@string, error) GetString(this ж<FlagSet> Ꮡf, @string name) {
 }
 
 public static void StringVar(this ж<FlagSet> Ꮡf, ж<@string> Ꮡp, @string name, @string value, @string usage) {
-    Ꮡf.VarP(new stringValueжValue(newStringValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new stringValueжValue(newStringValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void StringVarP(this ж<FlagSet> Ꮡf, ж<@string> Ꮡp, @string name, @string shorthand, @string value, @string usage) {
@@ -48,7 +45,7 @@ public static void StringVarP(this ж<FlagSet> Ꮡf, ж<@string> Ꮡp, @string n
 }
 
 public static void StringVar(ж<@string> Ꮡp, @string name, @string value, @string usage) {
-    CommandLine.VarP(new stringValueжValue(newStringValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new stringValueжValue(newStringValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void StringVarP(ж<@string> Ꮡp, @string name, @string shorthand, @string value, @string usage) {
@@ -57,7 +54,7 @@ public static void StringVarP(ж<@string> Ꮡp, @string name, @string shorthand,
 
 public static ж<@string> String(this ж<FlagSet> Ꮡf, @string name, @string value, @string usage) {
     var p = @new<@string>();
-    Ꮡf.StringVarP(p, name, ""u8, value, usage);
+    Ꮡf.StringVarP(p, name, "", value, usage);
     return p;
 }
 
@@ -68,7 +65,7 @@ public static ж<@string> StringP(this ж<FlagSet> Ꮡf, @string name, @string s
 }
 
 public static ж<@string> String(@string name, @string value, @string usage) {
-    return CommandLine.StringP(name, ""u8, value, usage);
+    return CommandLine.StringP(name, "", value, usage);
 }
 
 public static ж<@string> StringP(@string name, @string shorthand, @string value, @string usage) {

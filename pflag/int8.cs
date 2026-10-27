@@ -15,15 +15,12 @@ internal static ж<int8Value> newInt8Value(int8 val, ж<int8> Ꮡp) {
 
 internal static error Set(this ref int8Value i, @string s) {
     var (v, err) = strconv.ParseInt(s, 0, 8);
-    i = ((int8Value)(int8)v);
+    i = (int8Value)(int8)v;
     return err;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string int8ˢ = "int8"u8;
-
 internal static @string Type(this ref int8Value i) {
-    return int8ˢ;
+    return "int8";
 }
 
 internal static @string String(this ref int8Value i) {
@@ -33,13 +30,13 @@ internal static @string String(this ref int8Value i) {
 internal static (any, error) int8Conv(@string sval) {
     var (v, err) = strconv.ParseInt(sval, 0, 8);
     if (err != default!) {
-        return ((nint)(0), err);
+        return ((nint)0, err);
     }
     return ((int8)v, default!);
 }
 
 public static (int8, error) GetInt8(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, int8ˢ, int8Conv);
+    var (val, err) = Ꮡf.getFlagType(name, "int8", int8Conv);
     if (err != default!) {
         return (0, err);
     }
@@ -47,7 +44,7 @@ public static (int8, error) GetInt8(this ж<FlagSet> Ꮡf, @string name) {
 }
 
 public static void Int8Var(this ж<FlagSet> Ꮡf, ж<int8> Ꮡp, @string name, int8 value, @string usage) {
-    Ꮡf.VarP(new int8ValueжValue(newInt8Value(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new int8ValueжValue(newInt8Value(value, Ꮡp)), name, "", usage);
 }
 
 public static void Int8VarP(this ж<FlagSet> Ꮡf, ж<int8> Ꮡp, @string name, @string shorthand, int8 value, @string usage) {
@@ -55,7 +52,7 @@ public static void Int8VarP(this ж<FlagSet> Ꮡf, ж<int8> Ꮡp, @string name, 
 }
 
 public static void Int8Var(ж<int8> Ꮡp, @string name, int8 value, @string usage) {
-    CommandLine.VarP(new int8ValueжValue(newInt8Value(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new int8ValueжValue(newInt8Value(value, Ꮡp)), name, "", usage);
 }
 
 public static void Int8VarP(ж<int8> Ꮡp, @string name, @string shorthand, int8 value, @string usage) {
@@ -64,7 +61,7 @@ public static void Int8VarP(ж<int8> Ꮡp, @string name, @string shorthand, int8
 
 public static ж<int8> Int8(this ж<FlagSet> Ꮡf, @string name, int8 value, @string usage) {
     var p = @new<int8>();
-    Ꮡf.Int8VarP(p, name, ""u8, value, usage);
+    Ꮡf.Int8VarP(p, name, "", value, usage);
     return p;
 }
 
@@ -75,7 +72,7 @@ public static ж<int8> Int8P(this ж<FlagSet> Ꮡf, @string name, @string shorth
 }
 
 public static ж<int8> Int8(@string name, int8 value, @string usage) {
-    return CommandLine.Int8P(name, ""u8, value, usage);
+    return CommandLine.Int8P(name, "", value, usage);
 }
 
 public static ж<int8> Int8P(@string name, @string shorthand, int8 value, @string usage) {

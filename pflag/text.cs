@@ -39,12 +39,12 @@ internal static @string String(this textValue v) {
         var (m, ok) = v.p._<encoding.TextMarshaler>(ᐧ); if (ok) {
             {
                 var (b, err) = m.MarshalText(); if (err == default!) {
-                    return ((@string)b);
+                    return (@string)b;
                 }
             }
         }
     }
-    return ""u8;
+    return "";
 }
 
 internal static @string Type(this textValue v) {
@@ -63,7 +63,7 @@ public static error GetText(this ж<FlagSet> Ꮡf, @string name, encoding.TextUn
 }
 
 public static void TextVar(this ж<FlagSet> Ꮡf, encoding.TextUnmarshaler p, @string name, encoding.TextMarshaler value, @string usage) {
-    Ꮡf.VarP(newTextValue(value, p), name, ""u8, usage);
+    Ꮡf.VarP(newTextValue(value, p), name, "", usage);
 }
 
 public static void TextVarP(this ж<FlagSet> Ꮡf, encoding.TextUnmarshaler p, @string name, @string shorthand, encoding.TextMarshaler value, @string usage) {
@@ -71,7 +71,7 @@ public static void TextVarP(this ж<FlagSet> Ꮡf, encoding.TextUnmarshaler p, @
 }
 
 public static void TextVar(encoding.TextUnmarshaler p, @string name, encoding.TextMarshaler value, @string usage) {
-    CommandLine.VarP(newTextValue(value, p), name, ""u8, usage);
+    CommandLine.VarP(newTextValue(value, p), name, "", usage);
 }
 
 public static void TextVarP(encoding.TextUnmarshaler p, @string name, @string shorthand, encoding.TextMarshaler value, @string usage) {

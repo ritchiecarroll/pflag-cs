@@ -19,7 +19,7 @@ internal static ж<uintSliceValue> newUintSliceValue(slice<nuint> val, ж<slice<
 }
 
 internal static error Set(this ref uintSliceValue s, @string val) {
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new slice<nuint>(len(ss));
     foreach (var (i, d) in ss) {
         var (u, err) = strconv.ParseUint(d, 10, 0);
@@ -37,11 +37,8 @@ internal static error Set(this ref uintSliceValue s, @string val) {
     return default!;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string uintSliceˢ = "uintSlice"u8;
-
 internal static @string Type(this ref uintSliceValue s) {
-    return uintSliceˢ;
+    return "uintSlice";
 }
 
 internal static @string String(this ref uintSliceValue s) {
@@ -49,7 +46,7 @@ internal static @string String(this ref uintSliceValue s) {
     foreach (var (i, d) in s.value.ValueSlot) {
         @out[i] = fmt.Sprintf("%d"u8, d);
     }
-    return "["u8 + strings.Join(@out, ","u8) + "]"u8;
+    return "["u8 + strings.Join(@out, ",") + "]"u8;
 }
 
 internal static (nuint, error) fromString(this ref uintSliceValue s, @string val) {
@@ -95,11 +92,11 @@ internal static slice<@string> GetSlice(this ref uintSliceValue s) {
 }
 
 internal static (any, error) uintSliceConv(@string val) {
-    val = strings.Trim(val, "[]"u8);
+    val = strings.Trim(val, "[]");
     if (len(val) == 0) {
         return (new nuint[]{}.slice(), default!);
     }
-    var ss = strings.Split(val, ","u8);
+    var ss = strings.Split(val, ",");
     var @out = new slice<nuint>(len(ss));
     foreach (var (i, d) in ss) {
         var (u, err) = strconv.ParseUint(d, 10, 0);
@@ -112,7 +109,7 @@ internal static (any, error) uintSliceConv(@string val) {
 }
 
 public static (slice<nuint>, error) GetUintSlice(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, uintSliceˢ, uintSliceConv);
+    var (val, err) = Ꮡf.getFlagType(name, "uintSlice", uintSliceConv);
     if (err != default!) {
         return (new nuint[]{}.slice(), err);
     }
@@ -120,7 +117,7 @@ public static (slice<nuint>, error) GetUintSlice(this ж<FlagSet> Ꮡf, @string 
 }
 
 public static void UintSliceVar(this ж<FlagSet> Ꮡf, ж<slice<nuint>> Ꮡp, @string name, slice<nuint> value, @string usage) {
-    Ꮡf.VarP(new uintSliceValueжValue(newUintSliceValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new uintSliceValueжValue(newUintSliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void UintSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<nuint>> Ꮡp, @string name, @string shorthand, slice<nuint> value, @string usage) {
@@ -128,7 +125,7 @@ public static void UintSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<nuint>> Ꮡp, @
 }
 
 public static void UintSliceVar(ж<slice<nuint>> Ꮡp, @string name, slice<nuint> value, @string usage) {
-    CommandLine.VarP(new uintSliceValueжValue(newUintSliceValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new uintSliceValueжValue(newUintSliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void UintSliceVarP(ж<slice<nuint>> Ꮡp, @string name, @string shorthand, slice<nuint> value, @string usage) {
@@ -138,7 +135,7 @@ public static void UintSliceVarP(ж<slice<nuint>> Ꮡp, @string name, @string sh
 public static ж<slice<nuint>> UintSlice(this ж<FlagSet> Ꮡf, @string name, slice<nuint> value, @string usage) {
     ref var p = ref heap<slice<nuint>>(out var Ꮡp);
     p = new nuint[]{}.slice();
-    Ꮡf.UintSliceVarP(Ꮡp, name, ""u8, value, usage);
+    Ꮡf.UintSliceVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
@@ -150,7 +147,7 @@ public static ж<slice<nuint>> UintSliceP(this ж<FlagSet> Ꮡf, @string name, @
 }
 
 public static ж<slice<nuint>> UintSlice(@string name, slice<nuint> value, @string usage) {
-    return CommandLine.UintSliceP(name, ""u8, value, usage);
+    return CommandLine.UintSliceP(name, "", value, usage);
 }
 
 public static ж<slice<nuint>> UintSliceP(@string name, @string shorthand, slice<nuint> value, @string usage) {

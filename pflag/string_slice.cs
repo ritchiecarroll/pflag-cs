@@ -37,7 +37,7 @@ internal static (@string, error) writeAsCSV(slice<@string> vals) {
         return ("", err);
     }
     w.Flush();
-    return (strings.TrimSuffix(b.String(), "\n"u8), default!);
+    return (strings.TrimSuffix(b.String(), "\n"), default!);
 }
 
 internal static error Set(this ref stringSliceValue s, @string val) {
@@ -54,11 +54,8 @@ internal static error Set(this ref stringSliceValue s, @string val) {
     return default!;
 }
 
-// Hoisted @string literals (single allocation; Go keeps these in RODATA)
-internal static readonly @string stringSliceˢ = "stringSlice"u8;
-
 internal static @string Type(this ref stringSliceValue s) {
-    return stringSliceˢ;
+    return "stringSlice";
 }
 
 internal static @string String(this ref stringSliceValue s) {
@@ -90,7 +87,7 @@ internal static (any, error) stringSliceConv(@string sval) {
 }
 
 public static (slice<@string>, error) GetStringSlice(this ж<FlagSet> Ꮡf, @string name) {
-    var (val, err) = Ꮡf.getFlagType(name, stringSliceˢ, stringSliceConv);
+    var (val, err) = Ꮡf.getFlagType(name, "stringSlice", stringSliceConv);
     if (err != default!) {
         return (new @string[]{}.slice(), err);
     }
@@ -98,7 +95,7 @@ public static (slice<@string>, error) GetStringSlice(this ж<FlagSet> Ꮡf, @str
 }
 
 public static void StringSliceVar(this ж<FlagSet> Ꮡf, ж<slice<@string>> Ꮡp, @string name, slice<@string> value, @string usage) {
-    Ꮡf.VarP(new stringSliceValueжValue(newStringSliceValue(value, Ꮡp)), name, ""u8, usage);
+    Ꮡf.VarP(new stringSliceValueжValue(newStringSliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void StringSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<@string>> Ꮡp, @string name, @string shorthand, slice<@string> value, @string usage) {
@@ -106,7 +103,7 @@ public static void StringSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<@string>> Ꮡ
 }
 
 public static void StringSliceVar(ж<slice<@string>> Ꮡp, @string name, slice<@string> value, @string usage) {
-    CommandLine.VarP(new stringSliceValueжValue(newStringSliceValue(value, Ꮡp)), name, ""u8, usage);
+    CommandLine.VarP(new stringSliceValueжValue(newStringSliceValue(value, Ꮡp)), name, "", usage);
 }
 
 public static void StringSliceVarP(ж<slice<@string>> Ꮡp, @string name, @string shorthand, slice<@string> value, @string usage) {
@@ -116,7 +113,7 @@ public static void StringSliceVarP(ж<slice<@string>> Ꮡp, @string name, @strin
 public static ж<slice<@string>> StringSlice(this ж<FlagSet> Ꮡf, @string name, slice<@string> value, @string usage) {
     ref var p = ref heap<slice<@string>>(out var Ꮡp);
     p = new @string[]{}.slice();
-    Ꮡf.StringSliceVarP(Ꮡp, name, ""u8, value, usage);
+    Ꮡf.StringSliceVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
@@ -128,7 +125,7 @@ public static ж<slice<@string>> StringSliceP(this ж<FlagSet> Ꮡf, @string nam
 }
 
 public static ж<slice<@string>> StringSlice(@string name, slice<@string> value, @string usage) {
-    return CommandLine.StringSliceP(name, ""u8, value, usage);
+    return CommandLine.StringSliceP(name, "", value, usage);
 }
 
 public static ж<slice<@string>> StringSliceP(@string name, @string shorthand, slice<@string> value, @string usage) {
