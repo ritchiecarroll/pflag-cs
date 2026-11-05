@@ -17,13 +17,13 @@ internal static @string String(this bytesHexValue bytesHex) {
 internal static error Set(this ref bytesHexValue bytesHex, @string value) {
     var (bin, err) = hex.DecodeString(strings.TrimSpace(value));
 
-    if (err != default!) {
+    if (err != nil) {
         return err;
     }
 
     bytesHex = bin;
 
-    return default!;
+    return default;
 }
 
 internal static @string Type(this ref bytesHexValue _) {
@@ -40,37 +40,37 @@ internal static ж<bytesHexValue> newBytesHexValue(slice<byte> val, ж<slice<byt
 internal static (any, error) bytesHexConv(@string sval) {
     var (bin, err) = hex.DecodeString(sval);
 
-    if (err == default!) {
-        return (bin, default!);
+    if (err == nil) {
+        return (bin, default);
     }
 
-    return (default!, fmt.Errorf("invalid string being converted to Bytes: %s %s"u8, sval, err));
+    return (default, fmt.Errorf("invalid string being converted to Bytes: %s %s"u8, sval, err));
 }
 
 public static (slice<byte>, error) GetBytesHex(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "bytesHex", bytesHexConv);
 
-    if (err != default!) {
-        return (new byte[]{}.slice(), err);
+    if (err != nil) {
+        return (slice<byte>([]), err);
     }
 
-    return (val._<slice<byte>>(), default!);
+    return (val._<slice<byte>>(), default);
 }
 
-public static void BytesHexVar(this ж<FlagSet> Ꮡf, ж<slice<byte>> Ꮡp, @string name, slice<byte> value, @string usage) {
-    Ꮡf.VarP(new bytesHexValueжValue(newBytesHexValue(value, Ꮡp)), name, "", usage);
+public static void BytesHexVar(this ж<FlagSet> Ꮡf, ж<slice<byte>> p, @string name, slice<byte> value, @string usage) {
+    Ꮡf.VarP(new bytesHexValueжValue(newBytesHexValue(value, p)), name, "", usage);
 }
 
-public static void BytesHexVarP(this ж<FlagSet> Ꮡf, ж<slice<byte>> Ꮡp, @string name, @string shorthand, slice<byte> value, @string usage) {
-    Ꮡf.VarP(new bytesHexValueжValue(newBytesHexValue(value, Ꮡp)), name, shorthand, usage);
+public static void BytesHexVarP(this ж<FlagSet> Ꮡf, ж<slice<byte>> p, @string name, @string shorthand, slice<byte> value, @string usage) {
+    Ꮡf.VarP(new bytesHexValueжValue(newBytesHexValue(value, p)), name, shorthand, usage);
 }
 
-public static void BytesHexVar(ж<slice<byte>> Ꮡp, @string name, slice<byte> value, @string usage) {
-    CommandLine.VarP(new bytesHexValueжValue(newBytesHexValue(value, Ꮡp)), name, "", usage);
+public static void BytesHexVar(ж<slice<byte>> p, @string name, slice<byte> value, @string usage) {
+    CommandLine.VarP(new bytesHexValueжValue(newBytesHexValue(value, p)), name, "", usage);
 }
 
-public static void BytesHexVarP(ж<slice<byte>> Ꮡp, @string name, @string shorthand, slice<byte> value, @string usage) {
-    CommandLine.VarP(new bytesHexValueжValue(newBytesHexValue(value, Ꮡp)), name, shorthand, usage);
+public static void BytesHexVarP(ж<slice<byte>> p, @string name, @string shorthand, slice<byte> value, @string usage) {
+    CommandLine.VarP(new bytesHexValueжValue(newBytesHexValue(value, p)), name, shorthand, usage);
 }
 
 public static ж<slice<byte>> BytesHex(this ж<FlagSet> Ꮡf, @string name, slice<byte> value, @string usage) {
@@ -102,13 +102,13 @@ internal static @string String(this bytesBase64Value bytesBase64) {
 internal static error Set(this ref bytesBase64Value bytesBase64, @string value) {
     var (bin, err) = base64.StdEncoding.DecodeString(strings.TrimSpace(value));
 
-    if (err != default!) {
+    if (err != nil) {
         return err;
     }
 
     bytesBase64 = bin;
 
-    return default!;
+    return default;
 }
 
 internal static @string Type(this ref bytesBase64Value _) {
@@ -124,37 +124,37 @@ internal static ж<bytesBase64Value> newBytesBase64Value(slice<byte> val, ж<sli
 
 internal static (any, error) bytesBase64ValueConv(@string sval) {
     var (bin, err) = base64.StdEncoding.DecodeString(sval);
-    if (err == default!) {
-        return (bin, default!);
+    if (err == nil) {
+        return (bin, default);
     }
 
-    return (default!, fmt.Errorf("invalid string being converted to Bytes: %s %s"u8, sval, err));
+    return (default, fmt.Errorf("invalid string being converted to Bytes: %s %s"u8, sval, err));
 }
 
 public static (slice<byte>, error) GetBytesBase64(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "bytesBase64", bytesBase64ValueConv);
 
-    if (err != default!) {
-        return (new byte[]{}.slice(), err);
+    if (err != nil) {
+        return (slice<byte>([]), err);
     }
 
-    return (val._<slice<byte>>(), default!);
+    return (val._<slice<byte>>(), default);
 }
 
-public static void BytesBase64Var(this ж<FlagSet> Ꮡf, ж<slice<byte>> Ꮡp, @string name, slice<byte> value, @string usage) {
-    Ꮡf.VarP(new bytesBase64ValueжValue(newBytesBase64Value(value, Ꮡp)), name, "", usage);
+public static void BytesBase64Var(this ж<FlagSet> Ꮡf, ж<slice<byte>> p, @string name, slice<byte> value, @string usage) {
+    Ꮡf.VarP(new bytesBase64ValueжValue(newBytesBase64Value(value, p)), name, "", usage);
 }
 
-public static void BytesBase64VarP(this ж<FlagSet> Ꮡf, ж<slice<byte>> Ꮡp, @string name, @string shorthand, slice<byte> value, @string usage) {
-    Ꮡf.VarP(new bytesBase64ValueжValue(newBytesBase64Value(value, Ꮡp)), name, shorthand, usage);
+public static void BytesBase64VarP(this ж<FlagSet> Ꮡf, ж<slice<byte>> p, @string name, @string shorthand, slice<byte> value, @string usage) {
+    Ꮡf.VarP(new bytesBase64ValueжValue(newBytesBase64Value(value, p)), name, shorthand, usage);
 }
 
-public static void BytesBase64Var(ж<slice<byte>> Ꮡp, @string name, slice<byte> value, @string usage) {
-    CommandLine.VarP(new bytesBase64ValueжValue(newBytesBase64Value(value, Ꮡp)), name, "", usage);
+public static void BytesBase64Var(ж<slice<byte>> p, @string name, slice<byte> value, @string usage) {
+    CommandLine.VarP(new bytesBase64ValueжValue(newBytesBase64Value(value, p)), name, "", usage);
 }
 
-public static void BytesBase64VarP(ж<slice<byte>> Ꮡp, @string name, @string shorthand, slice<byte> value, @string usage) {
-    CommandLine.VarP(new bytesBase64ValueжValue(newBytesBase64Value(value, Ꮡp)), name, shorthand, usage);
+public static void BytesBase64VarP(ж<slice<byte>> p, @string name, @string shorthand, slice<byte> value, @string usage) {
+    CommandLine.VarP(new bytesBase64ValueжValue(newBytesBase64Value(value, p)), name, shorthand, usage);
 }
 
 public static ж<slice<byte>> BytesBase64(this ж<FlagSet> Ꮡf, @string name, slice<byte> value, @string usage) {

@@ -11,10 +11,10 @@ partial struct uintSliceValue {
     internal bool changed;
 }
 
-internal static ж<uintSliceValue> newUintSliceValue(slice<nuint> val, ж<slice<nuint>> Ꮡp) {
+internal static ж<uintSliceValue> newUintSliceValue(slice<nuint> val, ж<slice<nuint>> p) {
     var uisv = @new<uintSliceValue>();
-    uisv.Value.value = Ꮡp;
-    (~uisv).value.ValueSlot = val;
+    uisv.value = p;
+    uisv.value.ValueSlot = val;
     return uisv;
 }
 
@@ -23,18 +23,18 @@ internal static error Set(this ref uintSliceValue s, @string val) {
     var @out = new slice<nuint>(len(ss));
     foreach (var (i, d) in ss) {
         var (u, err) = strconv.ParseUint(d, 10, 0);
-        if (err != default!) {
+        if (err != nil) {
             return err;
         }
         @out[i] = (nuint)u;
     }
-    if (!s.changed){
+    if (!s.changed) {
         s.value.ValueSlot = @out;
     } else {
         s.value.ValueSlot = appendꓸꓸꓸ(s.value.ValueSlot, @out);
     }
     s.changed = true;
-    return default!;
+    return default;
 }
 
 internal static @string Type(this ref uintSliceValue s) {
@@ -51,10 +51,10 @@ internal static @string String(this ref uintSliceValue s) {
 
 internal static (nuint, error) fromString(this ref uintSliceValue s, @string val) {
     var (t, err) = strconv.ParseUint(val, 10, 0);
-    if (err != default!) {
+    if (err != nil) {
         return (0, err);
     }
-    return ((nuint)t, default!);
+    return ((nuint)t, default);
 }
 
 internal static @string toString(this ref uintSliceValue s, nuint val) {
@@ -63,24 +63,24 @@ internal static @string toString(this ref uintSliceValue s, nuint val) {
 
 internal static error Append(this ref uintSliceValue s, @string val) {
     var (i, err) = s.fromString(val);
-    if (err != default!) {
+    if (err != nil) {
         return err;
     }
     s.value.ValueSlot = append(s.value.ValueSlot, i);
-    return default!;
+    return default;
 }
 
 internal static error Replace(this ref uintSliceValue s, slice<@string> val) {
     var @out = new slice<nuint>(len(val));
     foreach (var (i, d) in val) {
-        error err = default!;
+        error err = default;
         (@out[i], err) = s.fromString(d);
-        if (err != default!) {
+        if (err != nil) {
             return err;
         }
     }
     s.value.ValueSlot = @out;
-    return default!;
+    return default;
 }
 
 internal static slice<@string> GetSlice(this ref uintSliceValue s) {
@@ -94,54 +94,52 @@ internal static slice<@string> GetSlice(this ref uintSliceValue s) {
 internal static (any, error) uintSliceConv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
-        return (new nuint[]{}.slice(), default!);
+        return (slice<nuint>([]), default);
     }
     var ss = strings.Split(val, ",");
     var @out = new slice<nuint>(len(ss));
     foreach (var (i, d) in ss) {
         var (u, err) = strconv.ParseUint(d, 10, 0);
-        if (err != default!) {
-            return (default!, err);
+        if (err != nil) {
+            return (default, err);
         }
         @out[i] = (nuint)u;
     }
-    return (@out, default!);
+    return (@out, default);
 }
 
 public static (slice<nuint>, error) GetUintSlice(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "uintSlice", uintSliceConv);
-    if (err != default!) {
-        return (new nuint[]{}.slice(), err);
+    if (err != nil) {
+        return (slice<nuint>([]), err);
     }
-    return (val._<slice<nuint>>(), default!);
+    return (val._<slice<nuint>>(), default);
 }
 
-public static void UintSliceVar(this ж<FlagSet> Ꮡf, ж<slice<nuint>> Ꮡp, @string name, slice<nuint> value, @string usage) {
-    Ꮡf.VarP(new uintSliceValueжValue(newUintSliceValue(value, Ꮡp)), name, "", usage);
+public static void UintSliceVar(this ж<FlagSet> Ꮡf, ж<slice<nuint>> p, @string name, slice<nuint> value, @string usage) {
+    Ꮡf.VarP(new uintSliceValueжValue(newUintSliceValue(value, p)), name, "", usage);
 }
 
-public static void UintSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<nuint>> Ꮡp, @string name, @string shorthand, slice<nuint> value, @string usage) {
-    Ꮡf.VarP(new uintSliceValueжValue(newUintSliceValue(value, Ꮡp)), name, shorthand, usage);
+public static void UintSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<nuint>> p, @string name, @string shorthand, slice<nuint> value, @string usage) {
+    Ꮡf.VarP(new uintSliceValueжValue(newUintSliceValue(value, p)), name, shorthand, usage);
 }
 
-public static void UintSliceVar(ж<slice<nuint>> Ꮡp, @string name, slice<nuint> value, @string usage) {
-    CommandLine.VarP(new uintSliceValueжValue(newUintSliceValue(value, Ꮡp)), name, "", usage);
+public static void UintSliceVar(ж<slice<nuint>> p, @string name, slice<nuint> value, @string usage) {
+    CommandLine.VarP(new uintSliceValueжValue(newUintSliceValue(value, p)), name, "", usage);
 }
 
-public static void UintSliceVarP(ж<slice<nuint>> Ꮡp, @string name, @string shorthand, slice<nuint> value, @string usage) {
-    CommandLine.VarP(new uintSliceValueжValue(newUintSliceValue(value, Ꮡp)), name, shorthand, usage);
+public static void UintSliceVarP(ж<slice<nuint>> p, @string name, @string shorthand, slice<nuint> value, @string usage) {
+    CommandLine.VarP(new uintSliceValueжValue(newUintSliceValue(value, p)), name, shorthand, usage);
 }
 
 public static ж<slice<nuint>> UintSlice(this ж<FlagSet> Ꮡf, @string name, slice<nuint> value, @string usage) {
-    ref var p = ref heap<slice<nuint>>(out var Ꮡp);
-    p = new nuint[]{}.slice();
+    ref var p = ref heap<slice<nuint>>(slice<nuint>([]), out var Ꮡp);
     Ꮡf.UintSliceVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
 public static ж<slice<nuint>> UintSliceP(this ж<FlagSet> Ꮡf, @string name, @string shorthand, slice<nuint> value, @string usage) {
-    ref var p = ref heap<slice<nuint>>(out var Ꮡp);
-    p = new nuint[]{}.slice();
+    ref var p = ref heap<slice<nuint>>(slice<nuint>([]), out var Ꮡp);
     Ꮡf.UintSliceVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }

@@ -24,7 +24,7 @@ internal static @string Type(this ref float64Value f) {
 }
 
 internal static @string String(this ref float64Value f) {
-    return strconv.FormatFloat((float64)(f), (rune)'g', -1, 64);
+    return strconv.FormatFloat((float64)(f), (byte)'g', -1, 64);
 }
 
 internal static (any, error) float64Conv(@string sval) {
@@ -34,26 +34,26 @@ internal static (any, error) float64Conv(@string sval) {
 
 public static (float64, error) GetFloat64(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "float64", float64Conv);
-    if (err != default!) {
+    if (err != nil) {
         return (0D, err);
     }
-    return (val._<float64>(), default!);
+    return (val._<float64>(), default);
 }
 
-public static void Float64Var(this ж<FlagSet> Ꮡf, ж<float64> Ꮡp, @string name, float64 value, @string usage) {
-    Ꮡf.VarP(new float64ValueжValue(newFloat64Value(value, Ꮡp)), name, "", usage);
+public static void Float64Var(this ж<FlagSet> Ꮡf, ж<float64> p, @string name, float64 value, @string usage) {
+    Ꮡf.VarP(new float64ValueжValue(newFloat64Value(value, p)), name, "", usage);
 }
 
-public static void Float64VarP(this ж<FlagSet> Ꮡf, ж<float64> Ꮡp, @string name, @string shorthand, float64 value, @string usage) {
-    Ꮡf.VarP(new float64ValueжValue(newFloat64Value(value, Ꮡp)), name, shorthand, usage);
+public static void Float64VarP(this ж<FlagSet> Ꮡf, ж<float64> p, @string name, @string shorthand, float64 value, @string usage) {
+    Ꮡf.VarP(new float64ValueжValue(newFloat64Value(value, p)), name, shorthand, usage);
 }
 
-public static void Float64Var(ж<float64> Ꮡp, @string name, float64 value, @string usage) {
-    CommandLine.VarP(new float64ValueжValue(newFloat64Value(value, Ꮡp)), name, "", usage);
+public static void Float64Var(ж<float64> p, @string name, float64 value, @string usage) {
+    CommandLine.VarP(new float64ValueжValue(newFloat64Value(value, p)), name, "", usage);
 }
 
-public static void Float64VarP(ж<float64> Ꮡp, @string name, @string shorthand, float64 value, @string usage) {
-    CommandLine.VarP(new float64ValueжValue(newFloat64Value(value, Ꮡp)), name, shorthand, usage);
+public static void Float64VarP(ж<float64> p, @string name, @string shorthand, float64 value, @string usage) {
+    CommandLine.VarP(new float64ValueжValue(newFloat64Value(value, p)), name, shorthand, usage);
 }
 
 public static ж<float64> Float64(this ж<FlagSet> Ꮡf, @string name, float64 value, @string usage) {

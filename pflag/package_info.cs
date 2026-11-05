@@ -10,22 +10,7 @@
 // importing type aliases at a namespace level.
 
 // <ImportedTypeAliases>
-global using flagꓸErrorHandling = go.flag_package.ΔErrorHandling;
-global using netꓸAddr = go.net_package.ΔAddr;
-global using netꓸError = go.net_package.ΔError;
-global using osꓸDirEntry = go.io.fs_package.DirEntry;
-global using osꓸFileInfo = go.io.fs_package.FileInfo;
-global using osꓸFileMode = go.io.fs_package.FileMode;
-global using osꓸPathError = go.io.fs_package.PathError;
-global using osꓸSignal = go.os_package.ΔSignal;
-global using reflectꓸChanDir = go.reflect_package.ΔChanDir;
-global using reflectꓸKind = go.reflect_package.ΔKind;
-global using reflectꓸMethod = go.reflect_package.ΔMethod;
-global using reflectꓸType = go.reflect_package.ΔType;
 global using reflectꓸValue = go.reflect_package.ΔValue;
-global using timeꓸLocation = go.time_package.ΔLocation;
-global using timeꓸMonth = go.time_package.ΔMonth;
-global using timeꓸWeekday = go.time_package.ΔWeekday;
 // </ImportedTypeAliases>
 
 using go;
@@ -105,6 +90,28 @@ using static go.github.com.spf13.pflag_package;
 // <ImplicitConversions>
 // </ImplicitConversions>
 
+// The struct types whose fields this package reaches through a pointer, as Go spells it, `p.f`:
+// go2cs-gen emits a field property on the pointer for each of their fields.
+[assembly: GoFieldAccess(typeof(Flag))]
+[assembly: GoFieldAccess(typeof(FlagSet))]
+[assembly: GoFieldAccess(typeof(boolSliceValue))]
+[assembly: GoFieldAccess(typeof(durationSliceValue))]
+[assembly: GoFieldAccess(typeof(flagValueWrapper))]
+[assembly: GoFieldAccess(typeof(float32SliceValue))]
+[assembly: GoFieldAccess(typeof(float64SliceValue))]
+[assembly: GoFieldAccess(typeof(int32SliceValue))]
+[assembly: GoFieldAccess(typeof(int64SliceValue))]
+[assembly: GoFieldAccess(typeof(intSliceValue))]
+[assembly: GoFieldAccess(typeof(ipNetSliceValue))]
+[assembly: GoFieldAccess(typeof(ipSliceValue))]
+[assembly: GoFieldAccess(typeof(stringArrayValue))]
+[assembly: GoFieldAccess(typeof(stringSliceValue))]
+[assembly: GoFieldAccess(typeof(stringToInt64Value))]
+[assembly: GoFieldAccess(typeof(stringToIntValue))]
+[assembly: GoFieldAccess(typeof(stringToStringValue))]
+[assembly: GoFieldAccess(typeof(timeValue))]
+[assembly: GoFieldAccess(typeof(uintSliceValue))]
+
 // Go source positions are recorded here, one `GoPositionMap` attribute per converted
 // source file in this compilation, so that `runtime.Caller` and the tracebacks built on it
 // can name the GO file and line a frame was converted from rather than the emitted C# one.
@@ -113,48 +120,48 @@ using static go.github.com.spf13.pflag_package;
 // or has none - golib, the BCL and hand-written conversions - and reports its own C# position.
 
 // <GoSourcePositionMaps>
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/bool.go", "bool.cs", "AA4eooKmgoKCpoKmgKSApIK4goKClKqCqIKCqoKogoKqgqiCgoKqgqiCgg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/bool_func.go", "bool_func.cs", "7ICkgKSApICsgqiCgoKugqiC")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/bool_slice.go", "bool_slice.cs", "AA0egoKCgqqGloKCqIKCgoKUpoKUppSogqiEgoKmlKaCpoKmgoKClIKmgoKCgoKCpoKmgoKClKaChIKUgoKCgoKCpqiCgoKUqoKogqqCqIKqgpKCqIKSgqqCqII=")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/bytes.go", "bytes.cs", "AAwcgqiClIKmlKiCpqKCpoSUgqaogpSCpqqCqIKqgqiCqoKCgqiCgoKqgqiCzoKogpSCppSogqaigqaEgoKmqIKUgqaqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/count.go", "count.cs", "AAgQooKmhIKClIKCpoKmgKSCgoKUqIKCgpSsgqiCgqiCqIKsgoKCqIKCgqyCqII=")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/duration.go", "duration.cs", "AAgUooKmgoKCpoKmgKSCuIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/duration_slice.go", "duration_slice.cs", "AA0egoKCgqaCgoKCgoKCqIKUlIKmgqaCgoKUpoKmgqaCgoKUgqaCgoKCgoKmgqaCgoKUpoKEgpSCgoKCgoKoqIKCgpSqgqiCqoKogqqCkoKogpKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/errors.go", "errors.cs", "ABQ4gpSmpqamgqaqgqyCAAgYgoKCpqiCqoKsggAIGIKCgoKUlKiCqIKoggAGFIKqgg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/flag.go", "flag.cs", "ABT8AQA+ygGCgoKCgpSCgoKUAAIQooKCgoKClIKCgoCCgt6CgpSmooKqgoKUqIKqgqyCgqaCgoKUlKaCuoKqgoKCpqyCrIKCpoKCgpSUpoK+gqiirIKClIKCgpSCqIKogoKCgqaCgqaCgoKUrIKsgoKClIKUgoKsgoKClIKUgqqCgoKUgqqCqoKoooKCgqaCgu6CgpSClKaClKyigoKClIKUgqqChIKUqIKqgoKqgpSmAA0EpMTEpJSkpKSkAAQSxIKCgoKCgoKmuIKUpKSkpKSkpKSmroKCpoKClIKClKyCgqqUqIKCgpaCrIKYgpaClIKmroKUpIKCgqaCgpSmgoKUgpSkgraCtsyCgqaCgoKUpoKmpoKChKaqgqiCqKKCAAIWgoKogKaAqIKClKqCqICmgKaApoAAAhCCqITugqiCqLKUgoKCgpSCpoKClIKUgoKClIKUgoKCgoKUqqKClIKCAAQWgqiCqqKClKqigpKClL6ChKaChKiClKbCgpKCgqaCgpSClIKkqIKmpILYgoSShJKEgpa4poKClKbSlIKmgpSCgpSCgqSogoKmgqTK2IKEgpKEkoSCkoSClsqmgqaCgpSmsoKWgoKCuKaygoKCgoKCgpSCpoKCgoKUlJSCpq6igoKmlJSCppiCgpSkgpSCpLYABBSigpSCgpSkgpSCpLaogqqErISogqiCqJiC7qiCrIKCgg==", "271-271:1;711-764:1;913-917:1;1178-1180:1", "", "657=String/1/1/5")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/float32.go", "float32.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/float32_slice.go", "float32_slice.cs", "AA0egoKCgqaCgoKCgoKCgpSWgpSUgqaCpoKCgpSmgoKClKaCpoKCgpSCpoKCgoKCgqaCpoKCgpSmgoSClIKCgoKCgoKUlqiCgoKUqoKogqqCqIKqgpKCqIKSgqqCqII=")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/float64.go", "float64.cs", "AAgQooKmgoKCpoKmgKSCuIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/float64_slice.go", "float64_slice.cs", "AA0egoKCgqaCgoKCgoKCqIKUlIKmgqaCgoKUpoKmgqaCgoKUgqaCgoKCgoKmgqaCgoKUpoKEgpSCgoKCgoKoqIKCgpSqgqiCqoKogqqCkoKogpKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/func.go", "func.cs", "7ICkgKSArIKogoKugqiC")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/golangflag.go", "golangflag.cs", "AA4egqaCAA0mhICCtriCgqaCpoKmgqaCrqQABRKClICCpKiigpSCqLKClIKUgpSugoKCgqaUtLS0tLS0xAAFEIKCgoKm", "108-110:1;122-146:1", "", "69=wrapFlagValue/1/1/3,String/1/1/6")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/int.go", "int.cs", "AAgQooKmgoKCpoKmgKSCuIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/int16.go", "int16.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/int32.go", "int32.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/int32_slice.go", "int32_slice.cs", "AA0egoKCgqaCgoKCgoKCgpSWgpSUgqaCpoKCgpSmgoKClKaCpoKCgpSCpoKCgoKCgqaCpoKCgpSmgoSClIKCgoKCgoKUlqiCgoKUqoKogqqCqIKqgpKCqIKSgqqCqII=")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/int64.go", "int64.cs", "AAgQooKmgoKCpoKmgKSCuIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/int64_slice.go", "int64_slice.cs", "AA0egoKCgqaCgoKCgoKCqIKUlIKmgqaCgoKUpoKmgqaCgoKUgqaCgoKCgoKmgqaCgoKUpoKEgpSCgoKCgoKoqIKCgpSqgqiCqoKogqqCkoKogpKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/int8.go", "int8.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/int_slice.go", "int_slice.cs", "AA0egoKCgqaCgoKCgoKCqIKUlIKmgqaCgoKUpoKCgpSCpoKCgoKCgqaCpoKCgpSmgoSClIKCgoKCgqiogoKClKqCqIKqgqiCqoKSgqiCkoKqgqiC")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/ip.go", "ip.cs", "AAoYooKmgKKCgpSCgpSCpoKmgoKClKiCgoKUqoKogqqCqIKqgoKCqIKCgqqCqII=")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/ip_slice.go", "ip_slice.cs", "AA4ggoKCgqqGloKCqIKCgoKUpoKUppSogqiEgoKmlKaCpoKmgoKClIKmgoKCgoKCpoKmgoKClKaChIKUgoKCgoKUlKiCgoKUqoKogqqCqIKqgpKCqIKSgqqCqII=")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/ipmask.go", "ipmask.cs", "AAoYooKmgKKCgoKUgqaCqqKCgoKYgoKCgoKUlIKCgqamgoKClKiCgoKUqoKogqqCqIKqgoKCqIKCgqqCqII=")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/ipnet.go", "ipnet.cs", "AAoYgpKmgoKClIKmgqaigqaCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/ipnet_slice.go", "ipnet_slice.cs", "AA4ggoKCgqqGloKCqIKCgoKUpoKUppSogqiEgrKmgqaChIKUgoKCgoKUlKiCgoKUqoKogqqCqIKqgpKCqIKSgqqCqII=")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/string.go", "string.cs", "7KKCpoKCpIKmgKSCqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/string_array.go", "string_array.cs", "AAkSgoKCgqaCgoKUlKaCgqaCgoKUgqaCgoKUpoKmgoKmgoSClLiCgoKUrIKogqyCqIKsgpKCqIKSgqyCqII=")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/string_slice.go", "string_slice.cs", "AA8egoKCgqaCgpSCgqaCgoKCgpSCpoKCgpSClJSCpoKmgoKmgoKmgoKmgqaChIKUuIKCgpQAAhSCqIIAAhSCqIIAAhSCkoKogpKCAAIUgqiC")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/string_to_int.go", "string_to_int.cs", "AA4ggoKCgqiCgoKCgoKUgoKCpoKUgqaCpoKmgoKCgoKUgoKClKaChIKUgoKCgoKUgoKCpqiCgoKUrIKogqyCqIKsgpKCqIKSgqyCqII=")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/string_to_int64.go", "string_to_int64.cs", "AA4ggoKCgqiCgoKCgoKUgoKCpoKUgqaCpoKmgoKCgoKUgoKClKaChIKUgoKCgoKUgoKCpqiCgoKUrIKogqyCqIKsgpKCqIKSgqyCqII=")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/string_to_string.go", "string_to_string.cs", "ABEigoKCgqiigoKUpLSCgoKCyIKCgoKUlIKUgqaCpoKmsoKClJSCgoKmgoKAgqSCpoKEgpSCgoKUgoKCgpSUqIKCgpSsgqiCrIKogqyCkoKogpKCrIKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/text.go", "text.cs", "AAwYgoKClIKClIKUgqaCpoKmgoCCgILGqoKogoKClIKUqIKogqiCqII=")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/time.go", "time.cs", "AA0eooLegoKCgoKUgqaCgoKUpqiCpoKClLqCgoKCpoKCpoKCpqqCqIKqgqiCqoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/uint.go", "uint.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/uint16.go", "uint16.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/uint32.go", "uint32.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/uint64.go", "uint64.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/uint8.go", "uint8.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: go.GoPositionMap("github.com/spf13/pflag@v1.0.9/uint_slice.go", "uint_slice.cs", "AA0egoKCgqaCgoKCgoKUlIKUlIKmgqaCgoKUpoKCgpSmgqaCgoKUgqaCgoKCgoKmgqaCgoKUpoKEgpSCgoKCgpSUqIKCgpSqgqiCqoKogqqCkoKogpKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/bool.go", "bool.cs", "AA4eooKmgoKCpoKmgKSApIK4goKClKqCqIKCqoKogoKqgqiCgoKqgqiCgg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/bool_func.go", "bool_func.cs", "7ICkgKSApICsgqiCgoKugqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/bool_slice.go", "bool_slice.cs", "AA0egoKCgqqGloKCqIKCgoKUpoKUppSogqiEgoKmlKaCpoKmgoKClIKmgoKCgoKCpoKmgoKClKaChIKUgoKCgoKCpqiCgoKUqoKogqqCqIKqgoKCqIKCgqqCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/bytes.go", "bytes.cs", "AAwcgqiClIKmlKiCpqKCpoSUgqaogpSCpqqCqIKqgqiCqoKCgqiCgoKqgqiCzoKogpSCppSogqaigqaEgoKmqIKUgqaqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/count.go", "count.cs", "AAgQooKmhIKClIKCpoKmgKSCgoKUqIKCgpSsgqiCgqiCqIKsgoKCqIKCgqyCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/duration.go", "duration.cs", "AAgUooKmgoKCpoKmgKSCuIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/duration_slice.go", "duration_slice.cs", "AA0egoKCgqaCgoKCgoKCqIKUlIKmgqaCgoKUpoKmgqaCgoKUgqaCgoKCgoKmgqaCgoKUpoKEgpSCgoKCgoKoqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/errors.go", "errors.cs", "ABQ4gpSmpqamgqaqgqyCAAgYgoKCpqiCqoKsggAIGIKCgoKUlKiCqIKoggAGFIKqgg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/flag.go", "flag.cs", "ABT8AQA+ygGCgoKCgpSCgoKUAAIQooKCgoKClIKCgoCCgt6CgpSmooKqgoKUqIKqgqyCgqaCgoKUlKaCuoKqgoKCpqyCrIKCpoKCgpSUpoK+gqiirIKClIKCgpSCqIKogoKCgqaCgqaCgoKUrIKsgoKClIKUgoKsgoKClIKUgqqCgoKUgqqCqoKoooKCgqaCgu6CgpSClKaClKyigoKClIKUgqqChIKUqIKqgoKqgpSmAA0EpMTEpKSkpKSkAAQSxIKCgoKCgoKmuIKktLS0tLS0tLS2roKCpoKClIKClKyCgqqUqIKCgpaCrIKYgpaClIKmroKUlIKCgqaCgpSmgoKUgqS0gsaCxtyCgqaCgoKUpoKmpoKChKaqgqiCqKKCAAIWgoK4gKaAqIKClKqCqICmgKaApoAAAhCCqITugqiCqLKUgoKCgpSCpoKClIKUgoKClIKUgoKCgoKUqqKClIKCAAQWgqiCqqKClKqigoKClL6ChKaChKiClKbCgoKCgqaCgpSClIKkqIKmpILYgoSChIKEgpa4poKClKbSlIKmgpSCgpSCgqSogoKmgqTK2IKEgoKEgoSCgoSClsqmgqaCgpSmsoKWgoKCuKaygoKCgoKCgpSCpoKCgoKUlJSCpq6igoKmlJSCppiCgpSkgpSCtMYABBSigpSCgpSkgpSCtMaogqqErISogqiCqJiC7qiCrIKCgg==", "271-271:1;711-764:1;913-917:1;1178-1180:1", "", "673=String/1/1/5")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/float32.go", "float32.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/float32_slice.go", "float32_slice.cs", "AA0egoKCgqaCgoKCgoKCgpSWgpSUgqaCpoKCgpSmgoKClKaCpoKCgpSCpoKCgoKCgqaCpoKCgpSmgoSClIKCgoKCgoKUlqiCgoKUqoKogqqCqIKqgoKCqIKCgqqCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/float64.go", "float64.cs", "AAgQooKmgoKCpoKmgKSCuIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/float64_slice.go", "float64_slice.cs", "AA0egoKCgqaCgoKCgoKCqIKUlIKmgqaCgoKUpoKmgqaCgoKUgqaCgoKCgoKmgqaCgoKUpoKEgpSCgoKCgoKoqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/func.go", "func.cs", "7ICkgKSArIKogoKugqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/golangflag.go", "golangflag.cs", "AA4egqaCAA0mhICCtriCgqaCpoKmgqaCrqQABRKClICCpKiigpSCqLKClIKUgpSugoKCgqaUtLS0tLS0xAAFEIKCgoKm", "108-110:1;122-146:1", "", "69=wrapFlagValue/1/1/3,String/1/1/6")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int.go", "int.cs", "AAgQooKmgoKCpoKmgKSCuIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int16.go", "int16.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int32.go", "int32.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int32_slice.go", "int32_slice.cs", "AA0egoKCgqaCgoKCgoKCgpSWgpSUgqaCpoKCgpSmgoKClKaCpoKCgpSCpoKCgoKCgqaCpoKCgpSmgoSClIKCgoKCgoKUlqiCgoKUqoKogqqCqIKqgoKCqIKCgqqCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int64.go", "int64.cs", "AAgQooKmgoKCpoKmgKSCuIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int64_slice.go", "int64_slice.cs", "AA0egoKCgqaCgoKCgoKCqIKUlIKmgqaCgoKUpoKmgqaCgoKUgqaCgoKCgoKmgqaCgoKUpoKEgpSCgoKCgoKoqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int8.go", "int8.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int_slice.go", "int_slice.cs", "AA0egoKCgqaCgoKCgoKCqIKUlIKmgqaCgoKUpoKCgpSCpoKCgoKCgqaCpoKCgpSmgoSClIKCgoKCgqiogoKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/ip.go", "ip.cs", "AAoYooKmgKKCgpSCgpSCpoKmgoKClKiCgoKUqoKogqqCqIKqgoKCqIKCgqqCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/ip_slice.go", "ip_slice.cs", "AA4ggoKCgqqGloKCqIKCgoKUpoKUppSogqiEgoKmlKaCpoKmgoKClIKmgoKCgoKCpoKmgoKClKaChIKUgoKCgoKUlKiCgoKUqoKogqqCqIKqgoKCqIKCgqqCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/ipmask.go", "ipmask.cs", "AAoYooKmgKKCgoKUgqaCqqKCgoKYgoKCgoKUlIKCgqamgoKClKiCgoKUqoKogqqCqIKqgoKCqIKCgqqCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/ipnet.go", "ipnet.cs", "AAoYgoKmgoKClIKmgqaigqaCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/ipnet_slice.go", "ipnet_slice.cs", "AA4ggoKCgqqGloKCqIKCgoKUpoKUppSogqiEgrKmgqaChIKUgoKCgoKUlKiCgoKUqoKogqqCqIKqgoKCqIKCgqqCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string.go", "string.cs", "7KKCpoKCpIKmgKSCqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string_array.go", "string_array.cs", "AAkSgoKCgqaCgoKUlKaCgqaCgoKUgqaCgoKUpoKmgoKmgoSClLiCgoKUrIKogqyCqIKsgoKCqIKCgqyCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string_slice.go", "string_slice.cs", "AA8egoKCgqaCgpSCgqaCgoKCgpSCpoKCgpSClJSCpoKmgoKmgoKmgoKmgqaChIKUuIKCgpQAAhSCqIIAAhSCqIIAAhSCgoKogoKCAAIUgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string_to_int.go", "string_to_int.cs", "AA4ggoKCgqiCgoKCgoKUgoKCpoKUgqaCpoKmgoKCgoKUgoKClKaChIKUgoKCgoKUgoKCpqiCgoKUrIKogqyCqIKsgoKCqIKCgqyCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string_to_int64.go", "string_to_int64.cs", "AA4ggoKCgqiCgoKCgoKUgoKCpoKUgqaCpoKmgoKCgoKUgoKClKaChIKUgoKCgoKUgoKCpqiCgoKUrIKogqyCqIKsgoKCqIKCgqyCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string_to_string.go", "string_to_string.cs", "ABEigoKCgqiigoKUpLSCgoKCyIKCgoKUlIKUgqaCpoKmsoKClJSCgoKmgoKAgqSCpoKEgpSCgoKUgoKCgpSUqIKCgpSsgqiCrIKogqyCgoKogoKCrIKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/text.go", "text.cs", "AAwYgoKClIKClIKUgqaCpoKmgoCCgILGqoKogoKClIKUqIKogqiCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/time.go", "time.cs", "AA0eooLegoKCgoKUgqaCgoKUpqiCpoKClLqCgoKCpoKCpoKCpqqCqIKqgqiCqoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint.go", "uint.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint16.go", "uint16.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint32.go", "uint32.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint64.go", "uint64.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint8.go", "uint8.cs", "AAgQooKmgoKCpoKmgKSCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint_slice.go", "uint_slice.cs", "AA0egoKCgqaCgoKCgoKUlIKUlIKmgqaCgoKUpoKCgpSmgqaCgoKUgqaCgoKCgoKmgqaCgoKUpoKEgpSCgoKCgpSUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
 // </GoSourcePositionMaps>
 
 namespace go.github.com.spf13;

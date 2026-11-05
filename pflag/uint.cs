@@ -24,39 +24,39 @@ internal static @string Type(this ref uintValue i) {
 }
 
 internal static @string String(this ref uintValue i) {
-    return strconv.FormatUint((uint64)(nuint)(i), 10);
+    return strconv.FormatUint((uint64)(i), 10);
 }
 
 internal static (any, error) uintConv(@string sval) {
     var (v, err) = strconv.ParseUint(sval, 0, 0);
-    if (err != default!) {
+    if (err != nil) {
         return ((nint)0, err);
     }
-    return ((nuint)v, default!);
+    return ((nuint)v, default);
 }
 
 public static (nuint, error) GetUint(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "uint", uintConv);
-    if (err != default!) {
+    if (err != nil) {
         return (0, err);
     }
-    return (val._<nuint>(), default!);
+    return (val._<nuint>(), default);
 }
 
-public static void UintVar(this ж<FlagSet> Ꮡf, ж<nuint> Ꮡp, @string name, nuint value, @string usage) {
-    Ꮡf.VarP(new uintValueжValue(newUintValue(value, Ꮡp)), name, "", usage);
+public static void UintVar(this ж<FlagSet> Ꮡf, ж<nuint> p, @string name, nuint value, @string usage) {
+    Ꮡf.VarP(new uintValueжValue(newUintValue(value, p)), name, "", usage);
 }
 
-public static void UintVarP(this ж<FlagSet> Ꮡf, ж<nuint> Ꮡp, @string name, @string shorthand, nuint value, @string usage) {
-    Ꮡf.VarP(new uintValueжValue(newUintValue(value, Ꮡp)), name, shorthand, usage);
+public static void UintVarP(this ж<FlagSet> Ꮡf, ж<nuint> p, @string name, @string shorthand, nuint value, @string usage) {
+    Ꮡf.VarP(new uintValueжValue(newUintValue(value, p)), name, shorthand, usage);
 }
 
-public static void UintVar(ж<nuint> Ꮡp, @string name, nuint value, @string usage) {
-    CommandLine.VarP(new uintValueжValue(newUintValue(value, Ꮡp)), name, "", usage);
+public static void UintVar(ж<nuint> p, @string name, nuint value, @string usage) {
+    CommandLine.VarP(new uintValueжValue(newUintValue(value, p)), name, "", usage);
 }
 
-public static void UintVarP(ж<nuint> Ꮡp, @string name, @string shorthand, nuint value, @string usage) {
-    CommandLine.VarP(new uintValueжValue(newUintValue(value, Ꮡp)), name, shorthand, usage);
+public static void UintVarP(ж<nuint> p, @string name, @string shorthand, nuint value, @string usage) {
+    CommandLine.VarP(new uintValueжValue(newUintValue(value, p)), name, shorthand, usage);
 }
 
 public static ж<nuint> Uint(this ж<FlagSet> Ꮡf, @string name, nuint value, @string usage) {

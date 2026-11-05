@@ -102,11 +102,11 @@ public static void SetNormalizeFunc(this ж<FlagSet> Ꮡf, Func<ж<FlagSet>, @st
     f.normalizeNameFunc = n;
     f.sortedFormal = f.sortedFormal[..0];
     foreach (var (fname, flag) in f.formal) {
-        NormalizedName nname = Ꮡf.normalizeFlagName((~flag).Name);
+        NormalizedName nname = Ꮡf.normalizeFlagName(flag.Name);
         if (fname == nname) {
             continue;
         }
-        flag.Value.Name = (@string)nname;
+        flag.Name = (@string)nname;
         delete(f.formal, fname);
         f.formal[nname] = flag;
         {
@@ -119,7 +119,7 @@ public static void SetNormalizeFunc(this ж<FlagSet> Ꮡf, Func<ж<FlagSet>, @st
 }
 
 public static Func<ж<FlagSet>, @string, NormalizedName> GetNormalizeFunc(this ref FlagSet f) {
-    if (f.normalizeNameFunc != default!) {
+    if (f.normalizeNameFunc != nil) {
         return f.normalizeNameFunc;
     }
     return (ж<FlagSet> fΔ1, @string name) => (NormalizedName)name;
@@ -133,7 +133,7 @@ internal static NormalizedName normalizeFlagName(this ж<FlagSet> Ꮡf, @string 
 }
 
 public static io.Writer Output(this ref FlagSet f) {
-    if (f.output == default!) {
+    if (f.output == nil) {
         return new os.FileжWriter(os.Stderr);
     }
     return f.output;
@@ -152,8 +152,8 @@ public static void VisitAll(this ref FlagSet f, Action<ж<Flag>> fn) {
         return;
     }
 
-    slice<ж<Flag>> flags = default!;
-    if (f.SortFlags){
+    slice<ж<Flag>> flags = default;
+    if (f.SortFlags) {
         if (len(f.formal) != len(f.sortedFormal)) {
             f.sortedFormal = sortFlags(f.formal);
         }
@@ -173,7 +173,7 @@ public static bool HasFlags(this ref FlagSet f) {
 
 public static bool HasAvailableFlags(this ref FlagSet f) {
     foreach (var (_, flag) in f.formal) {
-        if (!(~flag).Hidden) {
+        if (!flag.Hidden) {
             return true;
         }
     }
@@ -189,8 +189,8 @@ public static void Visit(this ref FlagSet f, Action<ж<Flag>> fn) {
         return;
     }
 
-    slice<ж<Flag>> flags = default!;
-    if (f.SortFlags){
+    slice<ж<Flag>> flags = default;
+    if (f.SortFlags) {
         if (len(f.actual) != len(f.sortedActual)) {
             f.sortedActual = sortFlags(f.actual);
         }
@@ -216,7 +216,7 @@ public static ж<Flag> Lookup(this ж<FlagSet> Ꮡf, @string name) {
 
 public static ж<Flag> ShorthandLookup(this ref FlagSet f, @string name) {
     if (name == ""u8) {
-        return default!;
+        return default;
     }
     if (len(name) > 1) {
         @string msg = fmt.Sprintf("can not look up shorthand which is more than one ASCII character: %q"u8, name);
@@ -235,20 +235,20 @@ internal static (any, error) getFlagType(this ж<FlagSet> Ꮡf, @string name, @s
     var flag = Ꮡf.Lookup(name);
     if (flag == nil) {
         var errΔ1 = Ꮡ(new NotExistError(name: name, messageType: flagNotDefinedMessage));
-        return (default!, new NotExistErrorжerror(errΔ1));
+        return (default, new NotExistErrorжerror(errΔ1));
     }
 
     if ((~flag).Value.Type() != ftype) {
         var errΔ2 = fmt.Errorf("trying to get %s value of flag of type %s"u8, ftype, (~flag).Value.Type());
-        return (default!, errΔ2);
+        return (default, errΔ2);
     }
 
     @string sval = (~flag).Value.String();
     var (result, err) = convFunc(sval);
-    if (err != default!) {
-        return (default!, err);
+    if (err != nil) {
+        return (default, err);
     }
-    return (result, default!);
+    return (result, default);
 }
 
 public static nint ArgsLenAtDash(this ref FlagSet f) {
@@ -263,9 +263,9 @@ public static error MarkDeprecated(this ж<FlagSet> Ꮡf, @string name, @string 
     if (usageMessage == ""u8) {
         return fmt.Errorf("deprecated message for flag %q must be set"u8, name);
     }
-    flag.Value.Deprecated = usageMessage;
-    flag.Value.Hidden = true;
-    return default!;
+    flag.Deprecated = usageMessage;
+    flag.Hidden = true;
+    return default;
 }
 
 public static error MarkShorthandDeprecated(this ж<FlagSet> Ꮡf, @string name, @string usageMessage) {
@@ -276,8 +276,8 @@ public static error MarkShorthandDeprecated(this ж<FlagSet> Ꮡf, @string name,
     if (usageMessage == ""u8) {
         return fmt.Errorf("deprecated message for flag %q must be set"u8, name);
     }
-    flag.Value.ShorthandDeprecated = usageMessage;
-    return default!;
+    flag.ShorthandDeprecated = usageMessage;
+    return default;
 }
 
 public static error MarkHidden(this ж<FlagSet> Ꮡf, @string name) {
@@ -285,8 +285,8 @@ public static error MarkHidden(this ж<FlagSet> Ꮡf, @string name) {
     if (flag == nil) {
         return new NotExistErrorжerror(Ꮡ(new NotExistError(name: name, messageType: flagNotExistMessage)));
     }
-    flag.Value.Hidden = true;
-    return default!;
+    flag.Hidden = true;
+    return default;
 }
 
 public static ж<Flag> Lookup(@string name) {
@@ -307,7 +307,7 @@ public static error Set(this ж<FlagSet> Ꮡf, @string name, @string value) {
     }
 
     var err = (~flag).Value.Set(value);
-    if (err != default!) {
+    if (err != nil) {
         return new InvalidValueErrorжerror(Ꮡ(new InvalidValueError(
             flag: flag,
             value: value,
@@ -315,20 +315,20 @@ public static error Set(this ж<FlagSet> Ꮡf, @string name, @string value) {
         )));
     }
 
-    if (!(~flag).Changed) {
-        if (f.actual == default!) {
+    if (!flag.Changed) {
+        if (f.actual == nil) {
             f.actual = new map<NormalizedName, ж<Flag>>();
         }
         f.actual[normalName] = flag;
         f.orderedActual = append(f.orderedActual, flag);
 
-        flag.Value.Changed = true;
+        flag.Changed = true;
     }
 
-    if ((~flag).Deprecated != ""u8) {
-        fmt.Fprintf(f.Output(), "Flag --%s has been deprecated, %s\n"u8, (~flag).Name, (~flag).Deprecated);
+    if (flag.Deprecated != ""u8) {
+        fmt.Fprintf(f.Output(), "Flag --%s has been deprecated, %s\n"u8, flag.Name, flag.Deprecated);
     }
-    return default!;
+    return default;
 }
 
 public static error SetAnnotation(this ж<FlagSet> Ꮡf, @string name, @string key, slice<@string> values) {
@@ -339,11 +339,11 @@ public static error SetAnnotation(this ж<FlagSet> Ꮡf, @string name, @string k
     if (!ok) {
         return new NotExistErrorжerror(Ꮡ(new NotExistError(name: name, messageType: flagNoSuchFlagMessage)));
     }
-    if ((~flag).Annotations == default!) {
-        flag.Value.Annotations = new map<@string, slice<@string>>{};
+    if (flag.Annotations == nil) {
+        flag.Annotations = new map<@string, slice<@string>>{};
     }
-    flag.Value.Annotations[key] = values;
-    return default!;
+    flag.Annotations[key] = values;
+    return default;
 }
 
 public static bool Changed(this ж<FlagSet> Ꮡf, @string name) {
@@ -351,7 +351,7 @@ public static bool Changed(this ж<FlagSet> Ꮡf, @string name) {
     if (flag == nil) {
         return false;
     }
-    return (~flag).Changed;
+    return flag.Changed;
 }
 
 public static error Set(@string name, @string value) {
@@ -400,18 +400,19 @@ internal static bool defaultIsZeroValue(this ref Flag f) {
     }
     default: {
         var exprᴛ1 = f.DefValue;
-        if (exprᴛ1 == "false"u8) {
+        switch (ᐧ) {
+        case {} when exprᴛ1 == "false"u8: {
             return true;
         }
-        if (exprᴛ1 == "<nil>"u8) {
+        case {} when exprᴛ1 == "<nil>"u8: {
             return true;
         }
-        if (exprᴛ1 == ""u8) {
+        case {} when exprᴛ1 == ""u8: {
             return true;
         }
-        if (exprᴛ1 == "0"u8) {
+        case {} when exprᴛ1 == "0"u8: {
             return true;
-        }
+        }}
 
         return false;
     }}
@@ -419,15 +420,15 @@ internal static bool defaultIsZeroValue(this ref Flag f) {
 }
 
 public static (@string name, @string usage) UnquoteUsage(ж<Flag> Ꮡflag) {
-    @string name = default!;
-    @string usage = default!;
+    @string name = default;
+    @string usage = default;
     ref var flag = ref Ꮡflag.DerefOrNull();
 
     usage = flag.Usage;
     for (nint i = 0; i < len(usage); i++) {
-        if (usage[i] == (rune)'`') {
+        if (usage[i] == '`') {
             for (nint j = i + 1; j < len(usage); j++) {
-                if (usage[j] == (rune)'`') {
+                if (usage[j] == '`') {
                     name = usage.slice(i + 1, j);
                     usage = usage.slice(0, i) + name + usage.slice(j + 1);
                     return (name, usage);
@@ -439,33 +440,43 @@ public static (@string name, @string usage) UnquoteUsage(ж<Flag> Ꮡflag) {
 
     name = flag.Value.Type();
     var exprᴛ1 = name;
-    if (exprᴛ1 == "bool"u8 || exprᴛ1 == "boolfunc"u8) {
+    switch (ᐧ) {
+    case {} when exprᴛ1 == "bool"u8 || exprᴛ1 == "boolfunc"u8: {
         name = "";
+        break;
     }
-    else if (exprᴛ1 == "func"u8) {
+    case {} when exprᴛ1 == "func"u8: {
         name = "value";
+        break;
     }
-    else if (exprᴛ1 == "float64"u8) {
+    case {} when exprᴛ1 == "float64"u8: {
         name = "float";
+        break;
     }
-    else if (exprᴛ1 == "int64"u8) {
+    case {} when exprᴛ1 == "int64"u8: {
         name = "int";
+        break;
     }
-    else if (exprᴛ1 == "uint64"u8) {
+    case {} when exprᴛ1 == "uint64"u8: {
         name = "uint";
+        break;
     }
-    else if (exprᴛ1 == "stringSlice"u8) {
+    case {} when exprᴛ1 == "stringSlice"u8: {
         name = "strings";
+        break;
     }
-    else if (exprᴛ1 == "intSlice"u8) {
+    case {} when exprᴛ1 == "intSlice"u8: {
         name = "ints";
+        break;
     }
-    else if (exprᴛ1 == "uintSlice"u8) {
+    case {} when exprᴛ1 == "uintSlice"u8: {
         name = "uints";
+        break;
     }
-    else if (exprᴛ1 == "boolSlice"u8) {
+    case {} when exprᴛ1 == "boolSlice"u8: {
         name = "bools";
-    }
+        break;
+    }}
 
     return (name, usage);
 }
@@ -493,8 +504,8 @@ internal static @string wrap(nint i, nint w, @string s) {
 
     nint wrap = w - i;
 
-    @string r = default!;
-    @string l = default!;
+    @string r = default;
+    @string l = default;
 
     if (wrap < 24) {
         i = 16;
@@ -512,7 +523,7 @@ internal static @string wrap(nint i, nint w, @string s) {
     r = r + strings.Replace(l, "\n", "\n"u8 + strings.Repeat(" ", i), -1);
 
     while (s != ""u8) {
-        @string t = default!;
+        @string t = default;
 
         (t, s) = wrapN(wrap, slop, s);
         r = r + "\n"u8 + strings.Repeat(" ", i) + strings.Replace(t, "\n", "\n"u8 + strings.Repeat(" ", i), -1);
@@ -524,44 +535,48 @@ internal static @string wrap(nint i, nint w, @string s) {
 public static @string FlagUsagesWrapped(this ref FlagSet f, nint cols) {
     var buf = @new<bytes.Buffer>();
 
-    ref var lines = ref heap<slice<@string>>(out var Ꮡlines);
-    lines = new slice<@string>(0, len(f.formal));
+    ref var lines = ref heap<slice<@string>>(new slice<@string>(0, len(f.formal)), out var Ꮡlines);
 
     nint maxlen = 0;
     f.VisitAll((ж<Flag> flag) => {
-        if ((~flag).Hidden) {
+        if (flag.Hidden) {
             return;
         }
 
         @string line = "";
-        if ((~flag).Shorthand != ""u8 && (~flag).ShorthandDeprecated == ""u8){
-            line = fmt.Sprintf("  -%s, --%s"u8, (~flag).Shorthand, (~flag).Name);
+        if (flag.Shorthand != ""u8 && flag.ShorthandDeprecated == ""u8) {
+            line = fmt.Sprintf("  -%s, --%s"u8, flag.Shorthand, flag.Name);
         } else {
-            line = fmt.Sprintf("      --%s"u8, (~flag).Name);
+            line = fmt.Sprintf("      --%s"u8, flag.Name);
         }
 
         var (varname, usage) = UnquoteUsage(flag);
         if (varname != ""u8) {
             line += " "u8 + varname;
         }
-        if ((~flag).NoOptDefVal != ""u8) {
+        if (flag.NoOptDefVal != ""u8) {
             var exprᴛ1 = (~flag).Value.Type();
-            if (exprᴛ1 == "string"u8) {
-                line += fmt.Sprintf("[=\"%s\"]"u8, (~flag).NoOptDefVal);
+            switch (ᐧ) {
+            case {} when exprᴛ1 == "string"u8: {
+                line += fmt.Sprintf("[=\"%s\"]"u8, flag.NoOptDefVal);
+                break;
             }
-            else if (exprᴛ1 == "bool"u8 || exprᴛ1 == "boolfunc"u8) {
-                if ((~flag).NoOptDefVal != "true"u8) {
-                    line += fmt.Sprintf("[=%s]"u8, (~flag).NoOptDefVal);
+            case {} when exprᴛ1 == "bool"u8 || exprᴛ1 == "boolfunc"u8: {
+                if (flag.NoOptDefVal != "true"u8) {
+                    line += fmt.Sprintf("[=%s]"u8, flag.NoOptDefVal);
                 }
+                break;
             }
-            else if (exprᴛ1 == "count"u8) {
-                if ((~flag).NoOptDefVal != "+1"u8) {
-                    line += fmt.Sprintf("[=%s]"u8, (~flag).NoOptDefVal);
+            case {} when exprᴛ1 == "count"u8: {
+                if (flag.NoOptDefVal != "+1"u8) {
+                    line += fmt.Sprintf("[=%s]"u8, flag.NoOptDefVal);
                 }
+                break;
             }
-            else { /* default: */
-                line += fmt.Sprintf("[=%s]"u8, (~flag).NoOptDefVal);
-            }
+            default: {
+                line += fmt.Sprintf("[=%s]"u8, flag.NoOptDefVal);
+                break;
+            }}
 
         }
 
@@ -572,14 +587,14 @@ public static @string FlagUsagesWrapped(this ref FlagSet f, nint cols) {
 
         line += usage;
         if (!flag.defaultIsZeroValue()) {
-            if ((~flag).Value.Type() == "string"u8){
-                line += fmt.Sprintf(" (default %q)"u8, (~flag).DefValue);
+            if ((~flag).Value.Type() == "string"u8) {
+                line += fmt.Sprintf(" (default %q)"u8, flag.DefValue);
             } else {
-                line += fmt.Sprintf(" (default %s)"u8, (~flag).DefValue);
+                line += fmt.Sprintf(" (default %s)"u8, flag.DefValue);
             }
         }
-        if (len((~flag).Deprecated) != 0) {
-            line += fmt.Sprintf(" (DEPRECATED: %s)"u8, (~flag).Deprecated);
+        if (len(flag.Deprecated) != 0) {
+            line += fmt.Sprintf(" (DEPRECATED: %s)"u8, flag.Deprecated);
         }
 
         Ꮡlines.ValueSlot = append(Ꮡlines.ValueSlot, line);
@@ -609,17 +624,18 @@ internal static void defaultUsage(ж<FlagSet> Ꮡf) {
     f.PrintDefaults();
 }
 
-[GoLazy] partial class lazyᴛUsage { public static Action Usage = () => {
+[GoLazy] partial class lazyᴛUsage { public static readonly ж<Action> ᏑUsage = new StaticBox<Action>(() => {
     fmt.Fprintf(new os.FileжWriter(os.Stderr), "Usage of %s:\n"u8, os.Args[0]);
     PrintDefaults();
-}; }
+}); }
+public static ref Action Usage => ref ((StaticBox<Action>)ᏑUsage).ValueSlot;
 
 public static nint NFlag(this ref FlagSet f) {
     return len(f.actual);
 }
 
 public static nint NFlag() {
-    return len((~CommandLine).actual);
+    return len(CommandLine.actual);
 }
 
 public static @string Arg(this ref FlagSet f, nint i) {
@@ -638,7 +654,7 @@ public static nint NArg(this ref FlagSet f) {
 }
 
 public static nint NArg() {
-    return len((~CommandLine).args);
+    return len(CommandLine.args);
 }
 
 public static slice<@string> Args(this ref FlagSet f) {
@@ -646,7 +662,7 @@ public static slice<@string> Args(this ref FlagSet f) {
 }
 
 public static slice<@string> Args() {
-    return (~CommandLine).args;
+    return CommandLine.args;
 }
 
 public static void Var(this ж<FlagSet> Ꮡf, Value value, @string name, @string usage) {
@@ -681,7 +697,7 @@ public static void AddFlag(this ж<FlagSet> Ꮡf, ж<Flag> Ꮡflag) {
         fmt.Fprintln(f.Output(), msg);
         throw panic(msg);
     }
-    if (f.formal == default!) {
+    if (f.formal == nil) {
         f.formal = new map<NormalizedName, ж<Flag>>();
     }
 
@@ -697,13 +713,13 @@ public static void AddFlag(this ж<FlagSet> Ꮡf, ж<Flag> Ꮡflag) {
         fmt.Fprintf(f.Output(), msg);
         throw panic(msg);
     }
-    if (f.shorthands == default!) {
+    if (f.shorthands == nil) {
         f.shorthands = new map<byte, ж<Flag>>();
     }
     var c = flag.Shorthand[0];
     (var used, alreadyThere) = f.shorthands[c, ꟷ];
     if (alreadyThere) {
-        @string msg = fmt.Sprintf("unable to redefine %q shorthand in %q flagset: it's already used for %q flag"u8, c, f.name, (~used).Name);
+        @string msg = fmt.Sprintf("unable to redefine %q shorthand in %q flagset: it's already used for %q flag"u8, c, f.name, used.Name);
         fmt.Fprintf(f.Output(), msg);
         throw panic(msg);
     }
@@ -717,7 +733,7 @@ public static void AddFlagSet(this ж<FlagSet> Ꮡf, ж<FlagSet> ᏑnewSet) {
         return;
     }
     newSet.VisitAll((ж<Flag> flag) => {
-        if (Ꮡf.Lookup((~flag).Name) == nil) {
+        if (Ꮡf.Lookup(flag.Name) == nil) {
             Ꮡf.AddFlag(flag);
         }
     });
@@ -743,10 +759,9 @@ internal static error fail(this ж<FlagSet> Ꮡf, error err) {
 internal static void usage(this ж<FlagSet> Ꮡf) {
     ref var f = ref Ꮡf.DerefOrNull();
 
-    if (Ꮡf == CommandLine){
+    if (Ꮡf == CommandLine) {
         Usage();
-    } else 
-    if (f.Usage == default!){
+    } else if (f.Usage == nil) {
         defaultUsage(Ꮡf);
     } else {
         f.Usage();
@@ -759,25 +774,24 @@ internal static slice<@string> stripUnknownFlagValue(slice<@string> args) {
     }
 
     @string first = args[0];
-    if (len(first) > 0 && first[0] == (rune)'-') {
+    if (len(first) > 0 && first[0] == '-') {
         return args;
     }
 
     if (len(args) > 1) {
         return args[1..];
     }
-    return default!;
+    return default;
 }
 
 internal static (slice<@string> a, error err) parseLongArg(this ж<FlagSet> Ꮡf, @string s, slice<@string> args, Func<ж<Flag>, @string, error> fn) {
-    slice<@string> a = default!;
-    error err = default!;
+    slice<@string> a = default;
+    error err = default;
     ref var f = ref Ꮡf.DerefOrNull();
 
     a = args;
-    ref var name = ref heap<@string>(out var Ꮡname);
-    name = s[2..];
-    if (len(name) == 0 || name[0] == (rune)'-' || name[0] == (rune)'=') {
+    ref var name = ref heap<@string>(s[2..], out var Ꮡname);
+    if (len(name) == 0 || name[0] == '-' || name[0] == '=') {
         err = Ꮡf.fail(new InvalidSyntaxErrorжerror(Ꮡ(new InvalidSyntaxError(specifiedFlag: s))));
         return (a, err);
     }
@@ -797,27 +811,25 @@ internal static (slice<@string> a, error err) parseLongArg(this ж<FlagSet> Ꮡf
         }
         if (fallthrough || !matchᴛ1 && (f.ParseErrorsAllowlist.UnknownFlags)) {
             if (len(split) >= 2) {
-                return (a, default!);
+                return (a, default);
             }
 
-            return (stripUnknownFlagValue(a), default!);
+            return (stripUnknownFlagValue(a), default);
         }
         if (!matchᴛ1) { /* default: */
             err = Ꮡf.fail(new NotExistErrorжerror(Ꮡ(new NotExistError(name: name, messageType: flagUnknownFlagMessage))));
             return (a, err);
         }
-        return default!;
+        return default;
 
     }
 
-    @string value = default!;
-    if (len(split) == 2){
+    @string value = default;
+    if (len(split) == 2) {
         value = split[1];
-    } else 
-    if ((~flag).NoOptDefVal != ""u8){
-        value = flag.Value.NoOptDefVal;
-    } else 
-    if (len(a) > 0){
+    } else if (flag.NoOptDefVal != ""u8) {
+        value = flag.NoOptDefVal;
+    } else if (len(a) > 0) {
         value = a[0];
         a = a[1..];
     } else {
@@ -829,16 +841,16 @@ internal static (slice<@string> a, error err) parseLongArg(this ж<FlagSet> Ꮡf
     }
 
     err = fn(flag, value);
-    if (err != default!) {
+    if (err != nil) {
         Ꮡf.fail(err);
     }
     return (a, err);
 }
 
 internal static (@string outShorts, slice<@string> outArgs, error err) parseSingleShortArg(this ж<FlagSet> Ꮡf, @string shorthands, slice<@string> args, Func<ж<Flag>, @string, error> fn) {
-    @string outShorts = default!;
-    slice<@string> outArgs = default!;
-    error err = default!;
+    @string outShorts = default;
+    slice<@string> outArgs = default;
+    error err = default;
     ref var f = ref Ꮡf.DerefOrNull();
 
     outArgs = args;
@@ -853,7 +865,7 @@ internal static (@string outShorts, slice<@string> outArgs, error err) parseSing
     var (flag, exists) = f.shorthands[c, ꟷ];
     if (!exists) {
         var matchᴛ1 = false;
-        if (c is (rune)'h') { matchᴛ1 = true;
+        if (c is (byte)'h') { matchᴛ1 = true;
             Ꮡf.usage();
             err = ErrHelp;
             return (outShorts, outArgs, err);
@@ -862,7 +874,7 @@ internal static (@string outShorts, slice<@string> outArgs, error err) parseSing
             fallthrough = true;
         }
         if (fallthrough || !matchᴛ1 && (f.ParseErrorsAllowlist.UnknownFlags)) {
-            if (len(shorthands) > 2 && shorthands[1] == (rune)'=') {
+            if (len(shorthands) > 2 && shorthands[1] == '=') {
                 outShorts = "";
                 return (outShorts, outArgs, err);
             }
@@ -878,23 +890,20 @@ internal static (@string outShorts, slice<@string> outArgs, error err) parseSing
             ))));
             return (outShorts, outArgs, err);
         }
-        return default!;
+        return default;
 
     }
 
-    @string value = default!;
-    if (len(shorthands) > 2 && shorthands[1] == (rune)'='){
+    @string value = default;
+    if (len(shorthands) > 2 && shorthands[1] == '=') {
         value = shorthands[2..];
         outShorts = "";
-    } else 
-    if ((~flag).NoOptDefVal != ""u8){
-        value = flag.Value.NoOptDefVal;
-    } else 
-    if (len(shorthands) > 1){
+    } else if (flag.NoOptDefVal != ""u8) {
+        value = flag.NoOptDefVal;
+    } else if (len(shorthands) > 1) {
         value = shorthands[1..];
         outShorts = "";
-    } else 
-    if (len(args) > 0){
+    } else if (len(args) > 0) {
         value = args[0];
         outArgs = args[1..];
     } else {
@@ -906,27 +915,27 @@ internal static (@string outShorts, slice<@string> outArgs, error err) parseSing
         return (outShorts, outArgs, err);
     }
 
-    if ((~flag).ShorthandDeprecated != ""u8) {
-        fmt.Fprintf(f.Output(), "Flag shorthand -%s has been deprecated, %s\n"u8, (~flag).Shorthand, (~flag).ShorthandDeprecated);
+    if (flag.ShorthandDeprecated != ""u8) {
+        fmt.Fprintf(f.Output(), "Flag shorthand -%s has been deprecated, %s\n"u8, flag.Shorthand, flag.ShorthandDeprecated);
     }
 
     err = fn(flag, value);
-    if (err != default!) {
+    if (err != nil) {
         Ꮡf.fail(err);
     }
     return (outShorts, outArgs, err);
 }
 
 internal static (slice<@string> a, error err) parseShortArg(this ж<FlagSet> Ꮡf, @string s, slice<@string> args, Func<ж<Flag>, @string, error> fn) {
-    slice<@string> a = default!;
-    error err = default!;
+    slice<@string> a = default;
+    error err = default;
 
     a = args;
     @string shorthands = s[1..];
 
     while (len(shorthands) > 0) {
         (shorthands, a, err) = Ꮡf.parseSingleShortArg(shorthands, args, fn);
-        if (err != default!) {
+        if (err != nil) {
             return (a, err);
         }
     }
@@ -935,23 +944,23 @@ internal static (slice<@string> a, error err) parseShortArg(this ж<FlagSet> Ꮡ
 }
 
 internal static error /*err*/ parseArgs(this ж<FlagSet> Ꮡf, slice<@string> args, Func<ж<Flag>, @string, error> fn) {
-    error err = default!;
+    error err = default;
     ref var f = ref Ꮡf.DerefOrNull();
 
     while (len(args) > 0) {
         @string s = args[0];
         args = args[1..];
-        if (len(s) == 0 || s[0] != (rune)'-' || len(s) == 1) {
+        if (len(s) == 0 || s[0] != '-' || len(s) == 1) {
             if (!f.interspersed) {
                 f.args = append(f.args, s);
                 f.args = appendꓸꓸꓸ(f.args, args);
-                return default!;
+                return default;
             }
             f.args = append(f.args, s);
             continue;
         }
 
-        if (s[1] == (rune)'-'){
+        if (s[1] == '-') {
             if (len(s) == 2) {
                 f.argsLenAtDash = len(f.args);
                 f.args = appendꓸꓸꓸ(f.args, args);
@@ -961,7 +970,7 @@ internal static error /*err*/ parseArgs(this ж<FlagSet> Ꮡf, slice<@string> ar
         } else {
             (args, err) = Ꮡf.parseShortArg(s, args, fn);
         }
-        if (err != default!) {
+        if (err != nil) {
             return err;
         }
     }
@@ -971,9 +980,9 @@ internal static error /*err*/ parseArgs(this ж<FlagSet> Ꮡf, slice<@string> ar
 public static error Parse(this ж<FlagSet> Ꮡf, slice<@string> arguments) {
     ref var f = ref Ꮡf.DerefOrNull();
 
-    if (f.addedGoFlagSets != default!) {
+    if (f.addedGoFlagSets != nil) {
         foreach (var (_, goFlagSet) in f.addedGoFlagSets) {
-            goFlagSet.Parse(default!);
+            goFlagSet.Parse(default);
         }
     }
     f.parsed = true;
@@ -981,30 +990,32 @@ public static error Parse(this ж<FlagSet> Ꮡf, slice<@string> arguments) {
     f.args = new slice<@string>(0, len(arguments));
 
     if (len(arguments) == 0) {
-        return default!;
+        return default;
     }
 
-    var set = (ж<Flag> flag, @string value) => Ꮡf.Set((~flag).Name, value);
+    var set = (ж<Flag> flag, @string value) => Ꮡf.Set(flag.Name, value);
 
     var err = Ꮡf.parseArgs(arguments, new Func<ж<Flag>, @string, error>(set));
-    if (err != default!) {
-        var exprᴛ1 = f.errorHandling;
-        if (exprᴛ1 == ContinueOnError) {
+    if (err != nil) {
+        switch (f.errorHandling) {
+        case var ᴛ when ᴛ == ContinueOnError: {
             return err;
         }
-        if (exprᴛ1 == ExitOnError) {
+        case var ᴛ when ᴛ == ExitOnError: {
             if (errors.Is(err, ErrHelp)) {
                 os.Exit(0);
             }
             fmt.Fprintln(f.Output(), err);
             os.Exit(2);
+            break;
         }
-        else if (exprᴛ1 == PanicOnError) {
+        case var ᴛ when ᴛ == PanicOnError: {
             throw panic(err);
-        }
+            break;
+        }}
 
     }
-    return default!;
+    return default;
 }
 
 // type parseFunc is a methodless func type — rendered inline as its base delegate
@@ -1016,24 +1027,26 @@ public static error ParseAll(this ж<FlagSet> Ꮡf, slice<@string> arguments, Fu
     f.args = new slice<@string>(0, len(arguments));
 
     var err = Ꮡf.parseArgs(arguments, new Func<ж<Flag>, @string, error>(fn));
-    if (err != default!) {
-        var exprᴛ1 = f.errorHandling;
-        if (exprᴛ1 == ContinueOnError) {
+    if (err != nil) {
+        switch (f.errorHandling) {
+        case var ᴛ when ᴛ == ContinueOnError: {
             return err;
         }
-        if (exprᴛ1 == ExitOnError) {
+        case var ᴛ when ᴛ == ExitOnError: {
             if (errors.Is(err, ErrHelp)) {
                 os.Exit(0);
             }
             fmt.Fprintln(f.Output(), err);
             os.Exit(2);
+            break;
         }
-        else if (exprᴛ1 == PanicOnError) {
+        case var ᴛ when ᴛ == PanicOnError: {
             throw panic(err);
-        }
+            break;
+        }}
 
     }
-    return default!;
+    return default;
 }
 
 public static bool Parsed(this ref FlagSet f) {

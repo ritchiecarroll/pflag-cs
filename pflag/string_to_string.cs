@@ -15,17 +15,17 @@ partial struct stringToStringValue {
     internal bool changed;
 }
 
-internal static ж<stringToStringValue> newStringToStringValue(map<@string, @string> val, ж<map<@string, @string>> Ꮡp) {
+internal static ж<stringToStringValue> newStringToStringValue(map<@string, @string> val, ж<map<@string, @string>> p) {
     var ssv = @new<stringToStringValue>();
-    ssv.Value.value = Ꮡp;
-    (~ssv).value.ValueSlot = val;
+    ssv.value = p;
+    ssv.value.ValueSlot = val;
     return ssv;
 }
 
 internal static error Set(this ref stringToStringValue s, @string val) {
     var ssᴷ = new stackAppend<@string>();
 
-    slice<@string> ss = default!;
+    slice<@string> ss = default;
     nint n = strings.Count(val, "=");
     switch (n) {
     case 0: {
@@ -37,9 +37,9 @@ internal static error Set(this ref stringToStringValue s, @string val) {
     }
     default: {
         var r = csv.NewReader(new strings_ReaderжReader(strings.NewReader(val)));
-        error err = default!;
+        error err = default;
         (ss, err) = r.Read();
-        if (err != default!) {
+        if (err != nil) {
             return err;
         }
         break;
@@ -53,7 +53,7 @@ internal static error Set(this ref stringToStringValue s, @string val) {
         }
         @out[kv[0]] = kv[1];
     }
-    if (!s.changed){
+    if (!s.changed) {
         s.value.ValueSlot = @out;
     } else {
         foreach (var (k, v) in @out) {
@@ -61,7 +61,7 @@ internal static error Set(this ref stringToStringValue s, @string val) {
         }
     }
     s.changed = true;
-    return default!;
+    return default;
 }
 
 internal static @string Type(this ref stringToStringValue s) {
@@ -87,7 +87,7 @@ internal static @string String(this ref stringToStringValue s) {
     ref var buf = ref heap(new bytes.Buffer(), out var Ꮡbuf);
     var w = csv.NewWriter(new bytes_BufferжWriter(Ꮡbuf));
     {
-        var err = w.Write(records); if (err != default!) {
+        var err = w.Write(records); if (err != nil) {
             throw panic(err);
         }
     }
@@ -98,58 +98,56 @@ internal static @string String(this ref stringToStringValue s) {
 internal static (any, error) stringToStringConv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
-        return (new map<@string, @string>{}, default!);
+        return (new map<@string, @string>{}, default);
     }
     var r = csv.NewReader(new strings_ReaderжReader(strings.NewReader(val)));
     var (ss, err) = r.Read();
-    if (err != default!) {
-        return (default!, err);
+    if (err != nil) {
+        return (default, err);
     }
     var @out = new map<@string, @string>(len(ss));
     foreach (var (_, pair) in ss) {
         var kv = strings.SplitN(pair, "=", 2);
         if (len(kv) != 2) {
-            return (default!, fmt.Errorf("%s must be formatted as key=value"u8, pair));
+            return (default, fmt.Errorf("%s must be formatted as key=value"u8, pair));
         }
         @out[kv[0]] = kv[1];
     }
-    return (@out, default!);
+    return (@out, default);
 }
 
 public static (map<@string, @string>, error) GetStringToString(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "stringToString", stringToStringConv);
-    if (err != default!) {
+    if (err != nil) {
         return (new map<@string, @string>{}, err);
     }
-    return (val._<map<@string, @string>>(), default!);
+    return (val._<map<@string, @string>>(), default);
 }
 
-public static void StringToStringVar(this ж<FlagSet> Ꮡf, ж<map<@string, @string>> Ꮡp, @string name, map<@string, @string> value, @string usage) {
-    Ꮡf.VarP(new stringToStringValueжValue(newStringToStringValue(value, Ꮡp)), name, "", usage);
+public static void StringToStringVar(this ж<FlagSet> Ꮡf, ж<map<@string, @string>> p, @string name, map<@string, @string> value, @string usage) {
+    Ꮡf.VarP(new stringToStringValueжValue(newStringToStringValue(value, p)), name, "", usage);
 }
 
-public static void StringToStringVarP(this ж<FlagSet> Ꮡf, ж<map<@string, @string>> Ꮡp, @string name, @string shorthand, map<@string, @string> value, @string usage) {
-    Ꮡf.VarP(new stringToStringValueжValue(newStringToStringValue(value, Ꮡp)), name, shorthand, usage);
+public static void StringToStringVarP(this ж<FlagSet> Ꮡf, ж<map<@string, @string>> p, @string name, @string shorthand, map<@string, @string> value, @string usage) {
+    Ꮡf.VarP(new stringToStringValueжValue(newStringToStringValue(value, p)), name, shorthand, usage);
 }
 
-public static void StringToStringVar(ж<map<@string, @string>> Ꮡp, @string name, map<@string, @string> value, @string usage) {
-    CommandLine.VarP(new stringToStringValueжValue(newStringToStringValue(value, Ꮡp)), name, "", usage);
+public static void StringToStringVar(ж<map<@string, @string>> p, @string name, map<@string, @string> value, @string usage) {
+    CommandLine.VarP(new stringToStringValueжValue(newStringToStringValue(value, p)), name, "", usage);
 }
 
-public static void StringToStringVarP(ж<map<@string, @string>> Ꮡp, @string name, @string shorthand, map<@string, @string> value, @string usage) {
-    CommandLine.VarP(new stringToStringValueжValue(newStringToStringValue(value, Ꮡp)), name, shorthand, usage);
+public static void StringToStringVarP(ж<map<@string, @string>> p, @string name, @string shorthand, map<@string, @string> value, @string usage) {
+    CommandLine.VarP(new stringToStringValueжValue(newStringToStringValue(value, p)), name, shorthand, usage);
 }
 
 public static ж<map<@string, @string>> StringToString(this ж<FlagSet> Ꮡf, @string name, map<@string, @string> value, @string usage) {
-    ref var p = ref heap<map<@string, @string>>(out var Ꮡp);
-    p = new map<@string, @string>{};
+    ref var p = ref heap<map<@string, @string>>(new map<@string, @string>{}, out var Ꮡp);
     Ꮡf.StringToStringVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
 public static ж<map<@string, @string>> StringToStringP(this ж<FlagSet> Ꮡf, @string name, @string shorthand, map<@string, @string> value, @string usage) {
-    ref var p = ref heap<map<@string, @string>>(out var Ꮡp);
-    p = new map<@string, @string>{};
+    ref var p = ref heap<map<@string, @string>>(new map<@string, @string>{}, out var Ꮡp);
     Ꮡf.StringToStringVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }

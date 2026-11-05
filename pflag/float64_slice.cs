@@ -11,10 +11,10 @@ partial struct float64SliceValue {
     internal bool changed;
 }
 
-internal static ж<float64SliceValue> newFloat64SliceValue(slice<float64> val, ж<slice<float64>> Ꮡp) {
+internal static ж<float64SliceValue> newFloat64SliceValue(slice<float64> val, ж<slice<float64>> p) {
     var isv = @new<float64SliceValue>();
-    isv.Value.value = Ꮡp;
-    (~isv).value.ValueSlot = val;
+    isv.value = p;
+    isv.value.ValueSlot = val;
     return isv;
 }
 
@@ -22,19 +22,19 @@ internal static error Set(this ref float64SliceValue s, @string val) {
     var ss = strings.Split(val, ",");
     var @out = new slice<float64>(len(ss));
     foreach (var (i, d) in ss) {
-        error err = default!;
+        error err = default;
         (@out[i], err) = strconv.ParseFloat(d, 64);
-        if (err != default!) {
+        if (err != nil) {
             return err;
         }
     }
-    if (!s.changed){
+    if (!s.changed) {
         s.value.ValueSlot = @out;
     } else {
         s.value.ValueSlot = appendꓸꓸꓸ(s.value.ValueSlot, @out);
     }
     s.changed = true;
-    return default!;
+    return default;
 }
 
 internal static @string Type(this ref float64SliceValue s) {
@@ -59,24 +59,24 @@ internal static @string toString(this ref float64SliceValue s, float64 val) {
 
 internal static error Append(this ref float64SliceValue s, @string val) {
     var (i, err) = s.fromString(val);
-    if (err != default!) {
+    if (err != nil) {
         return err;
     }
     s.value.ValueSlot = append(s.value.ValueSlot, i);
-    return default!;
+    return default;
 }
 
 internal static error Replace(this ref float64SliceValue s, slice<@string> val) {
     var @out = new slice<float64>(len(val));
     foreach (var (i, d) in val) {
-        error err = default!;
+        error err = default;
         (@out[i], err) = s.fromString(d);
-        if (err != default!) {
+        if (err != nil) {
             return err;
         }
     }
     s.value.ValueSlot = @out;
-    return default!;
+    return default;
 }
 
 internal static slice<@string> GetSlice(this ref float64SliceValue s) {
@@ -90,54 +90,52 @@ internal static slice<@string> GetSlice(this ref float64SliceValue s) {
 internal static (any, error) float64SliceConv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
-        return (new float64[]{}.slice(), default!);
+        return (slice<float64>([]), default);
     }
     var ss = strings.Split(val, ",");
     var @out = new slice<float64>(len(ss));
     foreach (var (i, d) in ss) {
-        error err = default!;
+        error err = default;
         (@out[i], err) = strconv.ParseFloat(d, 64);
-        if (err != default!) {
-            return (default!, err);
+        if (err != nil) {
+            return (default, err);
         }
     }
-    return (@out, default!);
+    return (@out, default);
 }
 
 public static (slice<float64>, error) GetFloat64Slice(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "float64Slice", float64SliceConv);
-    if (err != default!) {
-        return (new float64[]{}.slice(), err);
+    if (err != nil) {
+        return (slice<float64>([]), err);
     }
-    return (val._<slice<float64>>(), default!);
+    return (val._<slice<float64>>(), default);
 }
 
-public static void Float64SliceVar(this ж<FlagSet> Ꮡf, ж<slice<float64>> Ꮡp, @string name, slice<float64> value, @string usage) {
-    Ꮡf.VarP(new float64SliceValueжValue(newFloat64SliceValue(value, Ꮡp)), name, "", usage);
+public static void Float64SliceVar(this ж<FlagSet> Ꮡf, ж<slice<float64>> p, @string name, slice<float64> value, @string usage) {
+    Ꮡf.VarP(new float64SliceValueжValue(newFloat64SliceValue(value, p)), name, "", usage);
 }
 
-public static void Float64SliceVarP(this ж<FlagSet> Ꮡf, ж<slice<float64>> Ꮡp, @string name, @string shorthand, slice<float64> value, @string usage) {
-    Ꮡf.VarP(new float64SliceValueжValue(newFloat64SliceValue(value, Ꮡp)), name, shorthand, usage);
+public static void Float64SliceVarP(this ж<FlagSet> Ꮡf, ж<slice<float64>> p, @string name, @string shorthand, slice<float64> value, @string usage) {
+    Ꮡf.VarP(new float64SliceValueжValue(newFloat64SliceValue(value, p)), name, shorthand, usage);
 }
 
-public static void Float64SliceVar(ж<slice<float64>> Ꮡp, @string name, slice<float64> value, @string usage) {
-    CommandLine.VarP(new float64SliceValueжValue(newFloat64SliceValue(value, Ꮡp)), name, "", usage);
+public static void Float64SliceVar(ж<slice<float64>> p, @string name, slice<float64> value, @string usage) {
+    CommandLine.VarP(new float64SliceValueжValue(newFloat64SliceValue(value, p)), name, "", usage);
 }
 
-public static void Float64SliceVarP(ж<slice<float64>> Ꮡp, @string name, @string shorthand, slice<float64> value, @string usage) {
-    CommandLine.VarP(new float64SliceValueжValue(newFloat64SliceValue(value, Ꮡp)), name, shorthand, usage);
+public static void Float64SliceVarP(ж<slice<float64>> p, @string name, @string shorthand, slice<float64> value, @string usage) {
+    CommandLine.VarP(new float64SliceValueжValue(newFloat64SliceValue(value, p)), name, shorthand, usage);
 }
 
 public static ж<slice<float64>> Float64Slice(this ж<FlagSet> Ꮡf, @string name, slice<float64> value, @string usage) {
-    ref var p = ref heap<slice<float64>>(out var Ꮡp);
-    p = new float64[]{}.slice();
+    ref var p = ref heap<slice<float64>>(slice<float64>([]), out var Ꮡp);
     Ꮡf.Float64SliceVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
 public static ж<slice<float64>> Float64SliceP(this ж<FlagSet> Ꮡf, @string name, @string shorthand, slice<float64> value, @string usage) {
-    ref var p = ref heap<slice<float64>>(out var Ꮡp);
-    p = new float64[]{}.slice();
+    ref var p = ref heap<slice<float64>>(slice<float64>([]), out var Ꮡp);
     Ꮡf.Float64SliceVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }

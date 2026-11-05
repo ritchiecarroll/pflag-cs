@@ -34,26 +34,26 @@ internal static (any, error) durationConv(@string sval) {
 
 public static (time.Duration, error) GetDuration(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "duration", durationConv);
-    if (err != default!) {
+    if (err != nil) {
         return (0, err);
     }
-    return (val._<time.Duration>(), default!);
+    return (val._<time.Duration>(), default);
 }
 
-public static void DurationVar(this ж<FlagSet> Ꮡf, ж<time.Duration> Ꮡp, @string name, time.Duration value, @string usage) {
-    Ꮡf.VarP(new durationValueжValue(newDurationValue(value, Ꮡp)), name, "", usage);
+public static void DurationVar(this ж<FlagSet> Ꮡf, ж<time.Duration> p, @string name, time.Duration value, @string usage) {
+    Ꮡf.VarP(new durationValueжValue(newDurationValue(value, p)), name, "", usage);
 }
 
-public static void DurationVarP(this ж<FlagSet> Ꮡf, ж<time.Duration> Ꮡp, @string name, @string shorthand, time.Duration value, @string usage) {
-    Ꮡf.VarP(new durationValueжValue(newDurationValue(value, Ꮡp)), name, shorthand, usage);
+public static void DurationVarP(this ж<FlagSet> Ꮡf, ж<time.Duration> p, @string name, @string shorthand, time.Duration value, @string usage) {
+    Ꮡf.VarP(new durationValueжValue(newDurationValue(value, p)), name, shorthand, usage);
 }
 
-public static void DurationVar(ж<time.Duration> Ꮡp, @string name, time.Duration value, @string usage) {
-    CommandLine.VarP(new durationValueжValue(newDurationValue(value, Ꮡp)), name, "", usage);
+public static void DurationVar(ж<time.Duration> p, @string name, time.Duration value, @string usage) {
+    CommandLine.VarP(new durationValueжValue(newDurationValue(value, p)), name, "", usage);
 }
 
-public static void DurationVarP(ж<time.Duration> Ꮡp, @string name, @string shorthand, time.Duration value, @string usage) {
-    CommandLine.VarP(new durationValueжValue(newDurationValue(value, Ꮡp)), name, shorthand, usage);
+public static void DurationVarP(ж<time.Duration> p, @string name, @string shorthand, time.Duration value, @string usage) {
+    CommandLine.VarP(new durationValueжValue(newDurationValue(value, p)), name, shorthand, usage);
 }
 
 public static ж<time.Duration> Duration(this ж<FlagSet> Ꮡf, @string name, time.Duration value, @string usage) {

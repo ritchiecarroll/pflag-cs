@@ -12,10 +12,10 @@ partial struct stringToInt64Value {
     internal bool changed;
 }
 
-internal static ж<stringToInt64Value> newStringToInt64Value(map<@string, int64> val, ж<map<@string, int64>> Ꮡp) {
+internal static ж<stringToInt64Value> newStringToInt64Value(map<@string, int64> val, ж<map<@string, int64>> p) {
     var ssv = @new<stringToInt64Value>();
-    ssv.Value.value = Ꮡp;
-    (~ssv).value.ValueSlot = val;
+    ssv.value = p;
+    ssv.value.ValueSlot = val;
     return ssv;
 }
 
@@ -27,13 +27,13 @@ internal static error Set(this ref stringToInt64Value s, @string val) {
         if (len(kv) != 2) {
             return fmt.Errorf("%s must be formatted as key=value"u8, pair);
         }
-        error err = default!;
+        error err = default;
         (@out[kv[0]], err) = strconv.ParseInt(kv[1], 10, 64);
-        if (err != default!) {
+        if (err != nil) {
             return err;
         }
     }
-    if (!s.changed){
+    if (!s.changed) {
         s.value.ValueSlot = @out;
     } else {
         foreach (var (k, v) in @out) {
@@ -41,7 +41,7 @@ internal static error Set(this ref stringToInt64Value s, @string val) {
         }
     }
     s.changed = true;
-    return default!;
+    return default;
 }
 
 internal static @string Type(this ref stringToInt64Value s) {
@@ -53,10 +53,10 @@ internal static @string String(this ref stringToInt64Value s) {
     nint i = 0;
     foreach (var (k, v) in s.value.ValueSlot) {
         if (i > 0) {
-            buf.WriteRune((rune)',');
+            buf.WriteRune(',');
         }
         buf.WriteString(k);
-        buf.WriteRune((rune)'=');
+        buf.WriteRune('=');
         buf.WriteString(strconv.FormatInt(v, 10));
         i++;
     }
@@ -66,58 +66,56 @@ internal static @string String(this ref stringToInt64Value s) {
 internal static (any, error) stringToInt64Conv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
-        return (new map<@string, int64>{}, default!);
+        return (new map<@string, int64>{}, default);
     }
     var ss = strings.Split(val, ",");
     var @out = new map<@string, int64>(len(ss));
     foreach (var (_, pair) in ss) {
         var kv = strings.SplitN(pair, "=", 2);
         if (len(kv) != 2) {
-            return (default!, fmt.Errorf("%s must be formatted as key=value"u8, pair));
+            return (default, fmt.Errorf("%s must be formatted as key=value"u8, pair));
         }
-        error err = default!;
+        error err = default;
         (@out[kv[0]], err) = strconv.ParseInt(kv[1], 10, 64);
-        if (err != default!) {
-            return (default!, err);
+        if (err != nil) {
+            return (default, err);
         }
     }
-    return (@out, default!);
+    return (@out, default);
 }
 
 public static (map<@string, int64>, error) GetStringToInt64(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "stringToInt64", stringToInt64Conv);
-    if (err != default!) {
+    if (err != nil) {
         return (new map<@string, int64>{}, err);
     }
-    return (val._<map<@string, int64>>(), default!);
+    return (val._<map<@string, int64>>(), default);
 }
 
-public static void StringToInt64Var(this ж<FlagSet> Ꮡf, ж<map<@string, int64>> Ꮡp, @string name, map<@string, int64> value, @string usage) {
-    Ꮡf.VarP(new stringToInt64ValueжValue(newStringToInt64Value(value, Ꮡp)), name, "", usage);
+public static void StringToInt64Var(this ж<FlagSet> Ꮡf, ж<map<@string, int64>> p, @string name, map<@string, int64> value, @string usage) {
+    Ꮡf.VarP(new stringToInt64ValueжValue(newStringToInt64Value(value, p)), name, "", usage);
 }
 
-public static void StringToInt64VarP(this ж<FlagSet> Ꮡf, ж<map<@string, int64>> Ꮡp, @string name, @string shorthand, map<@string, int64> value, @string usage) {
-    Ꮡf.VarP(new stringToInt64ValueжValue(newStringToInt64Value(value, Ꮡp)), name, shorthand, usage);
+public static void StringToInt64VarP(this ж<FlagSet> Ꮡf, ж<map<@string, int64>> p, @string name, @string shorthand, map<@string, int64> value, @string usage) {
+    Ꮡf.VarP(new stringToInt64ValueжValue(newStringToInt64Value(value, p)), name, shorthand, usage);
 }
 
-public static void StringToInt64Var(ж<map<@string, int64>> Ꮡp, @string name, map<@string, int64> value, @string usage) {
-    CommandLine.VarP(new stringToInt64ValueжValue(newStringToInt64Value(value, Ꮡp)), name, "", usage);
+public static void StringToInt64Var(ж<map<@string, int64>> p, @string name, map<@string, int64> value, @string usage) {
+    CommandLine.VarP(new stringToInt64ValueжValue(newStringToInt64Value(value, p)), name, "", usage);
 }
 
-public static void StringToInt64VarP(ж<map<@string, int64>> Ꮡp, @string name, @string shorthand, map<@string, int64> value, @string usage) {
-    CommandLine.VarP(new stringToInt64ValueжValue(newStringToInt64Value(value, Ꮡp)), name, shorthand, usage);
+public static void StringToInt64VarP(ж<map<@string, int64>> p, @string name, @string shorthand, map<@string, int64> value, @string usage) {
+    CommandLine.VarP(new stringToInt64ValueжValue(newStringToInt64Value(value, p)), name, shorthand, usage);
 }
 
 public static ж<map<@string, int64>> StringToInt64(this ж<FlagSet> Ꮡf, @string name, map<@string, int64> value, @string usage) {
-    ref var p = ref heap<map<@string, int64>>(out var Ꮡp);
-    p = new map<@string, int64>{};
+    ref var p = ref heap<map<@string, int64>>(new map<@string, int64>{}, out var Ꮡp);
     Ꮡf.StringToInt64VarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
 public static ж<map<@string, int64>> StringToInt64P(this ж<FlagSet> Ꮡf, @string name, @string shorthand, map<@string, int64> value, @string usage) {
-    ref var p = ref heap<map<@string, int64>>(out var Ꮡp);
-    p = new map<@string, int64>{};
+    ref var p = ref heap<map<@string, int64>>(new map<@string, int64>{}, out var Ꮡp);
     Ꮡf.StringToInt64VarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }

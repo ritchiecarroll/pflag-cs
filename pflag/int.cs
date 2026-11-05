@@ -34,26 +34,26 @@ internal static (any, error) intConv(@string sval) {
 
 public static (nint, error) GetInt(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "int", intConv);
-    if (err != default!) {
+    if (err != nil) {
         return (0, err);
     }
-    return (val._<nint>(), default!);
+    return (val._<nint>(), default);
 }
 
-public static void IntVar(this ж<FlagSet> Ꮡf, ж<nint> Ꮡp, @string name, nint value, @string usage) {
-    Ꮡf.VarP(new intValueжValue(newIntValue(value, Ꮡp)), name, "", usage);
+public static void IntVar(this ж<FlagSet> Ꮡf, ж<nint> p, @string name, nint value, @string usage) {
+    Ꮡf.VarP(new intValueжValue(newIntValue(value, p)), name, "", usage);
 }
 
-public static void IntVarP(this ж<FlagSet> Ꮡf, ж<nint> Ꮡp, @string name, @string shorthand, nint value, @string usage) {
-    Ꮡf.VarP(new intValueжValue(newIntValue(value, Ꮡp)), name, shorthand, usage);
+public static void IntVarP(this ж<FlagSet> Ꮡf, ж<nint> p, @string name, @string shorthand, nint value, @string usage) {
+    Ꮡf.VarP(new intValueжValue(newIntValue(value, p)), name, shorthand, usage);
 }
 
-public static void IntVar(ж<nint> Ꮡp, @string name, nint value, @string usage) {
-    CommandLine.VarP(new intValueжValue(newIntValue(value, Ꮡp)), name, "", usage);
+public static void IntVar(ж<nint> p, @string name, nint value, @string usage) {
+    CommandLine.VarP(new intValueжValue(newIntValue(value, p)), name, "", usage);
 }
 
-public static void IntVarP(ж<nint> Ꮡp, @string name, @string shorthand, nint value, @string usage) {
-    CommandLine.VarP(new intValueжValue(newIntValue(value, Ꮡp)), name, shorthand, usage);
+public static void IntVarP(ж<nint> p, @string name, @string shorthand, nint value, @string usage) {
+    CommandLine.VarP(new intValueжValue(newIntValue(value, p)), name, shorthand, usage);
 }
 
 public static ж<nint> Int(this ж<FlagSet> Ꮡf, @string name, nint value, @string usage) {

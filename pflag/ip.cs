@@ -21,14 +21,14 @@ internal static @string String(this ref ipValue i) {
 
 internal static error Set(this ref ipValue i, @string s) {
     if (s == ""u8) {
-        return default!;
+        return default;
     }
     var ip = net.ParseIP(strings.TrimSpace(s));
-    if (ip == default!) {
+    if (ip == nil) {
         return fmt.Errorf("failed to parse IP: %q"u8, s);
     }
     i = (ipValue)ip;
-    return default!;
+    return default;
 }
 
 internal static @string Type(this ref ipValue i) {
@@ -37,34 +37,34 @@ internal static @string Type(this ref ipValue i) {
 
 internal static (any, error) ipConv(@string sval) {
     var ip = net.ParseIP(sval);
-    if (ip != default!) {
-        return (ip, default!);
+    if (ip != nil) {
+        return (ip, default);
     }
-    return (default!, fmt.Errorf("invalid string being converted to IP address: %s"u8, sval));
+    return (default, fmt.Errorf("invalid string being converted to IP address: %s"u8, sval));
 }
 
 public static (net.IP, error) GetIP(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "ip", ipConv);
-    if (err != default!) {
-        return (default!, err);
+    if (err != nil) {
+        return (default, err);
     }
-    return (val._<net.IP>(), default!);
+    return (val._<net.IP>(), default);
 }
 
-public static void IPVar(this ж<FlagSet> Ꮡf, ж<net.IP> Ꮡp, @string name, net.IP value, @string usage) {
-    Ꮡf.VarP(new ipValueжValue(newIPValue(value, Ꮡp)), name, "", usage);
+public static void IPVar(this ж<FlagSet> Ꮡf, ж<net.IP> p, @string name, net.IP value, @string usage) {
+    Ꮡf.VarP(new ipValueжValue(newIPValue(value, p)), name, "", usage);
 }
 
-public static void IPVarP(this ж<FlagSet> Ꮡf, ж<net.IP> Ꮡp, @string name, @string shorthand, net.IP value, @string usage) {
-    Ꮡf.VarP(new ipValueжValue(newIPValue(value, Ꮡp)), name, shorthand, usage);
+public static void IPVarP(this ж<FlagSet> Ꮡf, ж<net.IP> p, @string name, @string shorthand, net.IP value, @string usage) {
+    Ꮡf.VarP(new ipValueжValue(newIPValue(value, p)), name, shorthand, usage);
 }
 
-public static void IPVar(ж<net.IP> Ꮡp, @string name, net.IP value, @string usage) {
-    CommandLine.VarP(new ipValueжValue(newIPValue(value, Ꮡp)), name, "", usage);
+public static void IPVar(ж<net.IP> p, @string name, net.IP value, @string usage) {
+    CommandLine.VarP(new ipValueжValue(newIPValue(value, p)), name, "", usage);
 }
 
-public static void IPVarP(ж<net.IP> Ꮡp, @string name, @string shorthand, net.IP value, @string usage) {
-    CommandLine.VarP(new ipValueжValue(newIPValue(value, Ꮡp)), name, shorthand, usage);
+public static void IPVarP(ж<net.IP> p, @string name, @string shorthand, net.IP value, @string usage) {
+    CommandLine.VarP(new ipValueжValue(newIPValue(value, p)), name, shorthand, usage);
 }
 
 public static ж<net.IP> IP(this ж<FlagSet> Ꮡf, @string name, net.IP value, @string usage) {

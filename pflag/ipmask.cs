@@ -21,11 +21,11 @@ internal static @string String(this ref ipMaskValue i) {
 
 internal static error Set(this ref ipMaskValue i, @string s) {
     var ip = ParseIPv4Mask(s);
-    if (ip == default!) {
+    if (ip == nil) {
         return fmt.Errorf("failed to parse IP mask: %q"u8, s);
     }
     i = (ipMaskValue)ip;
-    return default!;
+    return default;
 }
 
 internal static @string Type(this ref ipMaskValue i) {
@@ -36,23 +36,23 @@ public static net.IPMask ParseIPv4Mask(@string s) {
     var mᴷ = new stackAppend<nint>();
 
     var mask = net.ParseIP(s);
-    if (mask == default!) {
+    if (mask == nil) {
         if (len(s) != 8) {
-            return default!;
+            return default;
         }
-        var m = new nint[]{}.slice();
+        var m = slice<nint>([]);
         for (nint i = 0; i < 4; i++) {
             @string b = "0x" + s.slice(2 * i, 2 * i + 2);
             var (d, err) = strconv.ParseInt(b, 0, 0);
-            if (err != default!) {
-                return default!;
+            if (err != nil) {
+                return default;
             }
             m = append(mᴷ, m, (nint)d);
         }
         @string sΔ1 = fmt.Sprintf("%d.%d.%d.%d"u8, m[0], m[1], m[2], m[3]);
         mask = net.ParseIP(sΔ1);
-        if (mask == default!) {
-            return default!;
+        if (mask == nil) {
+            return default;
         }
     }
     return net.IPv4Mask(mask[12], mask[13], mask[14], mask[15]);
@@ -60,34 +60,34 @@ public static net.IPMask ParseIPv4Mask(@string s) {
 
 internal static (any, error) parseIPv4Mask(@string sval) {
     var mask = ParseIPv4Mask(sval);
-    if (mask == default!) {
-        return (default!, fmt.Errorf("unable to parse %s as net.IPMask"u8, sval));
+    if (mask == nil) {
+        return (default, fmt.Errorf("unable to parse %s as net.IPMask"u8, sval));
     }
-    return (mask, default!);
+    return (mask, default);
 }
 
 public static (net.IPMask, error) GetIPv4Mask(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "ipMask", parseIPv4Mask);
-    if (err != default!) {
-        return (default!, err);
+    if (err != nil) {
+        return (default, err);
     }
-    return (val._<net.IPMask>(), default!);
+    return (val._<net.IPMask>(), default);
 }
 
-public static void IPMaskVar(this ж<FlagSet> Ꮡf, ж<net.IPMask> Ꮡp, @string name, net.IPMask value, @string usage) {
-    Ꮡf.VarP(new ipMaskValueжValue(newIPMaskValue(value, Ꮡp)), name, "", usage);
+public static void IPMaskVar(this ж<FlagSet> Ꮡf, ж<net.IPMask> p, @string name, net.IPMask value, @string usage) {
+    Ꮡf.VarP(new ipMaskValueжValue(newIPMaskValue(value, p)), name, "", usage);
 }
 
-public static void IPMaskVarP(this ж<FlagSet> Ꮡf, ж<net.IPMask> Ꮡp, @string name, @string shorthand, net.IPMask value, @string usage) {
-    Ꮡf.VarP(new ipMaskValueжValue(newIPMaskValue(value, Ꮡp)), name, shorthand, usage);
+public static void IPMaskVarP(this ж<FlagSet> Ꮡf, ж<net.IPMask> p, @string name, @string shorthand, net.IPMask value, @string usage) {
+    Ꮡf.VarP(new ipMaskValueжValue(newIPMaskValue(value, p)), name, shorthand, usage);
 }
 
-public static void IPMaskVar(ж<net.IPMask> Ꮡp, @string name, net.IPMask value, @string usage) {
-    CommandLine.VarP(new ipMaskValueжValue(newIPMaskValue(value, Ꮡp)), name, "", usage);
+public static void IPMaskVar(ж<net.IPMask> p, @string name, net.IPMask value, @string usage) {
+    CommandLine.VarP(new ipMaskValueжValue(newIPMaskValue(value, p)), name, "", usage);
 }
 
-public static void IPMaskVarP(ж<net.IPMask> Ꮡp, @string name, @string shorthand, net.IPMask value, @string usage) {
-    CommandLine.VarP(new ipMaskValueжValue(newIPMaskValue(value, Ꮡp)), name, shorthand, usage);
+public static void IPMaskVarP(ж<net.IPMask> p, @string name, @string shorthand, net.IPMask value, @string usage) {
+    CommandLine.VarP(new ipMaskValueжValue(newIPMaskValue(value, p)), name, shorthand, usage);
 }
 
 public static ж<net.IPMask> IPMask(this ж<FlagSet> Ꮡf, @string name, net.IPMask value, @string usage) {

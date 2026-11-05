@@ -44,28 +44,28 @@ internal static (any, error) boolConv(@string sval) {
 
 public static (bool, error) GetBool(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "bool", boolConv);
-    if (err != default!) {
+    if (err != nil) {
         return (false, err);
     }
-    return (val._<bool>(), default!);
+    return (val._<bool>(), default);
 }
 
-public static void BoolVar(this ж<FlagSet> Ꮡf, ж<bool> Ꮡp, @string name, bool value, @string usage) {
-    Ꮡf.BoolVarP(Ꮡp, name, "", value, usage);
+public static void BoolVar(this ж<FlagSet> Ꮡf, ж<bool> p, @string name, bool value, @string usage) {
+    Ꮡf.BoolVarP(p, name, "", value, usage);
 }
 
-public static void BoolVarP(this ж<FlagSet> Ꮡf, ж<bool> Ꮡp, @string name, @string shorthand, bool value, @string usage) {
-    var flag = Ꮡf.VarPF(new boolValueжValue(newBoolValue(value, Ꮡp)), name, shorthand, usage);
-    flag.Value.NoOptDefVal = "true";
+public static void BoolVarP(this ж<FlagSet> Ꮡf, ж<bool> p, @string name, @string shorthand, bool value, @string usage) {
+    var flag = Ꮡf.VarPF(new boolValueжValue(newBoolValue(value, p)), name, shorthand, usage);
+    flag.NoOptDefVal = "true";
 }
 
-public static void BoolVar(ж<bool> Ꮡp, @string name, bool value, @string usage) {
-    BoolVarP(Ꮡp, name, "", value, usage);
+public static void BoolVar(ж<bool> p, @string name, bool value, @string usage) {
+    BoolVarP(p, name, "", value, usage);
 }
 
-public static void BoolVarP(ж<bool> Ꮡp, @string name, @string shorthand, bool value, @string usage) {
-    var flag = CommandLine.VarPF(new boolValueжValue(newBoolValue(value, Ꮡp)), name, shorthand, usage);
-    flag.Value.NoOptDefVal = "true";
+public static void BoolVarP(ж<bool> p, @string name, @string shorthand, bool value, @string usage) {
+    var flag = CommandLine.VarPF(new boolValueжValue(newBoolValue(value, p)), name, shorthand, usage);
+    flag.NoOptDefVal = "true";
 }
 
 public static ж<bool> Bool(this ж<FlagSet> Ꮡf, @string name, bool value, @string usage) {

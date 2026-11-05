@@ -34,26 +34,26 @@ internal static (any, error) int64Conv(@string sval) {
 
 public static (int64, error) GetInt64(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "int64", int64Conv);
-    if (err != default!) {
+    if (err != nil) {
         return (0, err);
     }
-    return (val._<int64>(), default!);
+    return (val._<int64>(), default);
 }
 
-public static void Int64Var(this ж<FlagSet> Ꮡf, ж<int64> Ꮡp, @string name, int64 value, @string usage) {
-    Ꮡf.VarP(new int64ValueжValue(newInt64Value(value, Ꮡp)), name, "", usage);
+public static void Int64Var(this ж<FlagSet> Ꮡf, ж<int64> p, @string name, int64 value, @string usage) {
+    Ꮡf.VarP(new int64ValueжValue(newInt64Value(value, p)), name, "", usage);
 }
 
-public static void Int64VarP(this ж<FlagSet> Ꮡf, ж<int64> Ꮡp, @string name, @string shorthand, int64 value, @string usage) {
-    Ꮡf.VarP(new int64ValueжValue(newInt64Value(value, Ꮡp)), name, shorthand, usage);
+public static void Int64VarP(this ж<FlagSet> Ꮡf, ж<int64> p, @string name, @string shorthand, int64 value, @string usage) {
+    Ꮡf.VarP(new int64ValueжValue(newInt64Value(value, p)), name, shorthand, usage);
 }
 
-public static void Int64Var(ж<int64> Ꮡp, @string name, int64 value, @string usage) {
-    CommandLine.VarP(new int64ValueжValue(newInt64Value(value, Ꮡp)), name, "", usage);
+public static void Int64Var(ж<int64> p, @string name, int64 value, @string usage) {
+    CommandLine.VarP(new int64ValueжValue(newInt64Value(value, p)), name, "", usage);
 }
 
-public static void Int64VarP(ж<int64> Ꮡp, @string name, @string shorthand, int64 value, @string usage) {
-    CommandLine.VarP(new int64ValueжValue(newInt64Value(value, Ꮡp)), name, shorthand, usage);
+public static void Int64VarP(ж<int64> p, @string name, @string shorthand, int64 value, @string usage) {
+    CommandLine.VarP(new int64ValueжValue(newInt64Value(value, p)), name, shorthand, usage);
 }
 
 public static ж<int64> Int64(this ж<FlagSet> Ꮡf, @string name, int64 value, @string usage) {

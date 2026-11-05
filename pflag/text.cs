@@ -38,7 +38,7 @@ internal static @string String(this textValue v) {
     {
         var (m, ok) = v.p._<encoding.TextMarshaler>(ᐧ); if (ok) {
             {
-                var (b, err) = m.MarshalText(); if (err == default!) {
+                var (b, err) = m.MarshalText(); if (err == nil) {
                     return (@string)b;
                 }
             }

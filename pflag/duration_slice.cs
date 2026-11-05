@@ -11,10 +11,10 @@ partial struct durationSliceValue {
     internal bool changed;
 }
 
-internal static ж<durationSliceValue> newDurationSliceValue(slice<time.Duration> val, ж<slice<time.Duration>> Ꮡp) {
+internal static ж<durationSliceValue> newDurationSliceValue(slice<time.Duration> val, ж<slice<time.Duration>> p) {
     var dsv = @new<durationSliceValue>();
-    dsv.Value.value = Ꮡp;
-    (~dsv).value.ValueSlot = val;
+    dsv.value = p;
+    dsv.value.ValueSlot = val;
     return dsv;
 }
 
@@ -22,19 +22,19 @@ internal static error Set(this ref durationSliceValue s, @string val) {
     var ss = strings.Split(val, ",");
     var @out = new slice<time.Duration>(len(ss));
     foreach (var (i, d) in ss) {
-        error err = default!;
+        error err = default;
         (@out[i], err) = time.ParseDuration(d);
-        if (err != default!) {
+        if (err != nil) {
             return err;
         }
     }
-    if (!s.changed){
+    if (!s.changed) {
         s.value.ValueSlot = @out;
     } else {
         s.value.ValueSlot = appendꓸꓸꓸ(s.value.ValueSlot, @out);
     }
     s.changed = true;
-    return default!;
+    return default;
 }
 
 internal static @string Type(this ref durationSliceValue s) {
@@ -59,24 +59,24 @@ internal static @string toString(this ref durationSliceValue s, time.Duration va
 
 internal static error Append(this ref durationSliceValue s, @string val) {
     var (i, err) = s.fromString(val);
-    if (err != default!) {
+    if (err != nil) {
         return err;
     }
     s.value.ValueSlot = append(s.value.ValueSlot, i);
-    return default!;
+    return default;
 }
 
 internal static error Replace(this ref durationSliceValue s, slice<@string> val) {
     var @out = new slice<time.Duration>(len(val));
     foreach (var (i, d) in val) {
-        error err = default!;
+        error err = default;
         (@out[i], err) = s.fromString(d);
-        if (err != default!) {
+        if (err != nil) {
             return err;
         }
     }
     s.value.ValueSlot = @out;
-    return default!;
+    return default;
 }
 
 internal static slice<@string> GetSlice(this ref durationSliceValue s) {
@@ -90,54 +90,52 @@ internal static slice<@string> GetSlice(this ref durationSliceValue s) {
 internal static (any, error) durationSliceConv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
-        return (new time.Duration[]{}.slice(), default!);
+        return (slice<time.Duration>([]), default);
     }
     var ss = strings.Split(val, ",");
     var @out = new slice<time.Duration>(len(ss));
     foreach (var (i, d) in ss) {
-        error err = default!;
+        error err = default;
         (@out[i], err) = time.ParseDuration(d);
-        if (err != default!) {
-            return (default!, err);
+        if (err != nil) {
+            return (default, err);
         }
     }
-    return (@out, default!);
+    return (@out, default);
 }
 
 public static (slice<time.Duration>, error) GetDurationSlice(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "durationSlice", durationSliceConv);
-    if (err != default!) {
-        return (new time.Duration[]{}.slice(), err);
+    if (err != nil) {
+        return (slice<time.Duration>([]), err);
     }
-    return (val._<slice<time.Duration>>(), default!);
+    return (val._<slice<time.Duration>>(), default);
 }
 
-public static void DurationSliceVar(this ж<FlagSet> Ꮡf, ж<slice<time.Duration>> Ꮡp, @string name, slice<time.Duration> value, @string usage) {
-    Ꮡf.VarP(new durationSliceValueжValue(newDurationSliceValue(value, Ꮡp)), name, "", usage);
+public static void DurationSliceVar(this ж<FlagSet> Ꮡf, ж<slice<time.Duration>> p, @string name, slice<time.Duration> value, @string usage) {
+    Ꮡf.VarP(new durationSliceValueжValue(newDurationSliceValue(value, p)), name, "", usage);
 }
 
-public static void DurationSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<time.Duration>> Ꮡp, @string name, @string shorthand, slice<time.Duration> value, @string usage) {
-    Ꮡf.VarP(new durationSliceValueжValue(newDurationSliceValue(value, Ꮡp)), name, shorthand, usage);
+public static void DurationSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<time.Duration>> p, @string name, @string shorthand, slice<time.Duration> value, @string usage) {
+    Ꮡf.VarP(new durationSliceValueжValue(newDurationSliceValue(value, p)), name, shorthand, usage);
 }
 
-public static void DurationSliceVar(ж<slice<time.Duration>> Ꮡp, @string name, slice<time.Duration> value, @string usage) {
-    CommandLine.VarP(new durationSliceValueжValue(newDurationSliceValue(value, Ꮡp)), name, "", usage);
+public static void DurationSliceVar(ж<slice<time.Duration>> p, @string name, slice<time.Duration> value, @string usage) {
+    CommandLine.VarP(new durationSliceValueжValue(newDurationSliceValue(value, p)), name, "", usage);
 }
 
-public static void DurationSliceVarP(ж<slice<time.Duration>> Ꮡp, @string name, @string shorthand, slice<time.Duration> value, @string usage) {
-    CommandLine.VarP(new durationSliceValueжValue(newDurationSliceValue(value, Ꮡp)), name, shorthand, usage);
+public static void DurationSliceVarP(ж<slice<time.Duration>> p, @string name, @string shorthand, slice<time.Duration> value, @string usage) {
+    CommandLine.VarP(new durationSliceValueжValue(newDurationSliceValue(value, p)), name, shorthand, usage);
 }
 
 public static ж<slice<time.Duration>> DurationSlice(this ж<FlagSet> Ꮡf, @string name, slice<time.Duration> value, @string usage) {
-    ref var p = ref heap<slice<time.Duration>>(out var Ꮡp);
-    p = new time.Duration[]{}.slice();
+    ref var p = ref heap<slice<time.Duration>>(slice<time.Duration>([]), out var Ꮡp);
     Ꮡf.DurationSliceVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
 public static ж<slice<time.Duration>> DurationSliceP(this ж<FlagSet> Ꮡf, @string name, @string shorthand, slice<time.Duration> value, @string usage) {
-    ref var p = ref heap<slice<time.Duration>>(out var Ꮡp);
-    p = new time.Duration[]{}.slice();
+    ref var p = ref heap<slice<time.Duration>>(slice<time.Duration>([]), out var Ꮡp);
     Ꮡf.DurationSliceVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }

@@ -19,23 +19,23 @@ partial struct NotExistError {
 }
 
 public static @string Error(this ref NotExistError e) {
-    var exprᴛ1 = e.messageType;
-    if (exprᴛ1 == flagNotExistMessage) {
+    switch (e.messageType) {
+    case var ᴛ when ᴛ == flagNotExistMessage: {
         return fmt.Sprintf("flag %q does not exist"u8, e.name);
     }
-    if (exprᴛ1 == flagNotDefinedMessage) {
+    case var ᴛ when ᴛ == flagNotDefinedMessage: {
         return fmt.Sprintf("flag accessed but not defined: %s"u8, e.name);
     }
-    if (exprᴛ1 == flagNoSuchFlagMessage) {
+    case var ᴛ when ᴛ == flagNoSuchFlagMessage: {
         return fmt.Sprintf("no such flag -%v"u8, e.name);
     }
-    if (exprᴛ1 == flagUnknownFlagMessage) {
+    case var ᴛ when ᴛ == flagUnknownFlagMessage: {
         return fmt.Sprintf("unknown flag: --%s"u8, e.name);
     }
-    if (exprᴛ1 == flagUnknownShorthandFlagMessage) {
+    case var ᴛ when ᴛ == flagUnknownShorthandFlagMessage: {
         var c = (rune)e.name[0];
         return fmt.Sprintf("unknown shorthand flag: %q in -%s"u8, c, e.specifiedShorthands);
-    }
+    }}
 
     throw panic(fmt.Errorf("unknown flagNotExistErrorMessageType: %v"u8, e.messageType));
 }
@@ -83,11 +83,11 @@ partial struct InvalidValueError {
 
 public static @string Error(this ref InvalidValueError e) {
     var flag = e.flag;
-    @string flagName = default!;
-    if ((~flag).Shorthand != ""u8 && (~flag).ShorthandDeprecated == ""u8){
-        flagName = fmt.Sprintf("-%s, --%s"u8, (~flag).Shorthand, (~flag).Name);
+    @string flagName = default;
+    if (flag.Shorthand != ""u8 && flag.ShorthandDeprecated == ""u8) {
+        flagName = fmt.Sprintf("-%s, --%s"u8, flag.Shorthand, flag.Name);
     } else {
-        flagName = fmt.Sprintf("--%s"u8, (~flag).Name);
+        flagName = fmt.Sprintf("--%s"u8, flag.Name);
     }
     return fmt.Sprintf("invalid argument %q for %q flag: %v"u8, e.value, flagName, e.cause);
 }

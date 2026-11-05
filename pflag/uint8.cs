@@ -24,39 +24,39 @@ internal static @string Type(this ref uint8Value i) {
 }
 
 internal static @string String(this ref uint8Value i) {
-    return strconv.FormatUint((uint64)(uint8)(i), 10);
+    return strconv.FormatUint((uint64)(i), 10);
 }
 
 internal static (any, error) uint8Conv(@string sval) {
     var (v, err) = strconv.ParseUint(sval, 0, 8);
-    if (err != default!) {
+    if (err != nil) {
         return ((nint)0, err);
     }
-    return ((uint8)v, default!);
+    return ((uint8)v, default);
 }
 
 public static (uint8, error) GetUint8(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "uint8", uint8Conv);
-    if (err != default!) {
+    if (err != nil) {
         return (0, err);
     }
-    return (val._<uint8>(), default!);
+    return (val._<uint8>(), default);
 }
 
-public static void Uint8Var(this ж<FlagSet> Ꮡf, ж<uint8> Ꮡp, @string name, uint8 value, @string usage) {
-    Ꮡf.VarP(new uint8ValueжValue(newUint8Value(value, Ꮡp)), name, "", usage);
+public static void Uint8Var(this ж<FlagSet> Ꮡf, ж<uint8> p, @string name, uint8 value, @string usage) {
+    Ꮡf.VarP(new uint8ValueжValue(newUint8Value(value, p)), name, "", usage);
 }
 
-public static void Uint8VarP(this ж<FlagSet> Ꮡf, ж<uint8> Ꮡp, @string name, @string shorthand, uint8 value, @string usage) {
-    Ꮡf.VarP(new uint8ValueжValue(newUint8Value(value, Ꮡp)), name, shorthand, usage);
+public static void Uint8VarP(this ж<FlagSet> Ꮡf, ж<uint8> p, @string name, @string shorthand, uint8 value, @string usage) {
+    Ꮡf.VarP(new uint8ValueжValue(newUint8Value(value, p)), name, shorthand, usage);
 }
 
-public static void Uint8Var(ж<uint8> Ꮡp, @string name, uint8 value, @string usage) {
-    CommandLine.VarP(new uint8ValueжValue(newUint8Value(value, Ꮡp)), name, "", usage);
+public static void Uint8Var(ж<uint8> p, @string name, uint8 value, @string usage) {
+    CommandLine.VarP(new uint8ValueжValue(newUint8Value(value, p)), name, "", usage);
 }
 
-public static void Uint8VarP(ж<uint8> Ꮡp, @string name, @string shorthand, uint8 value, @string usage) {
-    CommandLine.VarP(new uint8ValueжValue(newUint8Value(value, Ꮡp)), name, shorthand, usage);
+public static void Uint8VarP(ж<uint8> p, @string name, @string shorthand, uint8 value, @string usage) {
+    CommandLine.VarP(new uint8ValueжValue(newUint8Value(value, p)), name, shorthand, usage);
 }
 
 public static ж<uint8> Uint8(this ж<FlagSet> Ꮡf, @string name, uint8 value, @string usage) {

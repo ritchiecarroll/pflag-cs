@@ -27,7 +27,7 @@ public static void BoolFunc(this ж<FlagSet> Ꮡf, @string name, @string usage, 
 public static void BoolFuncP(this ж<FlagSet> Ꮡf, @string name, @string shorthand, @string usage, Func<@string, error> fn) {
     Value val = new boolfuncValueᴠValue(NilSafeDelegateConversion<boolfuncValue, Func<@string, error>>(fn));
     var flag = Ꮡf.VarPF(val, name, shorthand, usage);
-    flag.Value.NoOptDefVal = "true";
+    flag.NoOptDefVal = "true";
 }
 
 public static void BoolFunc(@string name, @string usage, Func<@string, error> fn) {

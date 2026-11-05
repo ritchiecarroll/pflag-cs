@@ -16,7 +16,7 @@ internal static ж<countValue> newCountValue(nint val, ж<nint> Ꮡp) {
 internal static error Set(this ref countValue i, @string s) {
     if (s == "+1"u8) {
         i = i + 1;
-        return default!;
+        return default;
     }
     var (v, err) = strconv.ParseInt(s, 0, 0);
     i = (countValue)(nint)v;
@@ -33,35 +33,35 @@ internal static @string String(this ref countValue i) {
 
 internal static (any, error) countConv(@string sval) {
     var (i, err) = strconv.Atoi(sval);
-    if (err != default!) {
-        return (default!, err);
+    if (err != nil) {
+        return (default, err);
     }
-    return (i, default!);
+    return (i, default);
 }
 
 public static (nint, error) GetCount(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "count", countConv);
-    if (err != default!) {
+    if (err != nil) {
         return (0, err);
     }
-    return (val._<nint>(), default!);
+    return (val._<nint>(), default);
 }
 
-public static void CountVar(this ж<FlagSet> Ꮡf, ж<nint> Ꮡp, @string name, @string usage) {
-    Ꮡf.CountVarP(Ꮡp, name, "", usage);
+public static void CountVar(this ж<FlagSet> Ꮡf, ж<nint> p, @string name, @string usage) {
+    Ꮡf.CountVarP(p, name, "", usage);
 }
 
-public static void CountVarP(this ж<FlagSet> Ꮡf, ж<nint> Ꮡp, @string name, @string shorthand, @string usage) {
-    var flag = Ꮡf.VarPF(new countValueжValue(newCountValue(0, Ꮡp)), name, shorthand, usage);
-    flag.Value.NoOptDefVal = "+1";
+public static void CountVarP(this ж<FlagSet> Ꮡf, ж<nint> p, @string name, @string shorthand, @string usage) {
+    var flag = Ꮡf.VarPF(new countValueжValue(newCountValue(0, p)), name, shorthand, usage);
+    flag.NoOptDefVal = "+1";
 }
 
-public static void CountVar(ж<nint> Ꮡp, @string name, @string usage) {
-    CommandLine.CountVar(Ꮡp, name, usage);
+public static void CountVar(ж<nint> p, @string name, @string usage) {
+    CommandLine.CountVar(p, name, usage);
 }
 
-public static void CountVarP(ж<nint> Ꮡp, @string name, @string shorthand, @string usage) {
-    CommandLine.CountVarP(Ꮡp, name, shorthand, usage);
+public static void CountVarP(ж<nint> p, @string name, @string shorthand, @string usage) {
+    CommandLine.CountVarP(p, name, shorthand, usage);
 }
 
 public static ж<nint> Count(this ж<FlagSet> Ꮡf, @string name, @string usage) {

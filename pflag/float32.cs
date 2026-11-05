@@ -24,39 +24,39 @@ internal static @string Type(this ref float32Value f) {
 }
 
 internal static @string String(this ref float32Value f) {
-    return strconv.FormatFloat((float64)(float32)(f), (rune)'g', -1, 32);
+    return strconv.FormatFloat((float64)(f), (byte)'g', -1, 32);
 }
 
 internal static (any, error) float32Conv(@string sval) {
     var (v, err) = strconv.ParseFloat(sval, 32);
-    if (err != default!) {
+    if (err != nil) {
         return ((nint)0, err);
     }
-    return ((float32)v, default!);
+    return ((float32)v, default);
 }
 
 public static (float32, error) GetFloat32(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "float32", float32Conv);
-    if (err != default!) {
+    if (err != nil) {
         return (0F, err);
     }
-    return (val._<float32>(), default!);
+    return (val._<float32>(), default);
 }
 
-public static void Float32Var(this ж<FlagSet> Ꮡf, ж<float32> Ꮡp, @string name, float32 value, @string usage) {
-    Ꮡf.VarP(new float32ValueжValue(newFloat32Value(value, Ꮡp)), name, "", usage);
+public static void Float32Var(this ж<FlagSet> Ꮡf, ж<float32> p, @string name, float32 value, @string usage) {
+    Ꮡf.VarP(new float32ValueжValue(newFloat32Value(value, p)), name, "", usage);
 }
 
-public static void Float32VarP(this ж<FlagSet> Ꮡf, ж<float32> Ꮡp, @string name, @string shorthand, float32 value, @string usage) {
-    Ꮡf.VarP(new float32ValueжValue(newFloat32Value(value, Ꮡp)), name, shorthand, usage);
+public static void Float32VarP(this ж<FlagSet> Ꮡf, ж<float32> p, @string name, @string shorthand, float32 value, @string usage) {
+    Ꮡf.VarP(new float32ValueжValue(newFloat32Value(value, p)), name, shorthand, usage);
 }
 
-public static void Float32Var(ж<float32> Ꮡp, @string name, float32 value, @string usage) {
-    CommandLine.VarP(new float32ValueжValue(newFloat32Value(value, Ꮡp)), name, "", usage);
+public static void Float32Var(ж<float32> p, @string name, float32 value, @string usage) {
+    CommandLine.VarP(new float32ValueжValue(newFloat32Value(value, p)), name, "", usage);
 }
 
-public static void Float32VarP(ж<float32> Ꮡp, @string name, @string shorthand, float32 value, @string usage) {
-    CommandLine.VarP(new float32ValueжValue(newFloat32Value(value, Ꮡp)), name, shorthand, usage);
+public static void Float32VarP(ж<float32> p, @string name, @string shorthand, float32 value, @string usage) {
+    CommandLine.VarP(new float32ValueжValue(newFloat32Value(value, p)), name, shorthand, usage);
 }
 
 public static ж<float32> Float32(this ж<FlagSet> Ꮡf, @string name, float32 value, @string usage) {

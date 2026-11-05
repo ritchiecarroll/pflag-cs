@@ -12,10 +12,10 @@ partial struct ipNetSliceValue {
     internal bool changed;
 }
 
-internal static ж<ipNetSliceValue> newIPNetSliceValue(slice<net.IPNet> val, ж<slice<net.IPNet>> Ꮡp) {
+internal static ж<ipNetSliceValue> newIPNetSliceValue(slice<net.IPNet> val, ж<slice<net.IPNet>> p) {
     var ipnsv = @new<ipNetSliceValue>();
-    ipnsv.Value.value = Ꮡp;
-    (~ipnsv).value.ValueSlot = val;
+    ipnsv.value = p;
+    ipnsv.value.ValueSlot = val;
     return ipnsv;
 }
 
@@ -23,20 +23,20 @@ internal static error Set(this ref ipNetSliceValue s, @string val) {
     var rmQuote = strings.NewReplacer(@"""", "", @"'", "", "`", "");
 
     var (ipNetStrSlice, err) = readAsCSV(rmQuote.Replace(val));
-    if (err != default! && !AreEqual(err, io.EOF)) {
+    if (err != nil && !AreEqual(err, io.EOF)) {
         return err;
     }
 
     var @out = new slice<net.IPNet>(0, len(ipNetStrSlice));
     foreach (var (_, ipNetStr) in ipNetStrSlice) {
         var (_, n, errΔ1) = net.ParseCIDR(strings.TrimSpace(ipNetStr));
-        if (errΔ1 != default!) {
+        if (errΔ1 != nil) {
             return fmt.Errorf("invalid string being converted to CIDR: %s"u8, ipNetStr);
         }
         @out = append(@out, n.Value);
     }
 
-    if (!s.changed){
+    if (!s.changed) {
         s.value.ValueSlot = @out;
     } else {
         s.value.ValueSlot = appendꓸꓸꓸ(s.value.ValueSlot, @out);
@@ -44,7 +44,7 @@ internal static error Set(this ref ipNetSliceValue s, @string val) {
 
     s.changed = true;
 
-    return default!;
+    return default;
 }
 
 internal static @string Type(this ref ipNetSliceValue s) {
@@ -67,54 +67,52 @@ internal static @string String(this ref ipNetSliceValue s) {
 internal static (any, error) ipNetSliceConv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
-        return (new net.IPNet[]{}.slice(), default!);
+        return (slice<net.IPNet>([]), default);
     }
     var ss = strings.Split(val, ",");
     var @out = new slice<net.IPNet>(len(ss));
     foreach (var (i, sval) in ss) {
         var (_, n, err) = net.ParseCIDR(strings.TrimSpace(sval));
-        if (err != default!) {
-            return (default!, fmt.Errorf("invalid string being converted to CIDR: %s"u8, sval));
+        if (err != nil) {
+            return (default, fmt.Errorf("invalid string being converted to CIDR: %s"u8, sval));
         }
         @out[i] = n.Value;
     }
-    return (@out, default!);
+    return (@out, default);
 }
 
 public static (slice<net.IPNet>, error) GetIPNetSlice(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "ipNetSlice", ipNetSliceConv);
-    if (err != default!) {
-        return (new net.IPNet[]{}.slice(), err);
+    if (err != nil) {
+        return (slice<net.IPNet>([]), err);
     }
-    return (val._<slice<net.IPNet>>(), default!);
+    return (val._<slice<net.IPNet>>(), default);
 }
 
-public static void IPNetSliceVar(this ж<FlagSet> Ꮡf, ж<slice<net.IPNet>> Ꮡp, @string name, slice<net.IPNet> value, @string usage) {
-    Ꮡf.VarP(new ipNetSliceValueжValue(newIPNetSliceValue(value, Ꮡp)), name, "", usage);
+public static void IPNetSliceVar(this ж<FlagSet> Ꮡf, ж<slice<net.IPNet>> p, @string name, slice<net.IPNet> value, @string usage) {
+    Ꮡf.VarP(new ipNetSliceValueжValue(newIPNetSliceValue(value, p)), name, "", usage);
 }
 
-public static void IPNetSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<net.IPNet>> Ꮡp, @string name, @string shorthand, slice<net.IPNet> value, @string usage) {
-    Ꮡf.VarP(new ipNetSliceValueжValue(newIPNetSliceValue(value, Ꮡp)), name, shorthand, usage);
+public static void IPNetSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<net.IPNet>> p, @string name, @string shorthand, slice<net.IPNet> value, @string usage) {
+    Ꮡf.VarP(new ipNetSliceValueжValue(newIPNetSliceValue(value, p)), name, shorthand, usage);
 }
 
-public static void IPNetSliceVar(ж<slice<net.IPNet>> Ꮡp, @string name, slice<net.IPNet> value, @string usage) {
-    CommandLine.VarP(new ipNetSliceValueжValue(newIPNetSliceValue(value, Ꮡp)), name, "", usage);
+public static void IPNetSliceVar(ж<slice<net.IPNet>> p, @string name, slice<net.IPNet> value, @string usage) {
+    CommandLine.VarP(new ipNetSliceValueжValue(newIPNetSliceValue(value, p)), name, "", usage);
 }
 
-public static void IPNetSliceVarP(ж<slice<net.IPNet>> Ꮡp, @string name, @string shorthand, slice<net.IPNet> value, @string usage) {
-    CommandLine.VarP(new ipNetSliceValueжValue(newIPNetSliceValue(value, Ꮡp)), name, shorthand, usage);
+public static void IPNetSliceVarP(ж<slice<net.IPNet>> p, @string name, @string shorthand, slice<net.IPNet> value, @string usage) {
+    CommandLine.VarP(new ipNetSliceValueжValue(newIPNetSliceValue(value, p)), name, shorthand, usage);
 }
 
 public static ж<slice<net.IPNet>> IPNetSlice(this ж<FlagSet> Ꮡf, @string name, slice<net.IPNet> value, @string usage) {
-    ref var p = ref heap<slice<net.IPNet>>(out var Ꮡp);
-    p = new net.IPNet[]{}.slice();
+    ref var p = ref heap<slice<net.IPNet>>(slice<net.IPNet>([]), out var Ꮡp);
     Ꮡf.IPNetSliceVarP(Ꮡp, name, "", value, usage);
     return Ꮡp;
 }
 
 public static ж<slice<net.IPNet>> IPNetSliceP(this ж<FlagSet> Ꮡf, @string name, @string shorthand, slice<net.IPNet> value, @string usage) {
-    ref var p = ref heap<slice<net.IPNet>>(out var Ꮡp);
-    p = new net.IPNet[]{}.slice();
+    ref var p = ref heap<slice<net.IPNet>>(slice<net.IPNet>([]), out var Ꮡp);
     Ꮡf.IPNetSliceVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }

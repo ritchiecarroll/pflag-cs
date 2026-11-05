@@ -25,11 +25,11 @@ internal static error Set(this ref timeValue d, @string s) {
     s = strings.TrimSpace(s);
     foreach (var (_, f) in d.formats) {
         var (v, err) = time.Parse(f, s);
-        if (err != default!) {
+        if (err != nil) {
             continue;
         }
         d.Time.Value = v;
-        return default!;
+        return default;
     }
 
     @string formatsString = "";
@@ -48,7 +48,7 @@ internal static @string Type(this ref timeValue d) {
 }
 
 internal static @string String(this ref timeValue d) {
-    if ((~d.Time).IsZero()){
+    if ((~d.Time).IsZero()) {
         return "";
     } else {
         return (~d.Time).Format(time.RFC3339Nano);
@@ -59,36 +59,36 @@ public static (time.Time, error) GetTime(this ж<FlagSet> Ꮡf, @string name) {
     var flag = Ꮡf.Lookup(name);
     if (flag == nil) {
         var err = fmt.Errorf("flag accessed but not defined: %s"u8, name);
-        return (new time.Time(nil), err);
+        return (new time.Time(), err);
     }
 
     if ((~flag).Value.Type() != "time"u8) {
         var err = fmt.Errorf("trying to get %s value of flag of type %s"u8, "time", (~flag).Value.Type());
-        return (new time.Time(nil), err);
+        return (new time.Time(), err);
     }
 
     var (val, ok) = (~flag).Value._<ж<timeValue>>(ᐧ);
     if (!ok) {
-        return (new time.Time(nil), fmt.Errorf("value %s is not a time"u8, (~flag).Value));
+        return (new time.Time(), fmt.Errorf("value %s is not a time"u8, (~flag).Value));
     }
 
-    return ((~val).Time.Value, default!);
+    return (val.Time.Value, default);
 }
 
-public static void TimeVar(this ж<FlagSet> Ꮡf, ж<time.Time> Ꮡp, @string name, time.Time value, slice<@string> formats, @string usage) {
-    Ꮡf.TimeVarP(Ꮡp, name, "", value, formats, usage);
+public static void TimeVar(this ж<FlagSet> Ꮡf, ж<time.Time> p, @string name, time.Time value, slice<@string> formats, @string usage) {
+    Ꮡf.TimeVarP(p, name, "", value, formats, usage);
 }
 
-public static void TimeVarP(this ж<FlagSet> Ꮡf, ж<time.Time> Ꮡp, @string name, @string shorthand, time.Time value, slice<@string> formats, @string usage) {
-    Ꮡf.VarP(new timeValueжValue(newTimeValue(value, Ꮡp, formats)), name, shorthand, usage);
+public static void TimeVarP(this ж<FlagSet> Ꮡf, ж<time.Time> p, @string name, @string shorthand, time.Time value, slice<@string> formats, @string usage) {
+    Ꮡf.VarP(new timeValueжValue(newTimeValue(value, p, formats)), name, shorthand, usage);
 }
 
-public static void TimeVar(ж<time.Time> Ꮡp, @string name, time.Time value, slice<@string> formats, @string usage) {
-    CommandLine.TimeVarP(Ꮡp, name, "", value, formats, usage);
+public static void TimeVar(ж<time.Time> p, @string name, time.Time value, slice<@string> formats, @string usage) {
+    CommandLine.TimeVarP(p, name, "", value, formats, usage);
 }
 
-public static void TimeVarP(ж<time.Time> Ꮡp, @string name, @string shorthand, time.Time value, slice<@string> formats, @string usage) {
-    CommandLine.VarP(new timeValueжValue(newTimeValue(value, Ꮡp, formats)), name, shorthand, usage);
+public static void TimeVarP(ж<time.Time> p, @string name, @string shorthand, time.Time value, slice<@string> formats, @string usage) {
+    CommandLine.VarP(new timeValueжValue(newTimeValue(value, p, formats)), name, shorthand, usage);
 }
 
 public static ж<time.Time> Time(this ж<FlagSet> Ꮡf, @string name, time.Time value, slice<@string> formats, @string usage) {

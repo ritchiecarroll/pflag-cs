@@ -29,34 +29,34 @@ internal static @string String(this ref uint64Value i) {
 
 internal static (any, error) uint64Conv(@string sval) {
     var (v, err) = strconv.ParseUint(sval, 0, 64);
-    if (err != default!) {
+    if (err != nil) {
         return ((nint)0, err);
     }
-    return ((uint64)v, default!);
+    return ((uint64)v, default);
 }
 
 public static (uint64, error) GetUint64(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "uint64", uint64Conv);
-    if (err != default!) {
+    if (err != nil) {
         return (0, err);
     }
-    return (val._<uint64>(), default!);
+    return (val._<uint64>(), default);
 }
 
-public static void Uint64Var(this ж<FlagSet> Ꮡf, ж<uint64> Ꮡp, @string name, uint64 value, @string usage) {
-    Ꮡf.VarP(new uint64ValueжValue(newUint64Value(value, Ꮡp)), name, "", usage);
+public static void Uint64Var(this ж<FlagSet> Ꮡf, ж<uint64> p, @string name, uint64 value, @string usage) {
+    Ꮡf.VarP(new uint64ValueжValue(newUint64Value(value, p)), name, "", usage);
 }
 
-public static void Uint64VarP(this ж<FlagSet> Ꮡf, ж<uint64> Ꮡp, @string name, @string shorthand, uint64 value, @string usage) {
-    Ꮡf.VarP(new uint64ValueжValue(newUint64Value(value, Ꮡp)), name, shorthand, usage);
+public static void Uint64VarP(this ж<FlagSet> Ꮡf, ж<uint64> p, @string name, @string shorthand, uint64 value, @string usage) {
+    Ꮡf.VarP(new uint64ValueжValue(newUint64Value(value, p)), name, shorthand, usage);
 }
 
-public static void Uint64Var(ж<uint64> Ꮡp, @string name, uint64 value, @string usage) {
-    CommandLine.VarP(new uint64ValueжValue(newUint64Value(value, Ꮡp)), name, "", usage);
+public static void Uint64Var(ж<uint64> p, @string name, uint64 value, @string usage) {
+    CommandLine.VarP(new uint64ValueжValue(newUint64Value(value, p)), name, "", usage);
 }
 
-public static void Uint64VarP(ж<uint64> Ꮡp, @string name, @string shorthand, uint64 value, @string usage) {
-    CommandLine.VarP(new uint64ValueжValue(newUint64Value(value, Ꮡp)), name, shorthand, usage);
+public static void Uint64VarP(ж<uint64> p, @string name, @string shorthand, uint64 value, @string usage) {
+    CommandLine.VarP(new uint64ValueжValue(newUint64Value(value, p)), name, shorthand, usage);
 }
 
 public static ж<uint64> Uint64(this ж<FlagSet> Ꮡf, @string name, uint64 value, @string usage) {

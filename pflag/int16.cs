@@ -24,39 +24,39 @@ internal static @string Type(this ref int16Value i) {
 }
 
 internal static @string String(this ref int16Value i) {
-    return strconv.FormatInt((int64)(int16)(i), 10);
+    return strconv.FormatInt((int64)(i), 10);
 }
 
 internal static (any, error) int16Conv(@string sval) {
     var (v, err) = strconv.ParseInt(sval, 0, 16);
-    if (err != default!) {
+    if (err != nil) {
         return ((nint)0, err);
     }
-    return ((int16)v, default!);
+    return ((int16)v, default);
 }
 
 public static (int16, error) GetInt16(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "int16", int16Conv);
-    if (err != default!) {
+    if (err != nil) {
         return (0, err);
     }
-    return (val._<int16>(), default!);
+    return (val._<int16>(), default);
 }
 
-public static void Int16Var(this ж<FlagSet> Ꮡf, ж<int16> Ꮡp, @string name, int16 value, @string usage) {
-    Ꮡf.VarP(new int16ValueжValue(newInt16Value(value, Ꮡp)), name, "", usage);
+public static void Int16Var(this ж<FlagSet> Ꮡf, ж<int16> p, @string name, int16 value, @string usage) {
+    Ꮡf.VarP(new int16ValueжValue(newInt16Value(value, p)), name, "", usage);
 }
 
-public static void Int16VarP(this ж<FlagSet> Ꮡf, ж<int16> Ꮡp, @string name, @string shorthand, int16 value, @string usage) {
-    Ꮡf.VarP(new int16ValueжValue(newInt16Value(value, Ꮡp)), name, shorthand, usage);
+public static void Int16VarP(this ж<FlagSet> Ꮡf, ж<int16> p, @string name, @string shorthand, int16 value, @string usage) {
+    Ꮡf.VarP(new int16ValueжValue(newInt16Value(value, p)), name, shorthand, usage);
 }
 
-public static void Int16Var(ж<int16> Ꮡp, @string name, int16 value, @string usage) {
-    CommandLine.VarP(new int16ValueжValue(newInt16Value(value, Ꮡp)), name, "", usage);
+public static void Int16Var(ж<int16> p, @string name, int16 value, @string usage) {
+    CommandLine.VarP(new int16ValueжValue(newInt16Value(value, p)), name, "", usage);
 }
 
-public static void Int16VarP(ж<int16> Ꮡp, @string name, @string shorthand, int16 value, @string usage) {
-    CommandLine.VarP(new int16ValueжValue(newInt16Value(value, Ꮡp)), name, shorthand, usage);
+public static void Int16VarP(ж<int16> p, @string name, @string shorthand, int16 value, @string usage) {
+    CommandLine.VarP(new int16ValueжValue(newInt16Value(value, p)), name, shorthand, usage);
 }
 
 public static ж<int16> Int16(this ж<FlagSet> Ꮡf, @string name, int16 value, @string usage) {

@@ -24,39 +24,39 @@ internal static @string Type(this ref uint32Value i) {
 }
 
 internal static @string String(this ref uint32Value i) {
-    return strconv.FormatUint((uint64)(uint32)(i), 10);
+    return strconv.FormatUint((uint64)(i), 10);
 }
 
 internal static (any, error) uint32Conv(@string sval) {
     var (v, err) = strconv.ParseUint(sval, 0, 32);
-    if (err != default!) {
+    if (err != nil) {
         return ((nint)0, err);
     }
-    return ((uint32)v, default!);
+    return ((uint32)v, default);
 }
 
 public static (uint32, error) GetUint32(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "uint32", uint32Conv);
-    if (err != default!) {
+    if (err != nil) {
         return (0, err);
     }
-    return (val._<uint32>(), default!);
+    return (val._<uint32>(), default);
 }
 
-public static void Uint32Var(this ж<FlagSet> Ꮡf, ж<uint32> Ꮡp, @string name, uint32 value, @string usage) {
-    Ꮡf.VarP(new uint32ValueжValue(newUint32Value(value, Ꮡp)), name, "", usage);
+public static void Uint32Var(this ж<FlagSet> Ꮡf, ж<uint32> p, @string name, uint32 value, @string usage) {
+    Ꮡf.VarP(new uint32ValueжValue(newUint32Value(value, p)), name, "", usage);
 }
 
-public static void Uint32VarP(this ж<FlagSet> Ꮡf, ж<uint32> Ꮡp, @string name, @string shorthand, uint32 value, @string usage) {
-    Ꮡf.VarP(new uint32ValueжValue(newUint32Value(value, Ꮡp)), name, shorthand, usage);
+public static void Uint32VarP(this ж<FlagSet> Ꮡf, ж<uint32> p, @string name, @string shorthand, uint32 value, @string usage) {
+    Ꮡf.VarP(new uint32ValueжValue(newUint32Value(value, p)), name, shorthand, usage);
 }
 
-public static void Uint32Var(ж<uint32> Ꮡp, @string name, uint32 value, @string usage) {
-    CommandLine.VarP(new uint32ValueжValue(newUint32Value(value, Ꮡp)), name, "", usage);
+public static void Uint32Var(ж<uint32> p, @string name, uint32 value, @string usage) {
+    CommandLine.VarP(new uint32ValueжValue(newUint32Value(value, p)), name, "", usage);
 }
 
-public static void Uint32VarP(ж<uint32> Ꮡp, @string name, @string shorthand, uint32 value, @string usage) {
-    CommandLine.VarP(new uint32ValueжValue(newUint32Value(value, Ꮡp)), name, shorthand, usage);
+public static void Uint32VarP(ж<uint32> p, @string name, @string shorthand, uint32 value, @string usage) {
+    CommandLine.VarP(new uint32ValueжValue(newUint32Value(value, p)), name, shorthand, usage);
 }
 
 public static ж<uint32> Uint32(this ж<FlagSet> Ꮡf, @string name, uint32 value, @string usage) {

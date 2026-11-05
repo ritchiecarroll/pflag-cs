@@ -47,7 +47,7 @@ internal static Value wrapFlagValue(goflag.Value v) {
         t = t.Elem();
     }
 
-    pv.Value.flagType = strings.TrimSuffix(t.Name(), "Value");
+    pv.flagType = strings.TrimSuffix(t.Name(), "Value");
     return new flagValueWrapperжValue(pv);
 }
 
@@ -72,12 +72,12 @@ public static ж<Flag> PFlagFromGoFlag(ж<goflag.Flag> Ꮡgoflag) {
         Value: wrapFlagValue(goflagΔ1.Value),
         DefValue: goflagΔ1.Value.String()
     ));
-    if (len((~flag).Name) == 1) {
-        flag.Value.Shorthand = flag.Value.Name;
+    if (len(flag.Name) == 1) {
+        flag.Shorthand = flag.Name;
     }
     {
         var (fv, ok) = goflagΔ1.Value._<goBoolFlag>(ᐧ); if (ok && fv.IsBoolFlag()) {
-            flag.Value.NoOptDefVal = "true";
+            flag.NoOptDefVal = "true";
         }
     }
     return flag;
@@ -103,64 +103,64 @@ public static void AddGoFlagSet(this ж<FlagSet> Ꮡf, ж<goflag.FlagSet> Ꮡnew
     newSet.VisitAll((ж<goflag.Flag> goflagΔ1) => {
         Ꮡf.AddGoFlag(goflagΔ1);
     });
-    if (f.addedGoFlagSets == default!) {
+    if (f.addedGoFlagSets == nil) {
         f.addedGoFlagSets = new slice<ж<goflag.FlagSet>>(0);
     }
     f.addedGoFlagSets = append(f.addedGoFlagSets, ᏑnewSet);
 }
 
-public static void CopyToGoFlagSet(this ref FlagSet f, ж<goflag.FlagSet> ᏑnewSet) {
+public static void CopyToGoFlagSet(this ref FlagSet f, ж<goflag.FlagSet> newSet) {
     f.VisitAll((ж<Flag> flag) => {
-        @string usage = flag.Value.Usage;
-        if ((~flag).Deprecated != ""u8) {
-            usage += " (DEPRECATED: "u8 + (~flag).Deprecated + ")"u8;
+        @string usage = flag.Usage;
+        if (flag.Deprecated != ""u8) {
+            usage += " (DEPRECATED: "u8 + flag.Deprecated + ")"u8;
         }
 
         switch ((~flag).Value.type()) {
         case ж<stringValue> value: {
-            ᏑnewSet.Value.StringVar(value.Reinterpret<stringValue, @string>(), (~flag).Name, (~flag).DefValue, usage);
+            newSet.Value.StringVar(value.Reinterpret<stringValue, @string>(), flag.Name, flag.DefValue, usage);
             break;
         }
         case ж<intValue> value: {
-            ᏑnewSet.Value.IntVar(value.Reinterpret<intValue, nint>(), (~flag).Name, ~value.Reinterpret<intValue, nint>(), usage);
+            newSet.Value.IntVar(value.Reinterpret<intValue, nint>(), flag.Name, ~value.Reinterpret<intValue, nint>(), usage);
             break;
         }
         case ж<int64Value> value: {
-            ᏑnewSet.Value.Int64Var(value.Reinterpret<int64Value, int64>(), (~flag).Name, ~value.Reinterpret<int64Value, int64>(), usage);
+            newSet.Value.Int64Var(value.Reinterpret<int64Value, int64>(), flag.Name, ~value.Reinterpret<int64Value, int64>(), usage);
             break;
         }
         case ж<uintValue> value: {
-            ᏑnewSet.Value.UintVar(value.Reinterpret<uintValue, nuint>(), (~flag).Name, ~value.Reinterpret<uintValue, nuint>(), usage);
+            newSet.Value.UintVar(value.Reinterpret<uintValue, nuint>(), flag.Name, ~value.Reinterpret<uintValue, nuint>(), usage);
             break;
         }
         case ж<uint64Value> value: {
-            ᏑnewSet.Value.Uint64Var(value.Reinterpret<uint64Value, uint64>(), (~flag).Name, ~value.Reinterpret<uint64Value, uint64>(), usage);
+            newSet.Value.Uint64Var(value.Reinterpret<uint64Value, uint64>(), flag.Name, ~value.Reinterpret<uint64Value, uint64>(), usage);
             break;
         }
         case ж<durationValue> value: {
-            ᏑnewSet.Value.DurationVar(value.Reinterpret<durationValue, time.Duration>(), (~flag).Name, ~value.Reinterpret<durationValue, time.Duration>(), usage);
+            newSet.Value.DurationVar(value.Reinterpret<durationValue, time.Duration>(), flag.Name, ~value.Reinterpret<durationValue, time.Duration>(), usage);
             break;
         }
         case ж<float64Value> value: {
-            ᏑnewSet.Value.Float64Var(value.Reinterpret<float64Value, float64>(), (~flag).Name, ~value.Reinterpret<float64Value, float64>(), usage);
+            newSet.Value.Float64Var(value.Reinterpret<float64Value, float64>(), flag.Name, ~value.Reinterpret<float64Value, float64>(), usage);
             break;
         }
         default: {
             var value = (~flag).Value;
-            ᏑnewSet.Value.Var((~flag).Value, (~flag).Name, usage);
+            newSet.Value.Var((~flag).Value, flag.Name, usage);
             break;
         }}
     });
 }
 
-public static error ParseSkippedFlags(slice<@string> osArgs, ж<goflag.FlagSet> ᏑgoFlagSet) {
-    slice<@string> skippedFlags = default!;
+public static error ParseSkippedFlags(slice<@string> osArgs, ж<goflag.FlagSet> goFlagSet) {
+    slice<@string> skippedFlags = default;
     foreach (var (_, f) in osArgs) {
         if (isGotestFlag(f)) {
             skippedFlags = append(skippedFlags, f);
         }
     }
-    return ᏑgoFlagSet.Parse(skippedFlags);
+    return goFlagSet.Parse(skippedFlags);
 }
 
 } // end pflag_package
