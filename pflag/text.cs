@@ -35,13 +35,9 @@ internal static any Get(this textValue v) {
 }
 
 internal static @string String(this textValue v) {
-    {
-        var (m, ok) = v.p._<encoding.TextMarshaler>(ᐧ); if (ok) {
-            {
-                var (b, err) = m.MarshalText(); if (err == nil) {
-                    return (@string)b;
-                }
-            }
+    var (m, ok) = v.p._<encoding.TextMarshaler>(ᐧ); if (ok) {
+        var (b, err) = m.MarshalText(); if (err == nil) {
+            return (@string)b;
         }
     }
     return "";

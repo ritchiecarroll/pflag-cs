@@ -21,7 +21,7 @@ internal static Ð¶<float32SliceValue> newFloat32SliceValue(slice<float32> val, Ð
 internal static error Set(this ref float32SliceValue s, @string val) {
     var ss = strings.Split(val, ",");
     var @out = new slice<float32>(len(ss));
-    foreach (var (i, d) in ss) {
+    foreach (var (i, d) in range(ss)) {
         error err = default;
         float64 temp64 = default;
         (temp64, err) = strconv.ParseFloat(d, 32);
@@ -45,7 +45,7 @@ internal static @string Type(this ref float32SliceValue s) {
 
 internal static @string String(this ref float32SliceValue s) {
     var @out = new slice<@string>(len(s.value.ValueSlot));
-    foreach (var (i, d) in s.value.ValueSlot) {
+    foreach (var (i, d) in range(s.value.ValueSlot)) {
         @out[i] = fmt.Sprintf("%f"u8, d);
     }
     return "["u8 + strings.Join(@out, ",") + "]"u8;
@@ -74,7 +74,7 @@ internal static error Append(this ref float32SliceValue s, @string val) {
 
 internal static error Replace(this ref float32SliceValue s, slice<@string> val) {
     var @out = new slice<float32>(len(val));
-    foreach (var (i, d) in val) {
+    foreach (var (i, d) in range(val)) {
         error err = default;
         (@out[i], err) = s.fromString(d);
         if (err != nil) {
@@ -87,7 +87,7 @@ internal static error Replace(this ref float32SliceValue s, slice<@string> val) 
 
 internal static slice<@string> GetSlice(this ref float32SliceValue s) {
     var @out = new slice<@string>(len(s.value.ValueSlot));
-    foreach (var (i, d) in s.value.ValueSlot) {
+    foreach (var (i, d) in range(s.value.ValueSlot)) {
         @out[i] = s.toString(d);
     }
     return @out;
@@ -100,7 +100,7 @@ internal static (any, error) float32SliceConv(@string val) {
     }
     var ss = strings.Split(val, ",");
     var @out = new slice<float32>(len(ss));
-    foreach (var (i, d) in ss) {
+    foreach (var (i, d) in range(ss)) {
         error err = default;
         float64 temp64 = default;
         (temp64, err) = strconv.ParseFloat(d, 32);

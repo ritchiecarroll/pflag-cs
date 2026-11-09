@@ -23,9 +23,7 @@ internal static @string Type(this ref int16Value i) {
     return "int16";
 }
 
-internal static @string String(this ref int16Value i) {
-    return strconv.FormatInt((int64)(i), 10);
-}
+internal static @string String(this ref int16Value i) { return strconv.FormatInt((int64)(i), 10); }
 
 internal static (any, error) int16Conv(@string sval) {
     var (v, err) = strconv.ParseInt(sval, 0, 16);

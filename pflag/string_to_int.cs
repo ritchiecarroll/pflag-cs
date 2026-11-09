@@ -22,7 +22,7 @@ internal static ж<stringToIntValue> newStringToIntValue(map<@string, nint> val,
 internal static error Set(this ref stringToIntValue s, @string val) {
     var ss = strings.Split(val, ",");
     var @out = new map<@string, nint>(len(ss));
-    foreach (var (_, pair) in ss) {
+    foreach (var (_, pair) in range(ss)) {
         var kv = strings.SplitN(pair, "=", 2);
         if (len(kv) != 2) {
             return fmt.Errorf("%s must be formatted as key=value"u8, pair);
@@ -70,7 +70,7 @@ internal static (any, error) stringToIntConv(@string val) {
     }
     var ss = strings.Split(val, ",");
     var @out = new map<@string, nint>(len(ss));
-    foreach (var (_, pair) in ss) {
+    foreach (var (_, pair) in range(ss)) {
         var kv = strings.SplitN(pair, "=", 2);
         if (len(kv) != 2) {
             return (default, fmt.Errorf("%s must be formatted as key=value"u8, pair));

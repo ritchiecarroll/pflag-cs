@@ -29,13 +29,9 @@ internal static @string Type(this ref boolValue b) {
     return "bool";
 }
 
-internal static @string String(this ref boolValue b) {
-    return strconv.FormatBool((bool)(b));
-}
+internal static @string String(this ref boolValue b) { return strconv.FormatBool((bool)(b)); }
 
-internal static bool IsBoolFlag(this ref boolValue b) {
-    return true;
-}
+internal static bool IsBoolFlag(this ref boolValue b) { return true; }
 
 internal static (any, error) boolConv(@string sval) {
     var (ᴛ1, ᴛ2) = strconv.ParseBool(sval);

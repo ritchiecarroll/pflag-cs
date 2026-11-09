@@ -21,7 +21,7 @@ internal static ж<intSliceValue> newIntSliceValue(slice<nint> val, ж<slice<nin
 internal static error Set(this ref intSliceValue s, @string val) {
     var ss = strings.Split(val, ",");
     var @out = new slice<nint>(len(ss));
-    foreach (var (i, d) in ss) {
+    foreach (var (i, d) in range(ss)) {
         error err = default;
         (@out[i], err) = strconv.Atoi(d);
         if (err != nil) {
@@ -43,7 +43,7 @@ internal static @string Type(this ref intSliceValue s) {
 
 internal static @string String(this ref intSliceValue s) {
     var @out = new slice<@string>(len(s.value.ValueSlot));
-    foreach (var (i, d) in s.value.ValueSlot) {
+    foreach (var (i, d) in range(s.value.ValueSlot)) {
         @out[i] = fmt.Sprintf("%d"u8, d);
     }
     return "["u8 + strings.Join(@out, ",") + "]"u8;
@@ -60,7 +60,7 @@ internal static error Append(this ref intSliceValue s, @string val) {
 
 internal static error Replace(this ref intSliceValue s, slice<@string> val) {
     var @out = new slice<nint>(len(val));
-    foreach (var (i, d) in val) {
+    foreach (var (i, d) in range(val)) {
         error err = default;
         (@out[i], err) = strconv.Atoi(d);
         if (err != nil) {
@@ -73,7 +73,7 @@ internal static error Replace(this ref intSliceValue s, slice<@string> val) {
 
 internal static slice<@string> GetSlice(this ref intSliceValue s) {
     var @out = new slice<@string>(len(s.value.ValueSlot));
-    foreach (var (i, d) in s.value.ValueSlot) {
+    foreach (var (i, d) in range(s.value.ValueSlot)) {
         @out[i] = strconv.Itoa(d);
     }
     return @out;
@@ -86,7 +86,7 @@ internal static (any, error) intSliceConv(@string val) {
     }
     var ss = strings.Split(val, ",");
     var @out = new slice<nint>(len(ss));
-    foreach (var (i, d) in ss) {
+    foreach (var (i, d) in range(ss)) {
         error err = default;
         (@out[i], err) = strconv.Atoi(d);
         if (err != nil) {

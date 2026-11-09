@@ -4,17 +4,11 @@ partial class pflag_package {
 
 internal delegate error funcValue(@string _);
 
-internal static error Set(this funcValue f, @string s) {
-    return f(s);
-}
+internal static error Set(this funcValue f, @string s) { return f(s); }
 
-internal static @string Type(this funcValue f) {
-    return "func";
-}
+internal static @string Type(this funcValue f) { return "func"; }
 
-internal static @string String(this funcValue f) {
-    return "";
-}
+internal static @string String(this funcValue f) { return ""; }
 
 public static void Func(this ж<FlagSet> Ꮡf, @string name, @string usage, Func<@string, error> fn) {
     Ꮡf.FuncP(name, "", usage, fn);

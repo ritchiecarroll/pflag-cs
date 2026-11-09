@@ -23,9 +23,7 @@ internal static @string Type(this ref float32Value f) {
     return "float32";
 }
 
-internal static @string String(this ref float32Value f) {
-    return strconv.FormatFloat((float64)(f), (byte)'g', -1, 32);
-}
+internal static @string String(this ref float32Value f) { return strconv.FormatFloat((float64)(f), (byte)'g', -1, 32); }
 
 internal static (any, error) float32Conv(@string sval) {
     var (v, err) = strconv.ParseFloat(sval, 32);

@@ -27,7 +27,7 @@ internal static error Set(this ref boolSliceValue s, @string val) {
     }
 
     var @out = new slice<bool>(0, len(boolStrSlice));
-    foreach (var (_, boolStr) in boolStrSlice) {
+    foreach (var (_, boolStr) in range(boolStrSlice)) {
         var (b, errΔ1) = strconv.ParseBool(strings.TrimSpace(boolStr));
         if (errΔ1 != nil) {
             return errΔ1;
@@ -52,7 +52,7 @@ internal static @string Type(this ref boolSliceValue s) {
 
 internal static @string String(this ref boolSliceValue s) {
     var boolStrSlice = new slice<@string>(len(s.value.ValueSlot));
-    foreach (var (i, b) in s.value.ValueSlot) {
+    foreach (var (i, b) in range(s.value.ValueSlot)) {
         boolStrSlice[i] = strconv.FormatBool(b);
     }
 
@@ -80,7 +80,7 @@ internal static error Append(this ref boolSliceValue s, @string val) {
 
 internal static error Replace(this ref boolSliceValue s, slice<@string> val) {
     var @out = new slice<bool>(len(val));
-    foreach (var (i, d) in val) {
+    foreach (var (i, d) in range(val)) {
         error err = default;
         (@out[i], err) = s.fromString(d);
         if (err != nil) {
@@ -93,7 +93,7 @@ internal static error Replace(this ref boolSliceValue s, slice<@string> val) {
 
 internal static slice<@string> GetSlice(this ref boolSliceValue s) {
     var @out = new slice<@string>(len(s.value.ValueSlot));
-    foreach (var (i, d) in s.value.ValueSlot) {
+    foreach (var (i, d) in range(s.value.ValueSlot)) {
         @out[i] = s.toString(d);
     }
     return @out;
@@ -106,7 +106,7 @@ internal static (any, error) boolSliceConv(@string val) {
     }
     var ss = strings.Split(val, ",");
     var @out = new slice<bool>(len(ss));
-    foreach (var (i, t) in ss) {
+    foreach (var (i, t) in range(ss)) {
         error err = default;
         (@out[i], err) = strconv.ParseBool(t);
         if (err != nil) {

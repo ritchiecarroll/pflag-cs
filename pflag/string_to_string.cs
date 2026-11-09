@@ -46,7 +46,7 @@ internal static error Set(this ref stringToStringValue s, @string val) {
     }}
 
     var @out = new map<@string, @string>(len(ss));
-    foreach (var (_, pair) in ss) {
+    foreach (var (_, pair) in range(ss)) {
         var kv = strings.SplitN(pair, "=", 2);
         if (len(kv) != 2) {
             return fmt.Errorf("%s must be formatted as key=value"u8, pair);
@@ -79,17 +79,15 @@ internal static @string String(this ref stringToStringValue s) {
     sort.Strings(keys);
 
     var records = new slice<@string>(0, (len(s.value.ValueSlot) >> 1));
-    foreach (var (_, k) in keys) {
+    foreach (var (_, k) in range(keys)) {
         @string v = (s.value.ValueSlot)[k];
         records = append(recordsᴷ, records, k + "="u8 + v);
     }
 
     ref var buf = ref heap(new bytes.Buffer(), out var Ꮡbuf);
     var w = csv.NewWriter(new bytes_BufferжWriter(Ꮡbuf));
-    {
-        var err = w.Write(records); if (err != nil) {
-            throw panic(err);
-        }
+    var err = w.Write(records); if (err != nil) {
+        throw panic(err);
     }
     w.Flush();
     return "["u8 + strings.TrimSpace(Ꮡbuf.String()) + "]"u8;
@@ -106,7 +104,7 @@ internal static (any, error) stringToStringConv(@string val) {
         return (default, err);
     }
     var @out = new map<@string, @string>(len(ss));
-    foreach (var (_, pair) in ss) {
+    foreach (var (_, pair) in range(ss)) {
         var kv = strings.SplitN(pair, "=", 2);
         if (len(kv) != 2) {
             return (default, fmt.Errorf("%s must be formatted as key=value"u8, pair));

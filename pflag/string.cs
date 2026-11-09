@@ -15,14 +15,11 @@ internal static error Set(this ref stringValue s, @string val) {
     s = (stringValue)val;
     return default;
 }
-
 internal static @string Type(this ref stringValue s) {
     return "string";
 }
 
-internal static @string String(this ref stringValue s) {
-    return (@string)(s);
-}
+internal static @string String(this ref stringValue s) { return (@string)(s); }
 
 internal static (any, error) stringConv(@string sval) {
     return (sval, default);

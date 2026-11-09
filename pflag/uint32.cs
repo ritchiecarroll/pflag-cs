@@ -23,9 +23,7 @@ internal static @string Type(this ref uint32Value i) {
     return "uint32";
 }
 
-internal static @string String(this ref uint32Value i) {
-    return strconv.FormatUint((uint64)(i), 10);
-}
+internal static @string String(this ref uint32Value i) { return strconv.FormatUint((uint64)(i), 10); }
 
 internal static (any, error) uint32Conv(@string sval) {
     var (v, err) = strconv.ParseUint(sval, 0, 32);

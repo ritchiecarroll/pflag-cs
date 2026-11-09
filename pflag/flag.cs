@@ -90,7 +90,7 @@ internal static slice<ж<Flag>> sortFlags(map<NormalizedName, ж<Flag>> flags) {
     }
     list.Sort();
     var result = new slice<ж<Flag>>(len(list));
-    foreach (var (iΔ1, name) in list) {
+    foreach (var (iΔ1, name) in range<@string>(list)) {
         result[iΔ1] = flags[((NormalizedName)name)];
     }
     return result;
@@ -109,11 +109,9 @@ public static void SetNormalizeFunc(this ж<FlagSet> Ꮡf, Func<ж<FlagSet>, @st
         flag.Name = (@string)nname;
         delete(f.formal, fname);
         f.formal[nname] = flag;
-        {
-            var (_, set) = f.actual[fname, ꟷ]; if (set) {
-                delete(f.actual, fname);
-                f.actual[nname] = flag;
-            }
+        var (_, set) = f.actual[fname, ꟷ]; if (set) {
+            delete(f.actual, fname);
+            f.actual[nname] = flag;
         }
     }
 }
@@ -162,7 +160,7 @@ public static void VisitAll(this ref FlagSet f, Action<ж<Flag>> fn) {
         flags = f.orderedFormal;
     }
 
-    foreach (var (_, flag) in flags) {
+    foreach (var (_, flag) in range(flags)) {
         fn(flag);
     }
 }
@@ -199,7 +197,7 @@ public static void Visit(this ref FlagSet f, Action<ж<Flag>> fn) {
         flags = f.orderedActual;
     }
 
-    foreach (var (_, flag) in flags) {
+    foreach (var (_, flag) in range(flags)) {
         fn(flag);
     }
 }
@@ -600,7 +598,7 @@ public static @string FlagUsagesWrapped(this ref FlagSet f, nint cols) {
         Ꮡlines.ValueSlot = append(Ꮡlines.ValueSlot, line);
     });
 
-    foreach (var (_, line) in lines) {
+    foreach (var (_, line) in range(lines)) {
         nint sidx = strings.Index(line, "\x00");
         @string spacing = strings.Repeat(" ", maxlen - sidx);
         fmt.Fprintln(new bytes_BufferжWriter(buf), line.slice(0, sidx), spacing, wrap(maxlen + 2, cols, line.slice(sidx + 1)));
@@ -630,13 +628,9 @@ internal static void defaultUsage(ж<FlagSet> Ꮡf) {
 }); }
 public static ref Action Usage => ref ((StaticBox<Action>)ᏑUsage).ValueSlot;
 
-public static nint NFlag(this ref FlagSet f) {
-    return len(f.actual);
-}
+public static nint NFlag(this ref FlagSet f) { return len(f.actual); }
 
-public static nint NFlag() {
-    return len(CommandLine.actual);
-}
+public static nint NFlag() { return len(CommandLine.actual); }
 
 public static @string Arg(this ref FlagSet f, nint i) {
     if (i < 0 || i >= len(f.args)) {
@@ -649,21 +643,13 @@ public static @string Arg(nint i) {
     return CommandLine.Arg(i);
 }
 
-public static nint NArg(this ref FlagSet f) {
-    return len(f.args);
-}
+public static nint NArg(this ref FlagSet f) { return len(f.args); }
 
-public static nint NArg() {
-    return len(CommandLine.args);
-}
+public static nint NArg() { return len(CommandLine.args); }
 
-public static slice<@string> Args(this ref FlagSet f) {
-    return f.args;
-}
+public static slice<@string> Args(this ref FlagSet f) { return f.args; }
 
-public static slice<@string> Args() {
-    return CommandLine.args;
-}
+public static slice<@string> Args() { return CommandLine.args; }
 
 public static void Var(this ж<FlagSet> Ꮡf, Value value, @string name, @string usage) {
     Ꮡf.VarP(value, name, "", usage);
@@ -981,7 +967,7 @@ public static error Parse(this ж<FlagSet> Ꮡf, slice<@string> arguments) {
     ref var f = ref Ꮡf.DerefOrNull();
 
     if (f.addedGoFlagSets != nil) {
-        foreach (var (_, goFlagSet) in f.addedGoFlagSets) {
+        foreach (var (_, goFlagSet) in range(f.addedGoFlagSets)) {
             goFlagSet.Parse(default);
         }
     }

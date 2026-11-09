@@ -23,9 +23,7 @@ internal static @string Type(this ref uint8Value i) {
     return "uint8";
 }
 
-internal static @string String(this ref uint8Value i) {
-    return strconv.FormatUint((uint64)(i), 10);
-}
+internal static @string String(this ref uint8Value i) { return strconv.FormatUint((uint64)(i), 10); }
 
 internal static (any, error) uint8Conv(@string sval) {
     var (v, err) = strconv.ParseUint(sval, 0, 8);

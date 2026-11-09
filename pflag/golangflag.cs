@@ -32,10 +32,8 @@ partial interface goBoolFlag :
 }
 
 internal static Value wrapFlagValue(goflag.Value v) {
-    {
-        var (pvΔ1, ok) = v._<Value>(ᐧ); if (ok) {
-            return pvΔ1;
-        }
+    var (pvΔ1, ok) = v._<Value>(ᐧ); if (ok) {
+        return pvΔ1;
     }
 
     var pv = Ꮡ(new flagValueWrapper(
@@ -75,10 +73,8 @@ public static ж<Flag> PFlagFromGoFlag(ж<goflag.Flag> Ꮡgoflag) {
     if (len(flag.Name) == 1) {
         flag.Shorthand = flag.Name;
     }
-    {
-        var (fv, ok) = goflagΔ1.Value._<goBoolFlag>(ᐧ); if (ok && fv.IsBoolFlag()) {
-            flag.NoOptDefVal = "true";
-        }
+    var (fv, ok) = goflagΔ1.Value._<goBoolFlag>(ᐧ); if (ok && fv.IsBoolFlag()) {
+        flag.NoOptDefVal = "true";
     }
     return flag;
 }
@@ -155,7 +151,7 @@ public static void CopyToGoFlagSet(this ref FlagSet f, ж<goflag.FlagSet> newSet
 
 public static error ParseSkippedFlags(slice<@string> osArgs, ж<goflag.FlagSet> goFlagSet) {
     slice<@string> skippedFlags = default;
-    foreach (var (_, f) in osArgs) {
+    foreach (var (_, f) in range(osArgs)) {
         if (isGotestFlag(f)) {
             skippedFlags = append(skippedFlags, f);
         }

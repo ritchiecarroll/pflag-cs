@@ -28,7 +28,7 @@ internal static error Set(this ref ipNetSliceValue s, @string val) {
     }
 
     var @out = new slice<net.IPNet>(0, len(ipNetStrSlice));
-    foreach (var (_, ipNetStr) in ipNetStrSlice) {
+    foreach (var (_, ipNetStr) in range(ipNetStrSlice)) {
         var (_, n, errΔ1) = net.ParseCIDR(strings.TrimSpace(ipNetStr));
         if (errΔ1 != nil) {
             return fmt.Errorf("invalid string being converted to CIDR: %s"u8, ipNetStr);
@@ -53,7 +53,7 @@ internal static @string Type(this ref ipNetSliceValue s) {
 
 internal static @string String(this ref ipNetSliceValue s) {
     var ipNetStrSlice = new slice<@string>(len(s.value.ValueSlot));
-    foreach (var (i, vᴛ1) in s.value.ValueSlot) {
+    foreach (var (i, vᴛ1) in range(s.value.ValueSlot)) {
         ref var n = ref heap(new net.IPNet(), out var Ꮡn);
         n = vᴛ1;
 
@@ -71,7 +71,7 @@ internal static (any, error) ipNetSliceConv(@string val) {
     }
     var ss = strings.Split(val, ",");
     var @out = new slice<net.IPNet>(len(ss));
-    foreach (var (i, sval) in ss) {
+    foreach (var (i, sval) in range(ss)) {
         var (_, n, err) = net.ParseCIDR(strings.TrimSpace(sval));
         if (err != nil) {
             return (default, fmt.Errorf("invalid string being converted to CIDR: %s"u8, sval));

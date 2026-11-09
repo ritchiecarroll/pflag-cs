@@ -11,7 +11,7 @@ Both sides of every reading were built with `-tags purego,math_big_pure_go,safe`
 
 | Package | Matched | Disclosed | Input digest | Proof |
 |:--|--:|--:|:--|:--|
-| `github.com/spf13/pflag` | 177 | 0 | `sha256-d3737f9b57c478694d57bcfade9519cbbf6989552b54f9a236f6a27d07dda6e5` | [index.md](index.md) |
+| `github.com/spf13/pflag` | 177 | 0 | `sha256-7cfbdcf735ed5990fa66a7301fb078762d0f89c32f9f017c26f118e3c9a8d7bd` | [index.md](index.md) |
 
 **Total: 177 matched · 0 disclosed** across 1 package(s).
 

@@ -23,9 +23,7 @@ internal static @string Type(this ref intValue i) {
     return "int";
 }
 
-internal static @string String(this ref intValue i) {
-    return strconv.Itoa((nint)(i));
-}
+internal static @string String(this ref intValue i) { return strconv.Itoa((nint)(i)); }
 
 internal static (any, error) intConv(@string sval) {
     var (ᴛ1, ᴛ2) = strconv.Atoi(sval);

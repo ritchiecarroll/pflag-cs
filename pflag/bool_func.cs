@@ -4,21 +4,13 @@ partial class pflag_package {
 
 internal delegate error boolfuncValue(@string _);
 
-internal static error Set(this boolfuncValue f, @string s) {
-    return f(s);
-}
+internal static error Set(this boolfuncValue f, @string s) { return f(s); }
 
-internal static @string Type(this boolfuncValue f) {
-    return "boolfunc";
-}
+internal static @string Type(this boolfuncValue f) { return "boolfunc"; }
 
-internal static @string String(this boolfuncValue f) {
-    return "";
-}
+internal static @string String(this boolfuncValue f) { return ""; }
 
-internal static bool IsBoolFlag(this boolfuncValue f) {
-    return true;
-}
+internal static bool IsBoolFlag(this boolfuncValue f) { return true; }
 
 public static void BoolFunc(this ж<FlagSet> Ꮡf, @string name, @string usage, Func<@string, error> fn) {
     Ꮡf.BoolFuncP(name, "", usage, fn);

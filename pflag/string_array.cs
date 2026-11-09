@@ -16,7 +16,7 @@ internal static ж<stringArrayValue> newStringArrayValue(slice<@string> val, ж<
 
 internal static error Set(this ref stringArrayValue s, @string val) {
     if (!s.changed) {
-        s.value.ValueSlot = slice<@string>([val]);
+        s.value.ValueSlot = [val];
         s.changed = true;
     } else {
         s.value.ValueSlot = append(s.value.ValueSlot, val);
@@ -31,7 +31,7 @@ internal static error Append(this ref stringArrayValue s, @string val) {
 
 internal static error Replace(this ref stringArrayValue s, slice<@string> val) {
     var @out = new slice<@string>(len(val));
-    foreach (var (i, d) in val) {
+    foreach (var (i, d) in range(val)) {
         @out[i] = d;
     }
     s.value.ValueSlot = @out;
@@ -40,7 +40,7 @@ internal static error Replace(this ref stringArrayValue s, slice<@string> val) {
 
 internal static slice<@string> GetSlice(this ref stringArrayValue s) {
     var @out = new slice<@string>(len(s.value.ValueSlot));
-    foreach (var (i, d) in s.value.ValueSlot) {
+    foreach (var (i, d) in range(s.value.ValueSlot)) {
         @out[i] = d;
     }
     return @out;

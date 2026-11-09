@@ -23,7 +23,7 @@ internal static ж<timeValue> newTimeValue(time.Time val, ж<time.Time> Ꮡp, sl
 
 internal static error Set(this ref timeValue d, @string s) {
     s = strings.TrimSpace(s);
-    foreach (var (_, f) in d.formats) {
+    foreach (var (_, f) in range(d.formats)) {
         var (v, err) = time.Parse(f, s);
         if (err != nil) {
             continue;
@@ -33,7 +33,7 @@ internal static error Set(this ref timeValue d, @string s) {
     }
 
     @string formatsString = "";
-    foreach (var (i, f) in d.formats) {
+    foreach (var (i, f) in range(d.formats)) {
         if (i > 0) {
             formatsString += ", "u8;
         }
@@ -48,10 +48,10 @@ internal static @string Type(this ref timeValue d) {
 }
 
 internal static @string String(this ref timeValue d) {
-    if ((~d.Time).IsZero()) {
+    if (d.Time.IsZero()) {
         return "";
     } else {
-        return (~d.Time).Format(time.RFC3339Nano);
+        return d.Time.Format(time.RFC3339Nano);
     }
 }
 

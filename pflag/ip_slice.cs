@@ -28,7 +28,7 @@ internal static error Set(this ref ipSliceValue s, @string val) {
     }
 
     var @out = new slice<net.IP>(0, len(ipStrSlice));
-    foreach (var (_, ipStr) in ipStrSlice) {
+    foreach (var (_, ipStr) in range(ipStrSlice)) {
         var ip = net.ParseIP(strings.TrimSpace(ipStr));
         if (ip == nil) {
             return fmt.Errorf("invalid string being converted to IP address: %s"u8, ipStr);
@@ -53,7 +53,7 @@ internal static @string Type(this ref ipSliceValue s) {
 
 internal static @string String(this ref ipSliceValue s) {
     var ipStrSlice = new slice<@string>(len(s.value.ValueSlot));
-    foreach (var (i, ip) in s.value.ValueSlot) {
+    foreach (var (i, ip) in range(s.value.ValueSlot)) {
         ipStrSlice[i] = ip.String();
     }
 
@@ -81,7 +81,7 @@ internal static error Append(this ref ipSliceValue s, @string val) {
 
 internal static error Replace(this ref ipSliceValue s, slice<@string> val) {
     var @out = new slice<net.IP>(len(val));
-    foreach (var (i, d) in val) {
+    foreach (var (i, d) in range(val)) {
         error err = default;
         (@out[i], err) = s.fromString(d);
         if (err != nil) {
@@ -94,7 +94,7 @@ internal static error Replace(this ref ipSliceValue s, slice<@string> val) {
 
 internal static slice<@string> GetSlice(this ref ipSliceValue s) {
     var @out = new slice<@string>(len(s.value.ValueSlot));
-    foreach (var (i, d) in s.value.ValueSlot) {
+    foreach (var (i, d) in range(s.value.ValueSlot)) {
         @out[i] = s.toString(d);
     }
     return @out;
@@ -107,7 +107,7 @@ internal static (any, error) ipSliceConv(@string val) {
     }
     var ss = strings.Split(val, ",");
     var @out = new slice<net.IP>(len(ss));
-    foreach (var (i, sval) in ss) {
+    foreach (var (i, sval) in range(ss)) {
         var ip = net.ParseIP(strings.TrimSpace(sval));
         if (ip == nil) {
             return (default, fmt.Errorf("invalid string being converted to IP address: %s"u8, sval));

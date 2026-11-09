@@ -15,10 +15,7 @@ internal static ж<ipValue> newIPValue(net.IP val, ж<net.IP> Ꮡp) {
     return Ꮡp.Reinterpret<net.IP, ipValue>();
 }
 
-internal static @string String(this ref ipValue i) {
-    return ((net.IP)(i)).String();
-}
-
+internal static @string String(this ref ipValue i) { return ((net.IP)(i)).String(); }
 internal static error Set(this ref ipValue i, @string s) {
     if (s == ""u8) {
         return default;

@@ -23,9 +23,7 @@ internal static @string Type(this ref durationValue d) {
     return "duration";
 }
 
-internal static @string String(this ж<durationValue> Ꮡd) {
-    return (Ꮡd.Reinterpret<durationValue, time.Duration>()).Value.String();
-}
+internal static @string String(this ж<durationValue> Ꮡd) { return (Ꮡd.Reinterpret<durationValue, time.Duration>()).Value.String(); }
 
 internal static (any, error) durationConv(@string sval) {
     var (ᴛ1, ᴛ2) = time.ParseDuration(sval);

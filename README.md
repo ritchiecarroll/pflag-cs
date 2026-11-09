@@ -15,7 +15,7 @@ This repository is not affiliated with or endorsed by the pflag maintainers, the
 ## NuGet
 
 Published as [`nugetgo.github.com.spf13.pflag`](https://www.nuget.org/packages/nugetgo.github.com.spf13.pflag) 1.0.9,
-rebuilt as 1.0.9.2 from this repository's tag `nuget-1.0.9.2`. A rebuild of the same Go version adds a fourth,
+rebuilt as 1.0.9.3 from this repository's tag `nuget-1.0.9.3`. A rebuild of the same Go version adds a fourth,
 revision part: `1.0.9.N`, where N counts up from 1. The package holds one assembly, the module's root package.
 
 unofficial go2cs C# conversion of github.com/spf13/pflag v1.0.9, built on the Go 1.26.10 standard library; not
@@ -40,17 +40,17 @@ nearest `Directory.Build.targets` above its own directory, which is the root one
 
 ```
 cd pflag
-dotnet build github.com.spf13.pflag.csproj -c Release -p:GoStdLibVersion=1.26.10.2
+dotnet build github.com.spf13.pflag.csproj -c Release -p:GoStdLibVersion=1.26.10.3
 ```
 
-The restore takes the `go.*` packages from nuget.org. `-p:GoStdLibVersion=1.26.10.2` pins the go2cs standard-library
+The restore takes the `go.*` packages from nuget.org. `-p:GoStdLibVersion=1.26.10.3` pins the go2cs standard-library
 release the package was built against; without it the build takes the newest `1.26.*`.
 
 ## Provenance
 
-Converted with `go2cs -recurse=nuget -platforms linux/amd64` at go2cs commit `1ca308d85f`, the go.* 1.26.10.2
+Converted with `go2cs -recurse=nuget -platforms linux/amd64` at go2cs commit `e1761e9a17`, the go.* 1.26.10.3
 release record, whose runtime, source generators and nugetgo tools it carries unchanged, and built and packed with
-the .NET SDK 10.0.112. The module's Go tests
+the .NET SDK 10.0.403. The module's Go tests
 were converted and compared at the same commit: 177 matched, 0 disclosed. The package ships that report as
 `VALIDATION.md`.
 

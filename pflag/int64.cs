@@ -23,9 +23,7 @@ internal static @string Type(this ref int64Value i) {
     return "int64";
 }
 
-internal static @string String(this ref int64Value i) {
-    return strconv.FormatInt((int64)(i), 10);
-}
+internal static @string String(this ref int64Value i) { return strconv.FormatInt((int64)(i), 10); }
 
 internal static (any, error) int64Conv(@string sval) {
     var (ᴛ1, ᴛ2) = strconv.ParseInt(sval, 0, 64);

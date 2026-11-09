@@ -15,10 +15,7 @@ internal static ж<ipMaskValue> newIPMaskValue(net.IPMask val, ж<net.IPMask> �
     return Ꮡp.Reinterpret<net.IPMask, ipMaskValue>();
 }
 
-internal static @string String(this ref ipMaskValue i) {
-    return ((net.IPMask)(i)).String();
-}
-
+internal static @string String(this ref ipMaskValue i) { return ((net.IPMask)(i)).String(); }
 internal static error Set(this ref ipMaskValue i, @string s) {
     var ip = ParseIPv4Mask(s);
     if (ip == nil) {

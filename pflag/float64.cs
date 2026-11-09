@@ -23,9 +23,7 @@ internal static @string Type(this ref float64Value f) {
     return "float64";
 }
 
-internal static @string String(this ref float64Value f) {
-    return strconv.FormatFloat((float64)(f), (byte)'g', -1, 64);
-}
+internal static @string String(this ref float64Value f) { return strconv.FormatFloat((float64)(f), (byte)'g', -1, 64); }
 
 internal static (any, error) float64Conv(@string sval) {
     var (ᴛ1, ᴛ2) = strconv.ParseFloat(sval, 64);

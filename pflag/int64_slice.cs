@@ -21,7 +21,7 @@ internal static ж<int64SliceValue> newInt64SliceValue(slice<int64> val, ж<slic
 internal static error Set(this ref int64SliceValue s, @string val) {
     var ss = strings.Split(val, ",");
     var @out = new slice<int64>(len(ss));
-    foreach (var (i, d) in ss) {
+    foreach (var (i, d) in range(ss)) {
         error err = default;
         (@out[i], err) = strconv.ParseInt(d, 0, 64);
         if (err != nil) {
@@ -43,7 +43,7 @@ internal static @string Type(this ref int64SliceValue s) {
 
 internal static @string String(this ref int64SliceValue s) {
     var @out = new slice<@string>(len(s.value.ValueSlot));
-    foreach (var (i, d) in s.value.ValueSlot) {
+    foreach (var (i, d) in range(s.value.ValueSlot)) {
         @out[i] = fmt.Sprintf("%d"u8, d);
     }
     return "["u8 + strings.Join(@out, ",") + "]"u8;
@@ -68,7 +68,7 @@ internal static error Append(this ref int64SliceValue s, @string val) {
 
 internal static error Replace(this ref int64SliceValue s, slice<@string> val) {
     var @out = new slice<int64>(len(val));
-    foreach (var (i, d) in val) {
+    foreach (var (i, d) in range(val)) {
         error err = default;
         (@out[i], err) = s.fromString(d);
         if (err != nil) {
@@ -81,7 +81,7 @@ internal static error Replace(this ref int64SliceValue s, slice<@string> val) {
 
 internal static slice<@string> GetSlice(this ref int64SliceValue s) {
     var @out = new slice<@string>(len(s.value.ValueSlot));
-    foreach (var (i, d) in s.value.ValueSlot) {
+    foreach (var (i, d) in range(s.value.ValueSlot)) {
         @out[i] = s.toString(d);
     }
     return @out;
@@ -94,7 +94,7 @@ internal static (any, error) int64SliceConv(@string val) {
     }
     var ss = strings.Split(val, ",");
     var @out = new slice<int64>(len(ss));
-    foreach (var (i, d) in ss) {
+    foreach (var (i, d) in range(ss)) {
         error err = default;
         (@out[i], err) = strconv.ParseInt(d, 0, 64);
         if (err != nil) {

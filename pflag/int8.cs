@@ -23,9 +23,7 @@ internal static @string Type(this ref int8Value i) {
     return "int8";
 }
 
-internal static @string String(this ref int8Value i) {
-    return strconv.FormatInt((int64)(i), 10);
-}
+internal static @string String(this ref int8Value i) { return strconv.FormatInt((int64)(i), 10); }
 
 internal static (any, error) int8Conv(@string sval) {
     var (v, err) = strconv.ParseInt(sval, 0, 8);

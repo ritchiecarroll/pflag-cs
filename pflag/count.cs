@@ -27,9 +27,7 @@ internal static @string Type(this ref countValue i) {
     return "count";
 }
 
-internal static @string String(this ref countValue i) {
-    return strconv.Itoa((nint)(i));
-}
+internal static @string String(this ref countValue i) { return strconv.Itoa((nint)(i)); }
 
 internal static (any, error) countConv(@string sval) {
     var (i, err) = strconv.Atoi(sval);
