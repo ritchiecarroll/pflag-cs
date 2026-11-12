@@ -1,5 +1,7 @@
 # pflag
 
+[![converted by go2cs](https://go2cs.net/images/go2cs-badge.svg)](https://go2cs.net)
+
 An unofficial C# conversion of the Go module [`github.com/spf13/pflag`](https://github.com/spf13/pflag), produced by [go2cs](https://github.com/ritchiecarroll/go2cs) as a proof of its third-party conversion path.
 
 This repository is not affiliated with or endorsed by the pflag maintainers, the authors of `github.com/spf13/pflag`, or the Go project. Go users should use the upstream module.
