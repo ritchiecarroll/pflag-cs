@@ -1,6 +1,7 @@
 namespace go.github.com.spf13;
 
 using fmt = fmt_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -17,6 +18,8 @@ partial struct NotExistError {
     internal @string specifiedShorthands;
     internal notExistErrorMessageType messageType;
 }
+
+} partial class pflagᴛNotExistError {
 
 public static @string Error(this ref NotExistError e) {
     switch (e.messageType) {
@@ -48,11 +51,15 @@ public static @string GetSpecifiedShortnames(this ref NotExistError e) {
     return e.specifiedShorthands;
 }
 
+} partial class pflag_package {
+
 partial struct ValueRequiredError {
     internal ж<Flag> flag;
     internal @string specifiedName;
     internal @string specifiedShorthands;
 }
+
+} partial class pflagᴛValueRequiredError {
 
 public static @string Error(this ref ValueRequiredError e) {
     if (len(e.specifiedShorthands) > 0) {
@@ -75,11 +82,15 @@ public static @string GetSpecifiedShortnames(this ref ValueRequiredError e) {
     return e.specifiedShorthands;
 }
 
+} partial class pflag_package {
+
 partial struct InvalidValueError {
     internal ж<Flag> flag;
     internal @string value;
     internal error cause;
 }
+
+} partial class pflagᴛInvalidValueError {
 
 public static @string Error(this ref InvalidValueError e) {
     var flag = e.flag;
@@ -104,9 +115,13 @@ public static @string GetValue(this ref InvalidValueError e) {
     return e.value;
 }
 
+} partial class pflag_package {
+
 partial struct InvalidSyntaxError {
     internal @string specifiedFlag;
 }
+
+} partial class pflagᴛInvalidSyntaxError {
 
 public static @string Error(this ref InvalidSyntaxError e) {
     return fmt.Sprintf("bad flag syntax: %s"u8, e.specifiedFlag);
@@ -116,4 +131,4 @@ public static @string GetSpecifiedFlag(this ref InvalidSyntaxError e) {
     return e.specifiedFlag;
 }
 
-} // end pflag_package
+} // end pflagᴛInvalidSyntaxError

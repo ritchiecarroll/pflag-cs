@@ -7,6 +7,7 @@ using sort = sort_package;
 using strings = strings_package;
 using go.encoding;
 using io = io_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -21,6 +22,8 @@ internal static ж<stringToStringValue> newStringToStringValue(map<@string, @str
     ssv.value.ValueSlot = val;
     return ssv;
 }
+
+} partial class pflagᴛstringToStringValue {
 
 internal static error Set(this ref stringToStringValue s, @string val) {
     var ssᴷ = new stackAppend<@string>();
@@ -93,6 +96,8 @@ internal static @string String(this ref stringToStringValue s) {
     return "["u8 + strings.TrimSpace(Ꮡbuf.String()) + "]"u8;
 }
 
+} partial class pflag_package {
+
 internal static (any, error) stringToStringConv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
@@ -114,6 +119,8 @@ internal static (any, error) stringToStringConv(@string val) {
     return (@out, default);
 }
 
+} partial class pflagᴛFlagSet {
+
 public static (map<@string, @string>, error) GetStringToString(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "stringToString", stringToStringConv);
     if (err != nil) {
@@ -130,6 +137,8 @@ public static void StringToStringVarP(this ж<FlagSet> Ꮡf, ж<map<@string, @st
     Ꮡf.VarP(new stringToStringValueжValue(newStringToStringValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void StringToStringVar(ж<map<@string, @string>> p, @string name, map<@string, @string> value, @string usage) {
     CommandLine.VarP(new stringToStringValueжValue(newStringToStringValue(value, p)), name, "", usage);
 }
@@ -137,6 +146,8 @@ public static void StringToStringVar(ж<map<@string, @string>> p, @string name, 
 public static void StringToStringVarP(ж<map<@string, @string>> p, @string name, @string shorthand, map<@string, @string> value, @string usage) {
     CommandLine.VarP(new stringToStringValueжValue(newStringToStringValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<map<@string, @string>> StringToString(this ж<FlagSet> Ꮡf, @string name, map<@string, @string> value, @string usage) {
     ref var p = ref heap<map<@string, @string>>(new map<@string, @string>{}, out var Ꮡp);
@@ -149,6 +160,8 @@ public static ж<map<@string, @string>> StringToStringP(this ж<FlagSet> Ꮡf, @
     Ꮡf.StringToStringVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }
+
+} partial class pflag_package {
 
 public static ж<map<@string, @string>> StringToString(@string name, map<@string, @string> value, @string usage) {
     return CommandLine.StringToStringP(name, "", value, usage);

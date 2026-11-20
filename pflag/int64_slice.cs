@@ -3,6 +3,7 @@ namespace go.github.com.spf13;
 using fmt = fmt_package;
 using strconv = strconv_package;
 using strings = strings_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -17,6 +18,8 @@ internal static ж<int64SliceValue> newInt64SliceValue(slice<int64> val, ж<slic
     isv.value.ValueSlot = val;
     return isv;
 }
+
+} partial class pflagᴛint64SliceValue {
 
 internal static error Set(this ref int64SliceValue s, @string val) {
     var ss = strings.Split(val, ",");
@@ -87,6 +90,8 @@ internal static slice<@string> GetSlice(this ref int64SliceValue s) {
     return @out;
 }
 
+} partial class pflag_package {
+
 internal static (any, error) int64SliceConv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
@@ -104,6 +109,8 @@ internal static (any, error) int64SliceConv(@string val) {
     return (@out, default);
 }
 
+} partial class pflagᴛFlagSet {
+
 public static (slice<int64>, error) GetInt64Slice(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "int64Slice", int64SliceConv);
     if (err != nil) {
@@ -120,6 +127,8 @@ public static void Int64SliceVarP(this ж<FlagSet> Ꮡf, ж<slice<int64>> p, @st
     Ꮡf.VarP(new int64SliceValueжValue(newInt64SliceValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void Int64SliceVar(ж<slice<int64>> p, @string name, slice<int64> value, @string usage) {
     CommandLine.VarP(new int64SliceValueжValue(newInt64SliceValue(value, p)), name, "", usage);
 }
@@ -127,6 +136,8 @@ public static void Int64SliceVar(ж<slice<int64>> p, @string name, slice<int64> 
 public static void Int64SliceVarP(ж<slice<int64>> p, @string name, @string shorthand, slice<int64> value, @string usage) {
     CommandLine.VarP(new int64SliceValueжValue(newInt64SliceValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<slice<int64>> Int64Slice(this ж<FlagSet> Ꮡf, @string name, slice<int64> value, @string usage) {
     ref var p = ref heap<slice<int64>>(slice<int64>([]), out var Ꮡp);
@@ -139,6 +150,8 @@ public static ж<slice<int64>> Int64SliceP(this ж<FlagSet> Ꮡf, @string name, 
     Ꮡf.Int64SliceVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }
+
+} partial class pflag_package {
 
 public static ж<slice<int64>> Int64Slice(@string name, slice<int64> value, @string usage) {
     return CommandLine.Int64SliceP(name, "", value, usage);

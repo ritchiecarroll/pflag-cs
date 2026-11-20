@@ -9,6 +9,7 @@ using reflect = reflect_package;
 using strings = strings_package;
 using time = time_package;
 using flag = flag_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -41,13 +42,15 @@ internal static Value wrapFlagValue(goflag.Value v) {
     ));
 
     var t = reflect.TypeOf(v);
-    if (t.Kind() == reflect.ΔInterface || t.Kind() == reflect.Ptr) {
+    if (t.Kind() == reflect.Interface || t.Kind() == reflect.Ptr) {
         t = t.Elem();
     }
 
     pv.flagType = strings.TrimSuffix(t.Name(), "Value");
     return new flagValueWrapperжValue(pv);
 }
+
+} partial class pflagᴛflagValueWrapper {
 
 internal static @string String(this ref flagValueWrapper v) {
     return v.inner.String();
@@ -60,6 +63,8 @@ internal static error Set(this ref flagValueWrapper v, @string s) {
 internal static @string Type(this ref flagValueWrapper v) {
     return v.flagType;
 }
+
+} partial class pflag_package {
 
 public static ж<Flag> PFlagFromGoFlag(ж<goflag.Flag> Ꮡgoflag) {
     ref var goflagΔ1 = ref Ꮡgoflag.DerefOrNull();
@@ -78,6 +83,8 @@ public static ж<Flag> PFlagFromGoFlag(ж<goflag.Flag> Ꮡgoflag) {
     }
     return flag;
 }
+
+} partial class pflagᴛFlagSet {
 
 public static void AddGoFlag(this ж<FlagSet> Ꮡf, ж<goflag.Flag> Ꮡgoflag) {
     ref var goflagΔ1 = ref Ꮡgoflag.DerefOrNull();
@@ -148,6 +155,8 @@ public static void CopyToGoFlagSet(this ref FlagSet f, ж<goflag.FlagSet> newSet
         }}
     });
 }
+
+} partial class pflag_package {
 
 public static error ParseSkippedFlags(slice<@string> osArgs, ж<goflag.FlagSet> goFlagSet) {
     slice<@string> skippedFlags = default;

@@ -1,6 +1,7 @@
 namespace go.github.com.spf13;
 
 using strconv = strconv_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -12,6 +13,8 @@ internal static ж<float64Value> newFloat64Value(float64 val, ж<float64> Ꮡp) 
     p = val;
     return Ꮡp.Reinterpret<float64, float64Value>();
 }
+
+} partial class pflagᴛfloat64Value {
 
 internal static error Set(this ref float64Value f, @string s) {
     var (v, err) = strconv.ParseFloat(s, 64);
@@ -25,10 +28,14 @@ internal static @string Type(this ref float64Value f) {
 
 internal static @string String(this ref float64Value f) { return strconv.FormatFloat((float64)(f), (byte)'g', -1, 64); }
 
+} partial class pflag_package {
+
 internal static (any, error) float64Conv(@string sval) {
     var (ᴛ1, ᴛ2) = strconv.ParseFloat(sval, 64);
     return (ᴛ1, ᴛ2);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (float64, error) GetFloat64(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "float64", float64Conv);
@@ -46,6 +53,8 @@ public static void Float64VarP(this ж<FlagSet> Ꮡf, ж<float64> p, @string nam
     Ꮡf.VarP(new float64ValueжValue(newFloat64Value(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void Float64Var(ж<float64> p, @string name, float64 value, @string usage) {
     CommandLine.VarP(new float64ValueжValue(newFloat64Value(value, p)), name, "", usage);
 }
@@ -53,6 +62,8 @@ public static void Float64Var(ж<float64> p, @string name, float64 value, @strin
 public static void Float64VarP(ж<float64> p, @string name, @string shorthand, float64 value, @string usage) {
     CommandLine.VarP(new float64ValueжValue(newFloat64Value(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<float64> Float64(this ж<FlagSet> Ꮡf, @string name, float64 value, @string usage) {
     var p = @new<float64>();
@@ -65,6 +76,8 @@ public static ж<float64> Float64P(this ж<FlagSet> Ꮡf, @string name, @string 
     Ꮡf.Float64VarP(p, name, shorthand, value, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<float64> Float64(@string name, float64 value, @string usage) {
     return CommandLine.Float64P(name, "", value, usage);

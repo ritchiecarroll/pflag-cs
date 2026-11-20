@@ -4,6 +4,7 @@ using bytes = bytes_package;
 using fmt = fmt_package;
 using strconv = strconv_package;
 using strings = strings_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -18,6 +19,8 @@ internal static ж<stringToIntValue> newStringToIntValue(map<@string, nint> val,
     ssv.value.ValueSlot = val;
     return ssv;
 }
+
+} partial class pflagᴛstringToIntValue {
 
 internal static error Set(this ref stringToIntValue s, @string val) {
     var ss = strings.Split(val, ",");
@@ -63,6 +66,8 @@ internal static @string String(this ref stringToIntValue s) {
     return "["u8 + Ꮡbuf.String() + "]"u8;
 }
 
+} partial class pflag_package {
+
 internal static (any, error) stringToIntConv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
@@ -84,6 +89,8 @@ internal static (any, error) stringToIntConv(@string val) {
     return (@out, default);
 }
 
+} partial class pflagᴛFlagSet {
+
 public static (map<@string, nint>, error) GetStringToInt(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "stringToInt", stringToIntConv);
     if (err != nil) {
@@ -100,6 +107,8 @@ public static void StringToIntVarP(this ж<FlagSet> Ꮡf, ж<map<@string, nint>>
     Ꮡf.VarP(new stringToIntValueжValue(newStringToIntValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void StringToIntVar(ж<map<@string, nint>> p, @string name, map<@string, nint> value, @string usage) {
     CommandLine.VarP(new stringToIntValueжValue(newStringToIntValue(value, p)), name, "", usage);
 }
@@ -107,6 +116,8 @@ public static void StringToIntVar(ж<map<@string, nint>> p, @string name, map<@s
 public static void StringToIntVarP(ж<map<@string, nint>> p, @string name, @string shorthand, map<@string, nint> value, @string usage) {
     CommandLine.VarP(new stringToIntValueжValue(newStringToIntValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<map<@string, nint>> StringToInt(this ж<FlagSet> Ꮡf, @string name, map<@string, nint> value, @string usage) {
     ref var p = ref heap<map<@string, nint>>(new map<@string, nint>{}, out var Ꮡp);
@@ -119,6 +130,8 @@ public static ж<map<@string, nint>> StringToIntP(this ж<FlagSet> Ꮡf, @string
     Ꮡf.StringToIntVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }
+
+} partial class pflag_package {
 
 public static ж<map<@string, nint>> StringToInt(@string name, map<@string, nint> value, @string usage) {
     return CommandLine.StringToIntP(name, "", value, usage);

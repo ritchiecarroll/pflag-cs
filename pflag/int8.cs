@@ -1,6 +1,7 @@
 namespace go.github.com.spf13;
 
 using strconv = strconv_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -12,6 +13,8 @@ internal static ж<int8Value> newInt8Value(int8 val, ж<int8> Ꮡp) {
     p = val;
     return Ꮡp.Reinterpret<int8, int8Value>();
 }
+
+} partial class pflagᴛint8Value {
 
 internal static error Set(this ref int8Value i, @string s) {
     var (v, err) = strconv.ParseInt(s, 0, 8);
@@ -25,6 +28,8 @@ internal static @string Type(this ref int8Value i) {
 
 internal static @string String(this ref int8Value i) { return strconv.FormatInt((int64)(i), 10); }
 
+} partial class pflag_package {
+
 internal static (any, error) int8Conv(@string sval) {
     var (v, err) = strconv.ParseInt(sval, 0, 8);
     if (err != nil) {
@@ -32,6 +37,8 @@ internal static (any, error) int8Conv(@string sval) {
     }
     return ((int8)v, default);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (int8, error) GetInt8(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "int8", int8Conv);
@@ -49,6 +56,8 @@ public static void Int8VarP(this ж<FlagSet> Ꮡf, ж<int8> p, @string name, @st
     Ꮡf.VarP(new int8ValueжValue(newInt8Value(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void Int8Var(ж<int8> p, @string name, int8 value, @string usage) {
     CommandLine.VarP(new int8ValueжValue(newInt8Value(value, p)), name, "", usage);
 }
@@ -56,6 +65,8 @@ public static void Int8Var(ж<int8> p, @string name, int8 value, @string usage) 
 public static void Int8VarP(ж<int8> p, @string name, @string shorthand, int8 value, @string usage) {
     CommandLine.VarP(new int8ValueжValue(newInt8Value(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<int8> Int8(this ж<FlagSet> Ꮡf, @string name, int8 value, @string usage) {
     var p = @new<int8>();
@@ -68,6 +79,8 @@ public static ж<int8> Int8P(this ж<FlagSet> Ꮡf, @string name, @string shorth
     Ꮡf.Int8VarP(p, name, shorthand, value, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<int8> Int8(@string name, int8 value, @string usage) {
     return CommandLine.Int8P(name, "", value, usage);

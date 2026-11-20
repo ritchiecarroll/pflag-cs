@@ -1,6 +1,7 @@
 namespace go.github.com.spf13;
 
 using strconv = strconv_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -12,6 +13,8 @@ internal static ж<uint32Value> newUint32Value(uint32 val, ж<uint32> Ꮡp) {
     p = val;
     return Ꮡp.Reinterpret<uint32, uint32Value>();
 }
+
+} partial class pflagᴛuint32Value {
 
 internal static error Set(this ref uint32Value i, @string s) {
     var (v, err) = strconv.ParseUint(s, 0, 32);
@@ -25,6 +28,8 @@ internal static @string Type(this ref uint32Value i) {
 
 internal static @string String(this ref uint32Value i) { return strconv.FormatUint((uint64)(i), 10); }
 
+} partial class pflag_package {
+
 internal static (any, error) uint32Conv(@string sval) {
     var (v, err) = strconv.ParseUint(sval, 0, 32);
     if (err != nil) {
@@ -32,6 +37,8 @@ internal static (any, error) uint32Conv(@string sval) {
     }
     return ((uint32)v, default);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (uint32, error) GetUint32(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "uint32", uint32Conv);
@@ -49,6 +56,8 @@ public static void Uint32VarP(this ж<FlagSet> Ꮡf, ж<uint32> p, @string name,
     Ꮡf.VarP(new uint32ValueжValue(newUint32Value(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void Uint32Var(ж<uint32> p, @string name, uint32 value, @string usage) {
     CommandLine.VarP(new uint32ValueжValue(newUint32Value(value, p)), name, "", usage);
 }
@@ -56,6 +65,8 @@ public static void Uint32Var(ж<uint32> p, @string name, uint32 value, @string u
 public static void Uint32VarP(ж<uint32> p, @string name, @string shorthand, uint32 value, @string usage) {
     CommandLine.VarP(new uint32ValueжValue(newUint32Value(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<uint32> Uint32(this ж<FlagSet> Ꮡf, @string name, uint32 value, @string usage) {
     var p = @new<uint32>();
@@ -68,6 +79,8 @@ public static ж<uint32> Uint32P(this ж<FlagSet> Ꮡf, @string name, @string sh
     Ꮡf.Uint32VarP(p, name, shorthand, value, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<uint32> Uint32(@string name, uint32 value, @string usage) {
     return CommandLine.Uint32P(name, "", value, usage);

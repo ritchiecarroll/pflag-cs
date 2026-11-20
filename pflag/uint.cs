@@ -1,6 +1,7 @@
 namespace go.github.com.spf13;
 
 using strconv = strconv_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -12,6 +13,8 @@ internal static ж<uintValue> newUintValue(nuint val, ж<nuint> Ꮡp) {
     p = val;
     return Ꮡp.Reinterpret<nuint, uintValue>();
 }
+
+} partial class pflagᴛuintValue {
 
 internal static error Set(this ref uintValue i, @string s) {
     var (v, err) = strconv.ParseUint(s, 0, 64);
@@ -25,6 +28,8 @@ internal static @string Type(this ref uintValue i) {
 
 internal static @string String(this ref uintValue i) { return strconv.FormatUint((uint64)(i), 10); }
 
+} partial class pflag_package {
+
 internal static (any, error) uintConv(@string sval) {
     var (v, err) = strconv.ParseUint(sval, 0, 0);
     if (err != nil) {
@@ -32,6 +37,8 @@ internal static (any, error) uintConv(@string sval) {
     }
     return ((nuint)v, default);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (nuint, error) GetUint(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "uint", uintConv);
@@ -49,6 +56,8 @@ public static void UintVarP(this ж<FlagSet> Ꮡf, ж<nuint> p, @string name, @s
     Ꮡf.VarP(new uintValueжValue(newUintValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void UintVar(ж<nuint> p, @string name, nuint value, @string usage) {
     CommandLine.VarP(new uintValueжValue(newUintValue(value, p)), name, "", usage);
 }
@@ -56,6 +65,8 @@ public static void UintVar(ж<nuint> p, @string name, nuint value, @string usage
 public static void UintVarP(ж<nuint> p, @string name, @string shorthand, nuint value, @string usage) {
     CommandLine.VarP(new uintValueжValue(newUintValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<nuint> Uint(this ж<FlagSet> Ꮡf, @string name, nuint value, @string usage) {
     var p = @new<nuint>();
@@ -68,6 +79,8 @@ public static ж<nuint> UintP(this ж<FlagSet> Ꮡf, @string name, @string short
     Ꮡf.UintVarP(p, name, shorthand, value, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<nuint> Uint(@string name, nuint value, @string usage) {
     return CommandLine.UintP(name, "", value, usage);

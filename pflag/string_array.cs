@@ -1,5 +1,7 @@
 namespace go.github.com.spf13;
 
+using static pflag_package;
+
 partial class pflag_package {
 
 partial struct stringArrayValue {
@@ -13,6 +15,8 @@ internal static ж<stringArrayValue> newStringArrayValue(slice<@string> val, ж<
     ssv.value.ValueSlot = val;
     return ssv;
 }
+
+} partial class pflagᴛstringArrayValue {
 
 internal static error Set(this ref stringArrayValue s, @string val) {
     if (!s.changed) {
@@ -55,6 +59,8 @@ internal static @string String(this ref stringArrayValue s) {
     return "["u8 + str + "]"u8;
 }
 
+} partial class pflag_package {
+
 internal static (any, error) stringArrayConv(@string sval) {
     sval = sval.slice(1, len(sval) - 1);
     if (len(sval) == 0) {
@@ -63,6 +69,8 @@ internal static (any, error) stringArrayConv(@string sval) {
     var (ᴛ1, ᴛ2) = readAsCSV(sval);
     return (ᴛ1, ᴛ2);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (slice<@string>, error) GetStringArray(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "stringArray", stringArrayConv);
@@ -80,6 +88,8 @@ public static void StringArrayVarP(this ж<FlagSet> Ꮡf, ж<slice<@string>> p, 
     Ꮡf.VarP(new stringArrayValueжValue(newStringArrayValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void StringArrayVar(ж<slice<@string>> p, @string name, slice<@string> value, @string usage) {
     CommandLine.VarP(new stringArrayValueжValue(newStringArrayValue(value, p)), name, "", usage);
 }
@@ -87,6 +97,8 @@ public static void StringArrayVar(ж<slice<@string>> p, @string name, slice<@str
 public static void StringArrayVarP(ж<slice<@string>> p, @string name, @string shorthand, slice<@string> value, @string usage) {
     CommandLine.VarP(new stringArrayValueжValue(newStringArrayValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<slice<@string>> StringArray(this ж<FlagSet> Ꮡf, @string name, slice<@string> value, @string usage) {
     ref var p = ref heap<slice<@string>>(slice<@string>([]), out var Ꮡp);
@@ -99,6 +111,8 @@ public static ж<slice<@string>> StringArrayP(this ж<FlagSet> Ꮡf, @string nam
     Ꮡf.StringArrayVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }
+
+} partial class pflag_package {
 
 public static ж<slice<@string>> StringArray(@string name, slice<@string> value, @string usage) {
     return CommandLine.StringArrayP(name, "", value, usage);

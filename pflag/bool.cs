@@ -1,6 +1,7 @@
 namespace go.github.com.spf13;
 
 using strconv = strconv_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -19,6 +20,8 @@ internal static ж<boolValue> newBoolValue(bool val, ж<bool> Ꮡp) {
     return Ꮡp.Reinterpret<bool, boolValue>();
 }
 
+} partial class pflagᴛboolValue {
+
 internal static error Set(this ref boolValue b, @string s) {
     var (v, err) = strconv.ParseBool(s);
     b = (boolValue)v;
@@ -33,10 +36,14 @@ internal static @string String(this ref boolValue b) { return strconv.FormatBool
 
 internal static bool IsBoolFlag(this ref boolValue b) { return true; }
 
+} partial class pflag_package {
+
 internal static (any, error) boolConv(@string sval) {
     var (ᴛ1, ᴛ2) = strconv.ParseBool(sval);
     return (ᴛ1, ᴛ2);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (bool, error) GetBool(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "bool", boolConv);
@@ -55,6 +62,8 @@ public static void BoolVarP(this ж<FlagSet> Ꮡf, ж<bool> p, @string name, @st
     flag.NoOptDefVal = "true";
 }
 
+} partial class pflag_package {
+
 public static void BoolVar(ж<bool> p, @string name, bool value, @string usage) {
     BoolVarP(p, name, "", value, usage);
 }
@@ -63,6 +72,8 @@ public static void BoolVarP(ж<bool> p, @string name, @string shorthand, bool va
     var flag = CommandLine.VarPF(new boolValueжValue(newBoolValue(value, p)), name, shorthand, usage);
     flag.NoOptDefVal = "true";
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<bool> Bool(this ж<FlagSet> Ꮡf, @string name, bool value, @string usage) {
     return Ꮡf.BoolP(name, "", value, usage);
@@ -73,6 +84,8 @@ public static ж<bool> BoolP(this ж<FlagSet> Ꮡf, @string name, @string shorth
     Ꮡf.BoolVarP(p, name, shorthand, value, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<bool> Bool(@string name, bool value, @string usage) {
     return BoolP(name, "", value, usage);

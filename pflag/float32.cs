@@ -1,6 +1,7 @@
 namespace go.github.com.spf13;
 
 using strconv = strconv_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -12,6 +13,8 @@ internal static ж<float32Value> newFloat32Value(float32 val, ж<float32> Ꮡp) 
     p = val;
     return Ꮡp.Reinterpret<float32, float32Value>();
 }
+
+} partial class pflagᴛfloat32Value {
 
 internal static error Set(this ref float32Value f, @string s) {
     var (v, err) = strconv.ParseFloat(s, 32);
@@ -25,6 +28,8 @@ internal static @string Type(this ref float32Value f) {
 
 internal static @string String(this ref float32Value f) { return strconv.FormatFloat((float64)(f), (byte)'g', -1, 32); }
 
+} partial class pflag_package {
+
 internal static (any, error) float32Conv(@string sval) {
     var (v, err) = strconv.ParseFloat(sval, 32);
     if (err != nil) {
@@ -32,6 +37,8 @@ internal static (any, error) float32Conv(@string sval) {
     }
     return ((float32)v, default);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (float32, error) GetFloat32(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "float32", float32Conv);
@@ -49,6 +56,8 @@ public static void Float32VarP(this ж<FlagSet> Ꮡf, ж<float32> p, @string nam
     Ꮡf.VarP(new float32ValueжValue(newFloat32Value(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void Float32Var(ж<float32> p, @string name, float32 value, @string usage) {
     CommandLine.VarP(new float32ValueжValue(newFloat32Value(value, p)), name, "", usage);
 }
@@ -56,6 +65,8 @@ public static void Float32Var(ж<float32> p, @string name, float32 value, @strin
 public static void Float32VarP(ж<float32> p, @string name, @string shorthand, float32 value, @string usage) {
     CommandLine.VarP(new float32ValueжValue(newFloat32Value(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<float32> Float32(this ж<FlagSet> Ꮡf, @string name, float32 value, @string usage) {
     var p = @new<float32>();
@@ -68,6 +79,8 @@ public static ж<float32> Float32P(this ж<FlagSet> Ꮡf, @string name, @string 
     Ꮡf.Float32VarP(p, name, shorthand, value, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<float32> Float32(@string name, float32 value, @string usage) {
     return CommandLine.Float32P(name, "", value, usage);

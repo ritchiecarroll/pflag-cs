@@ -3,6 +3,7 @@ namespace go.github.com.spf13;
 using fmt = fmt_package;
 using strings = strings_package;
 using time = time_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -20,6 +21,8 @@ internal static ж<timeValue> newTimeValue(time.Time val, ж<time.Time> Ꮡp, sl
         formats: formats
     ));
 }
+
+} partial class pflagᴛtimeValue {
 
 internal static error Set(this ref timeValue d, @string s) {
     s = strings.TrimSpace(s);
@@ -55,6 +58,8 @@ internal static @string String(this ref timeValue d) {
     }
 }
 
+} partial class pflagᴛFlagSet {
+
 public static (time.Time, error) GetTime(this ж<FlagSet> Ꮡf, @string name) {
     var flag = Ꮡf.Lookup(name);
     if (flag == nil) {
@@ -83,6 +88,8 @@ public static void TimeVarP(this ж<FlagSet> Ꮡf, ж<time.Time> p, @string name
     Ꮡf.VarP(new timeValueжValue(newTimeValue(value, p, formats)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void TimeVar(ж<time.Time> p, @string name, time.Time value, slice<@string> formats, @string usage) {
     CommandLine.TimeVarP(p, name, "", value, formats, usage);
 }
@@ -90,6 +97,8 @@ public static void TimeVar(ж<time.Time> p, @string name, time.Time value, slice
 public static void TimeVarP(ж<time.Time> p, @string name, @string shorthand, time.Time value, slice<@string> formats, @string usage) {
     CommandLine.VarP(new timeValueжValue(newTimeValue(value, p, formats)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<time.Time> Time(this ж<FlagSet> Ꮡf, @string name, time.Time value, slice<@string> formats, @string usage) {
     return Ꮡf.TimeP(name, "", value, formats, usage);
@@ -100,6 +109,8 @@ public static ж<time.Time> TimeP(this ж<FlagSet> Ꮡf, @string name, @string s
     Ꮡf.TimeVarP(p, name, shorthand, value, formats, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<time.Time> Time(@string name, time.Time value, slice<@string> formats, @string usage) {
     return CommandLine.TimeP(name, "", value, formats, usage);

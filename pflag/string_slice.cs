@@ -5,6 +5,7 @@ using csv = go.encoding.csv_package;
 using strings = strings_package;
 using go.encoding;
 using io = io_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -39,6 +40,8 @@ internal static (@string, error) writeAsCSV(slice<@string> vals) {
     w.Flush();
     return (strings.TrimSuffix(b.String(), "\n"), default);
 }
+
+} partial class pflagᴛstringSliceValue {
 
 internal static error Set(this ref stringSliceValue s, @string val) {
     var (v, err) = readAsCSV(val);
@@ -77,6 +80,8 @@ internal static slice<@string> GetSlice(this ref stringSliceValue s) {
     return s.value.ValueSlot;
 }
 
+} partial class pflag_package {
+
 internal static (any, error) stringSliceConv(@string sval) {
     sval = sval.slice(1, len(sval) - 1);
     if (len(sval) == 0) {
@@ -85,6 +90,8 @@ internal static (any, error) stringSliceConv(@string sval) {
     var (ᴛ1, ᴛ2) = readAsCSV(sval);
     return (ᴛ1, ᴛ2);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (slice<@string>, error) GetStringSlice(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "stringSlice", stringSliceConv);
@@ -102,6 +109,8 @@ public static void StringSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<@string>> p, 
     Ꮡf.VarP(new stringSliceValueжValue(newStringSliceValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void StringSliceVar(ж<slice<@string>> p, @string name, slice<@string> value, @string usage) {
     CommandLine.VarP(new stringSliceValueжValue(newStringSliceValue(value, p)), name, "", usage);
 }
@@ -109,6 +118,8 @@ public static void StringSliceVar(ж<slice<@string>> p, @string name, slice<@str
 public static void StringSliceVarP(ж<slice<@string>> p, @string name, @string shorthand, slice<@string> value, @string usage) {
     CommandLine.VarP(new stringSliceValueжValue(newStringSliceValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<slice<@string>> StringSlice(this ж<FlagSet> Ꮡf, @string name, slice<@string> value, @string usage) {
     ref var p = ref heap<slice<@string>>(slice<@string>([]), out var Ꮡp);
@@ -121,6 +132,8 @@ public static ж<slice<@string>> StringSliceP(this ж<FlagSet> Ꮡf, @string nam
     Ꮡf.StringSliceVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }
+
+} partial class pflag_package {
 
 public static ж<slice<@string>> StringSlice(@string name, slice<@string> value, @string usage) {
     return CommandLine.StringSliceP(name, "", value, usage);

@@ -3,6 +3,7 @@ namespace go.github.com.spf13;
 using io = io_package;
 using strconv = strconv_package;
 using strings = strings_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -17,6 +18,8 @@ internal static ж<boolSliceValue> newBoolSliceValue(slice<bool> val, ж<slice<b
     bsv.value.ValueSlot = val;
     return bsv;
 }
+
+} partial class pflagᴛboolSliceValue {
 
 internal static error Set(this ref boolSliceValue s, @string val) {
     var rmQuote = strings.NewReplacer(@"""", "", @"'", "", "`", "");
@@ -99,6 +102,8 @@ internal static slice<@string> GetSlice(this ref boolSliceValue s) {
     return @out;
 }
 
+} partial class pflag_package {
+
 internal static (any, error) boolSliceConv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
@@ -116,6 +121,8 @@ internal static (any, error) boolSliceConv(@string val) {
     return (@out, default);
 }
 
+} partial class pflagᴛFlagSet {
+
 public static (slice<bool>, error) GetBoolSlice(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "boolSlice", boolSliceConv);
     if (err != nil) {
@@ -132,6 +139,8 @@ public static void BoolSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<bool>> p, @stri
     Ꮡf.VarP(new boolSliceValueжValue(newBoolSliceValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void BoolSliceVar(ж<slice<bool>> p, @string name, slice<bool> value, @string usage) {
     CommandLine.VarP(new boolSliceValueжValue(newBoolSliceValue(value, p)), name, "", usage);
 }
@@ -139,6 +148,8 @@ public static void BoolSliceVar(ж<slice<bool>> p, @string name, slice<bool> val
 public static void BoolSliceVarP(ж<slice<bool>> p, @string name, @string shorthand, slice<bool> value, @string usage) {
     CommandLine.VarP(new boolSliceValueжValue(newBoolSliceValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<slice<bool>> BoolSlice(this ж<FlagSet> Ꮡf, @string name, slice<bool> value, @string usage) {
     ref var p = ref heap<slice<bool>>(slice<bool>([]), out var Ꮡp);
@@ -151,6 +162,8 @@ public static ж<slice<bool>> BoolSliceP(this ж<FlagSet> Ꮡf, @string name, @s
     Ꮡf.BoolSliceVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }
+
+} partial class pflag_package {
 
 public static ж<slice<bool>> BoolSlice(@string name, slice<bool> value, @string usage) {
     return CommandLine.BoolSliceP(name, "", value, usage);

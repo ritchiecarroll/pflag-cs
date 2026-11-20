@@ -3,6 +3,7 @@ namespace go.github.com.spf13;
 using fmt = fmt_package;
 using net = net_package;
 using strings = strings_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -14,6 +15,8 @@ internal static ж<ipValue> newIPValue(net.IP val, ж<net.IP> Ꮡp) {
     p = val;
     return Ꮡp.Reinterpret<net.IP, ipValue>();
 }
+
+} partial class pflagᴛipValue {
 
 internal static @string String(this ref ipValue i) { return ((net.IP)(i)).String(); }
 internal static error Set(this ref ipValue i, @string s) {
@@ -32,6 +35,8 @@ internal static @string Type(this ref ipValue i) {
     return "ip";
 }
 
+} partial class pflag_package {
+
 internal static (any, error) ipConv(@string sval) {
     var ip = net.ParseIP(sval);
     if (ip != nil) {
@@ -39,6 +44,8 @@ internal static (any, error) ipConv(@string sval) {
     }
     return (default, fmt.Errorf("invalid string being converted to IP address: %s"u8, sval));
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (net.IP, error) GetIP(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "ip", ipConv);
@@ -56,6 +63,8 @@ public static void IPVarP(this ж<FlagSet> Ꮡf, ж<net.IP> p, @string name, @st
     Ꮡf.VarP(new ipValueжValue(newIPValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void IPVar(ж<net.IP> p, @string name, net.IP value, @string usage) {
     CommandLine.VarP(new ipValueжValue(newIPValue(value, p)), name, "", usage);
 }
@@ -63,6 +72,8 @@ public static void IPVar(ж<net.IP> p, @string name, net.IP value, @string usage
 public static void IPVarP(ж<net.IP> p, @string name, @string shorthand, net.IP value, @string usage) {
     CommandLine.VarP(new ipValueжValue(newIPValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<net.IP> IP(this ж<FlagSet> Ꮡf, @string name, net.IP value, @string usage) {
     var p = @new<net.IP>();
@@ -75,6 +86,8 @@ public static ж<net.IP> IPP(this ж<FlagSet> Ꮡf, @string name, @string shorth
     Ꮡf.IPVarP(p, name, shorthand, value, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<net.IP> IP(@string name, net.IP value, @string usage) {
     return CommandLine.IPP(name, "", value, usage);

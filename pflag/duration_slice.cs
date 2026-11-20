@@ -3,6 +3,7 @@ namespace go.github.com.spf13;
 using fmt = fmt_package;
 using strings = strings_package;
 using time = time_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -17,6 +18,8 @@ internal static ж<durationSliceValue> newDurationSliceValue(slice<time.Duration
     dsv.value.ValueSlot = val;
     return dsv;
 }
+
+} partial class pflagᴛdurationSliceValue {
 
 internal static error Set(this ref durationSliceValue s, @string val) {
     var ss = strings.Split(val, ",");
@@ -87,6 +90,8 @@ internal static slice<@string> GetSlice(this ref durationSliceValue s) {
     return @out;
 }
 
+} partial class pflag_package {
+
 internal static (any, error) durationSliceConv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
@@ -104,6 +109,8 @@ internal static (any, error) durationSliceConv(@string val) {
     return (@out, default);
 }
 
+} partial class pflagᴛFlagSet {
+
 public static (slice<time.Duration>, error) GetDurationSlice(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "durationSlice", durationSliceConv);
     if (err != nil) {
@@ -120,6 +127,8 @@ public static void DurationSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<time.Durati
     Ꮡf.VarP(new durationSliceValueжValue(newDurationSliceValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void DurationSliceVar(ж<slice<time.Duration>> p, @string name, slice<time.Duration> value, @string usage) {
     CommandLine.VarP(new durationSliceValueжValue(newDurationSliceValue(value, p)), name, "", usage);
 }
@@ -127,6 +136,8 @@ public static void DurationSliceVar(ж<slice<time.Duration>> p, @string name, sl
 public static void DurationSliceVarP(ж<slice<time.Duration>> p, @string name, @string shorthand, slice<time.Duration> value, @string usage) {
     CommandLine.VarP(new durationSliceValueжValue(newDurationSliceValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<slice<time.Duration>> DurationSlice(this ж<FlagSet> Ꮡf, @string name, slice<time.Duration> value, @string usage) {
     ref var p = ref heap<slice<time.Duration>>(slice<time.Duration>([]), out var Ꮡp);
@@ -139,6 +150,8 @@ public static ж<slice<time.Duration>> DurationSliceP(this ж<FlagSet> Ꮡf, @st
     Ꮡf.DurationSliceVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }
+
+} partial class pflag_package {
 
 public static ж<slice<time.Duration>> DurationSlice(@string name, slice<time.Duration> value, @string usage) {
     return CommandLine.DurationSliceP(name, "", value, usage);

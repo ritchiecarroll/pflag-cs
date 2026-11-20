@@ -3,6 +3,7 @@ namespace go.github.com.spf13;
 using fmt = fmt_package;
 using strconv = strconv_package;
 using strings = strings_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -17,6 +18,8 @@ internal static ж<float32SliceValue> newFloat32SliceValue(slice<float32> val, �
     isv.value.ValueSlot = val;
     return isv;
 }
+
+} partial class pflagᴛfloat32SliceValue {
 
 internal static error Set(this ref float32SliceValue s, @string val) {
     var ss = strings.Split(val, ",");
@@ -93,6 +96,8 @@ internal static slice<@string> GetSlice(this ref float32SliceValue s) {
     return @out;
 }
 
+} partial class pflag_package {
+
 internal static (any, error) float32SliceConv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
@@ -112,6 +117,8 @@ internal static (any, error) float32SliceConv(@string val) {
     return (@out, default);
 }
 
+} partial class pflagᴛFlagSet {
+
 public static (slice<float32>, error) GetFloat32Slice(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "float32Slice", float32SliceConv);
     if (err != nil) {
@@ -128,6 +135,8 @@ public static void Float32SliceVarP(this ж<FlagSet> Ꮡf, ж<slice<float32>> p,
     Ꮡf.VarP(new float32SliceValueжValue(newFloat32SliceValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void Float32SliceVar(ж<slice<float32>> p, @string name, slice<float32> value, @string usage) {
     CommandLine.VarP(new float32SliceValueжValue(newFloat32SliceValue(value, p)), name, "", usage);
 }
@@ -135,6 +144,8 @@ public static void Float32SliceVar(ж<slice<float32>> p, @string name, slice<flo
 public static void Float32SliceVarP(ж<slice<float32>> p, @string name, @string shorthand, slice<float32> value, @string usage) {
     CommandLine.VarP(new float32SliceValueжValue(newFloat32SliceValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<slice<float32>> Float32Slice(this ж<FlagSet> Ꮡf, @string name, slice<float32> value, @string usage) {
     ref var p = ref heap<slice<float32>>(slice<float32>([]), out var Ꮡp);
@@ -147,6 +158,8 @@ public static ж<slice<float32>> Float32SliceP(this ж<FlagSet> Ꮡf, @string na
     Ꮡf.Float32SliceVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }
+
+} partial class pflag_package {
 
 public static ж<slice<float32>> Float32Slice(@string name, slice<float32> value, @string usage) {
     return CommandLine.Float32SliceP(name, "", value, usage);

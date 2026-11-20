@@ -4,6 +4,7 @@ using fmt = fmt_package;
 using io = io_package;
 using net = net_package;
 using strings = strings_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -18,6 +19,8 @@ internal static ж<ipNetSliceValue> newIPNetSliceValue(slice<net.IPNet> val, ж<
     ipnsv.value.ValueSlot = val;
     return ipnsv;
 }
+
+} partial class pflagᴛipNetSliceValue {
 
 internal static error Set(this ref ipNetSliceValue s, @string val) {
     var rmQuote = strings.NewReplacer(@"""", "", @"'", "", "`", "");
@@ -64,6 +67,8 @@ internal static @string String(this ref ipNetSliceValue s) {
     return "["u8 + @out + "]"u8;
 }
 
+} partial class pflag_package {
+
 internal static (any, error) ipNetSliceConv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
@@ -81,6 +86,8 @@ internal static (any, error) ipNetSliceConv(@string val) {
     return (@out, default);
 }
 
+} partial class pflagᴛFlagSet {
+
 public static (slice<net.IPNet>, error) GetIPNetSlice(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "ipNetSlice", ipNetSliceConv);
     if (err != nil) {
@@ -97,6 +104,8 @@ public static void IPNetSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<net.IPNet>> p,
     Ꮡf.VarP(new ipNetSliceValueжValue(newIPNetSliceValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void IPNetSliceVar(ж<slice<net.IPNet>> p, @string name, slice<net.IPNet> value, @string usage) {
     CommandLine.VarP(new ipNetSliceValueжValue(newIPNetSliceValue(value, p)), name, "", usage);
 }
@@ -104,6 +113,8 @@ public static void IPNetSliceVar(ж<slice<net.IPNet>> p, @string name, slice<net
 public static void IPNetSliceVarP(ж<slice<net.IPNet>> p, @string name, @string shorthand, slice<net.IPNet> value, @string usage) {
     CommandLine.VarP(new ipNetSliceValueжValue(newIPNetSliceValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<slice<net.IPNet>> IPNetSlice(this ж<FlagSet> Ꮡf, @string name, slice<net.IPNet> value, @string usage) {
     ref var p = ref heap<slice<net.IPNet>>(slice<net.IPNet>([]), out var Ꮡp);
@@ -116,6 +127,8 @@ public static ж<slice<net.IPNet>> IPNetSliceP(this ж<FlagSet> Ꮡf, @string na
     Ꮡf.IPNetSliceVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }
+
+} partial class pflag_package {
 
 public static ж<slice<net.IPNet>> IPNetSlice(@string name, slice<net.IPNet> value, @string usage) {
     return CommandLine.IPNetSliceP(name, "", value, usage);

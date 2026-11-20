@@ -1,6 +1,7 @@
 namespace go.github.com.spf13;
 
 using strconv = strconv_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -12,6 +13,8 @@ internal static ж<intValue> newIntValue(nint val, ж<nint> Ꮡp) {
     p = val;
     return Ꮡp.Reinterpret<nint, intValue>();
 }
+
+} partial class pflagᴛintValue {
 
 internal static error Set(this ref intValue i, @string s) {
     var (v, err) = strconv.ParseInt(s, 0, 64);
@@ -25,10 +28,14 @@ internal static @string Type(this ref intValue i) {
 
 internal static @string String(this ref intValue i) { return strconv.Itoa((nint)(i)); }
 
+} partial class pflag_package {
+
 internal static (any, error) intConv(@string sval) {
     var (ᴛ1, ᴛ2) = strconv.Atoi(sval);
     return (ᴛ1, ᴛ2);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (nint, error) GetInt(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "int", intConv);
@@ -46,6 +53,8 @@ public static void IntVarP(this ж<FlagSet> Ꮡf, ж<nint> p, @string name, @str
     Ꮡf.VarP(new intValueжValue(newIntValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void IntVar(ж<nint> p, @string name, nint value, @string usage) {
     CommandLine.VarP(new intValueжValue(newIntValue(value, p)), name, "", usage);
 }
@@ -53,6 +62,8 @@ public static void IntVar(ж<nint> p, @string name, nint value, @string usage) {
 public static void IntVarP(ж<nint> p, @string name, @string shorthand, nint value, @string usage) {
     CommandLine.VarP(new intValueжValue(newIntValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<nint> Int(this ж<FlagSet> Ꮡf, @string name, nint value, @string usage) {
     var p = @new<nint>();
@@ -65,6 +76,8 @@ public static ж<nint> IntP(this ж<FlagSet> Ꮡf, @string name, @string shortha
     Ꮡf.IntVarP(p, name, shorthand, value, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<nint> Int(@string name, nint value, @string usage) {
     return CommandLine.IntP(name, "", value, usage);

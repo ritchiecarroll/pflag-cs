@@ -1,6 +1,7 @@
 namespace go.github.com.spf13;
 
 using strconv = strconv_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -12,6 +13,8 @@ internal static ж<countValue> newCountValue(nint val, ж<nint> Ꮡp) {
     p = val;
     return Ꮡp.Reinterpret<nint, countValue>();
 }
+
+} partial class pflagᴛcountValue {
 
 internal static error Set(this ref countValue i, @string s) {
     if (s == "+1"u8) {
@@ -29,6 +32,8 @@ internal static @string Type(this ref countValue i) {
 
 internal static @string String(this ref countValue i) { return strconv.Itoa((nint)(i)); }
 
+} partial class pflag_package {
+
 internal static (any, error) countConv(@string sval) {
     var (i, err) = strconv.Atoi(sval);
     if (err != nil) {
@@ -36,6 +41,8 @@ internal static (any, error) countConv(@string sval) {
     }
     return (i, default);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (nint, error) GetCount(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "count", countConv);
@@ -54,6 +61,8 @@ public static void CountVarP(this ж<FlagSet> Ꮡf, ж<nint> p, @string name, @s
     flag.NoOptDefVal = "+1";
 }
 
+} partial class pflag_package {
+
 public static void CountVar(ж<nint> p, @string name, @string usage) {
     CommandLine.CountVar(p, name, usage);
 }
@@ -61,6 +70,8 @@ public static void CountVar(ж<nint> p, @string name, @string usage) {
 public static void CountVarP(ж<nint> p, @string name, @string shorthand, @string usage) {
     CommandLine.CountVarP(p, name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<nint> Count(this ж<FlagSet> Ꮡf, @string name, @string usage) {
     var p = @new<nint>();
@@ -73,6 +84,8 @@ public static ж<nint> CountP(this ж<FlagSet> Ꮡf, @string name, @string short
     Ꮡf.CountVarP(p, name, shorthand, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<nint> Count(@string name, @string usage) {
     return CommandLine.CountP(name, "", usage);

@@ -1,8 +1,12 @@
 namespace go.github.com.spf13;
 
+using static pflag_package;
+
 partial class pflag_package {
 
 internal delegate error boolfuncValue(@string _);
+
+} partial class pflagᴛboolfuncValue {
 
 internal static error Set(this boolfuncValue f, @string s) { return f(s); }
 
@@ -11,6 +15,8 @@ internal static @string Type(this boolfuncValue f) { return "boolfunc"; }
 internal static @string String(this boolfuncValue f) { return ""; }
 
 internal static bool IsBoolFlag(this boolfuncValue f) { return true; }
+
+} partial class pflagᴛFlagSet {
 
 public static void BoolFunc(this ж<FlagSet> Ꮡf, @string name, @string usage, Func<@string, error> fn) {
     Ꮡf.BoolFuncP(name, "", usage, fn);
@@ -21,6 +27,8 @@ public static void BoolFuncP(this ж<FlagSet> Ꮡf, @string name, @string shorth
     var flag = Ꮡf.VarPF(val, name, shorthand, usage);
     flag.NoOptDefVal = "true";
 }
+
+} partial class pflag_package {
 
 public static void BoolFunc(@string name, @string usage, Func<@string, error> fn) {
     CommandLine.BoolFuncP(name, "", usage, fn);

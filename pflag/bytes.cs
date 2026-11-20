@@ -5,10 +5,13 @@ using hex = go.encoding.hex_package;
 using fmt = fmt_package;
 using strings = strings_package;
 using go.encoding;
+using static pflag_package;
 
 partial class pflag_package {
 
 partial struct bytesHexValue /*[]byte*/;
+
+} partial class pflagᴛbytesHexValue {
 
 internal static @string String(this bytesHexValue bytesHex) {
     return fmt.Sprintf("%X"u8, (slice<byte>)bytesHex);
@@ -30,6 +33,8 @@ internal static @string Type(this ref bytesHexValue _) {
     return "bytesHex";
 }
 
+} partial class pflag_package {
+
 internal static ж<bytesHexValue> newBytesHexValue(slice<byte> val, ж<slice<byte>> Ꮡp) {
     ref var p = ref Ꮡp.DerefOrNull();
 
@@ -46,6 +51,8 @@ internal static (any, error) bytesHexConv(@string sval) {
 
     return (default, fmt.Errorf("invalid string being converted to Bytes: %s %s"u8, sval, err));
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (slice<byte>, error) GetBytesHex(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "bytesHex", bytesHexConv);
@@ -65,6 +72,8 @@ public static void BytesHexVarP(this ж<FlagSet> Ꮡf, ж<slice<byte>> p, @strin
     Ꮡf.VarP(new bytesHexValueжValue(newBytesHexValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void BytesHexVar(ж<slice<byte>> p, @string name, slice<byte> value, @string usage) {
     CommandLine.VarP(new bytesHexValueжValue(newBytesHexValue(value, p)), name, "", usage);
 }
@@ -72,6 +81,8 @@ public static void BytesHexVar(ж<slice<byte>> p, @string name, slice<byte> valu
 public static void BytesHexVarP(ж<slice<byte>> p, @string name, @string shorthand, slice<byte> value, @string usage) {
     CommandLine.VarP(new bytesHexValueжValue(newBytesHexValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<slice<byte>> BytesHex(this ж<FlagSet> Ꮡf, @string name, slice<byte> value, @string usage) {
     var p = @new<slice<byte>>();
@@ -85,6 +96,8 @@ public static ж<slice<byte>> BytesHexP(this ж<FlagSet> Ꮡf, @string name, @st
     return p;
 }
 
+} partial class pflag_package {
+
 public static ж<slice<byte>> BytesHex(@string name, slice<byte> value, @string usage) {
     return CommandLine.BytesHexP(name, "", value, usage);
 }
@@ -94,6 +107,8 @@ public static ж<slice<byte>> BytesHexP(@string name, @string shorthand, slice<b
 }
 
 partial struct bytesBase64Value /*[]byte*/;
+
+} partial class pflagᴛbytesBase64Value {
 
 internal static @string String(this bytesBase64Value bytesBase64) {
     return base64.StdEncoding.EncodeToString((slice<byte>)bytesBase64);
@@ -115,6 +130,8 @@ internal static @string Type(this ref bytesBase64Value _) {
     return "bytesBase64";
 }
 
+} partial class pflag_package {
+
 internal static ж<bytesBase64Value> newBytesBase64Value(slice<byte> val, ж<slice<byte>> Ꮡp) {
     ref var p = ref Ꮡp.DerefOrNull();
 
@@ -130,6 +147,8 @@ internal static (any, error) bytesBase64ValueConv(@string sval) {
 
     return (default, fmt.Errorf("invalid string being converted to Bytes: %s %s"u8, sval, err));
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (slice<byte>, error) GetBytesBase64(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "bytesBase64", bytesBase64ValueConv);
@@ -149,6 +168,8 @@ public static void BytesBase64VarP(this ж<FlagSet> Ꮡf, ж<slice<byte>> p, @st
     Ꮡf.VarP(new bytesBase64ValueжValue(newBytesBase64Value(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void BytesBase64Var(ж<slice<byte>> p, @string name, slice<byte> value, @string usage) {
     CommandLine.VarP(new bytesBase64ValueжValue(newBytesBase64Value(value, p)), name, "", usage);
 }
@@ -156,6 +177,8 @@ public static void BytesBase64Var(ж<slice<byte>> p, @string name, slice<byte> v
 public static void BytesBase64VarP(ж<slice<byte>> p, @string name, @string shorthand, slice<byte> value, @string usage) {
     CommandLine.VarP(new bytesBase64ValueжValue(newBytesBase64Value(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<slice<byte>> BytesBase64(this ж<FlagSet> Ꮡf, @string name, slice<byte> value, @string usage) {
     var p = @new<slice<byte>>();
@@ -168,6 +191,8 @@ public static ж<slice<byte>> BytesBase64P(this ж<FlagSet> Ꮡf, @string name, 
     Ꮡf.BytesBase64VarP(p, name, shorthand, value, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<slice<byte>> BytesBase64(@string name, slice<byte> value, @string usage) {
     return CommandLine.BytesBase64P(name, "", value, usage);

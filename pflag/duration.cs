@@ -1,6 +1,7 @@
 namespace go.github.com.spf13;
 
 using time = time_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -12,6 +13,8 @@ internal static ж<durationValue> newDurationValue(time.Duration val, ж<time.Du
     p = val;
     return Ꮡp.Reinterpret<time.Duration, durationValue>();
 }
+
+} partial class pflagᴛdurationValue {
 
 internal static error Set(this ref durationValue d, @string s) {
     var (v, err) = time.ParseDuration(s);
@@ -25,10 +28,14 @@ internal static @string Type(this ref durationValue d) {
 
 internal static @string String(this ж<durationValue> Ꮡd) { return (Ꮡd.Reinterpret<durationValue, time.Duration>()).Value.String(); }
 
+} partial class pflag_package {
+
 internal static (any, error) durationConv(@string sval) {
     var (ᴛ1, ᴛ2) = time.ParseDuration(sval);
     return (ᴛ1, ᴛ2);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (time.Duration, error) GetDuration(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "duration", durationConv);
@@ -46,6 +53,8 @@ public static void DurationVarP(this ж<FlagSet> Ꮡf, ж<time.Duration> p, @str
     Ꮡf.VarP(new durationValueжValue(newDurationValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void DurationVar(ж<time.Duration> p, @string name, time.Duration value, @string usage) {
     CommandLine.VarP(new durationValueжValue(newDurationValue(value, p)), name, "", usage);
 }
@@ -53,6 +62,8 @@ public static void DurationVar(ж<time.Duration> p, @string name, time.Duration 
 public static void DurationVarP(ж<time.Duration> p, @string name, @string shorthand, time.Duration value, @string usage) {
     CommandLine.VarP(new durationValueжValue(newDurationValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<time.Duration> Duration(this ж<FlagSet> Ꮡf, @string name, time.Duration value, @string usage) {
     var p = @new<time.Duration>();
@@ -65,6 +76,8 @@ public static ж<time.Duration> DurationP(this ж<FlagSet> Ꮡf, @string name, @
     Ꮡf.DurationVarP(p, name, shorthand, value, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<time.Duration> Duration(@string name, time.Duration value, @string usage) {
     return CommandLine.DurationP(name, "", value, usage);

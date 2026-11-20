@@ -15,6 +15,7 @@ using os = os_package;
 using sort = sort_package;
 using strings = strings_package;
 using flag = flag_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -95,6 +96,8 @@ internal static slice<ж<Flag>> sortFlags(map<NormalizedName, ж<Flag>> flags) {
     }
     return result;
 }
+
+} partial class pflagᴛFlagSet {
 
 public static void SetNormalizeFunc(this ж<FlagSet> Ꮡf, Func<ж<FlagSet>, @string, NormalizedName> n) {
     ref var f = ref Ꮡf.DerefOrNull();
@@ -178,9 +181,13 @@ public static bool HasAvailableFlags(this ref FlagSet f) {
     return false;
 }
 
+} partial class pflag_package {
+
 public static void VisitAll(Action<ж<Flag>> fn) {
     CommandLine.VisitAll(fn);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static void Visit(this ref FlagSet f, Action<ж<Flag>> fn) {
     if (len(f.actual) == 0) {
@@ -202,9 +209,13 @@ public static void Visit(this ref FlagSet f, Action<ж<Flag>> fn) {
     }
 }
 
+} partial class pflag_package {
+
 public static void Visit(Action<ж<Flag>> fn) {
     CommandLine.Visit(fn);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<Flag> Lookup(this ж<FlagSet> Ꮡf, @string name) {
     ref var f = ref Ꮡf.DerefOrNull();
@@ -287,6 +298,8 @@ public static error MarkHidden(this ж<FlagSet> Ꮡf, @string name) {
     return default;
 }
 
+} partial class pflag_package {
+
 public static ж<Flag> Lookup(@string name) {
     return CommandLine.Lookup(name);
 }
@@ -294,6 +307,8 @@ public static ж<Flag> Lookup(@string name) {
 public static ж<Flag> ShorthandLookup(@string name) {
     return CommandLine.ShorthandLookup(name);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static error Set(this ж<FlagSet> Ꮡf, @string name, @string value) {
     ref var f = ref Ꮡf.DerefOrNull();
@@ -352,14 +367,20 @@ public static bool Changed(this ж<FlagSet> Ꮡf, @string name) {
     return flag.Changed;
 }
 
+} partial class pflag_package {
+
 public static error Set(@string name, @string value) {
     return CommandLine.Set(name, value);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static void PrintDefaults(this ref FlagSet f) {
     @string usages = f.FlagUsages();
     fmt.Fprint(f.Output(), usages);
 }
+
+} partial class pflagᴛFlag {
 
 internal static bool defaultIsZeroValue(this ref Flag f) {
     switch (f.Value.type()) {
@@ -417,6 +438,8 @@ internal static bool defaultIsZeroValue(this ref Flag f) {
 
 }
 
+} partial class pflag_package {
+
 public static (@string name, @string usage) UnquoteUsage(ж<Flag> Ꮡflag) {
     @string name = default;
     @string usage = default;
@@ -437,41 +460,40 @@ public static (@string name, @string usage) UnquoteUsage(ж<Flag> Ꮡflag) {
     }
 
     name = flag.Value.Type();
-    var exprᴛ1 = name;
     switch (ᐧ) {
-    case {} when exprᴛ1 == "bool"u8 || exprᴛ1 == "boolfunc"u8: {
+    case {} when name == "bool"u8 || name == "boolfunc"u8: {
         name = "";
         break;
     }
-    case {} when exprᴛ1 == "func"u8: {
+    case {} when name == "func"u8: {
         name = "value";
         break;
     }
-    case {} when exprᴛ1 == "float64"u8: {
+    case {} when name == "float64"u8: {
         name = "float";
         break;
     }
-    case {} when exprᴛ1 == "int64"u8: {
+    case {} when name == "int64"u8: {
         name = "int";
         break;
     }
-    case {} when exprᴛ1 == "uint64"u8: {
+    case {} when name == "uint64"u8: {
         name = "uint";
         break;
     }
-    case {} when exprᴛ1 == "stringSlice"u8: {
+    case {} when name == "stringSlice"u8: {
         name = "strings";
         break;
     }
-    case {} when exprᴛ1 == "intSlice"u8: {
+    case {} when name == "intSlice"u8: {
         name = "ints";
         break;
     }
-    case {} when exprᴛ1 == "uintSlice"u8: {
+    case {} when name == "uintSlice"u8: {
         name = "uints";
         break;
     }
-    case {} when exprᴛ1 == "boolSlice"u8: {
+    case {} when name == "boolSlice"u8: {
         name = "bools";
         break;
     }}
@@ -529,6 +551,8 @@ internal static @string wrap(nint i, nint w, @string s) {
 
     return r;
 }
+
+} partial class pflagᴛFlagSet {
 
 public static @string FlagUsagesWrapped(this ref FlagSet f, nint cols) {
     var buf = @new<bytes.Buffer>();
@@ -611,6 +635,8 @@ public static @string FlagUsages(this ref FlagSet f) {
     return f.FlagUsagesWrapped(0);
 }
 
+} partial class pflag_package {
+
 public static void PrintDefaults() {
     CommandLine.PrintDefaults();
 }
@@ -628,9 +654,15 @@ internal static void defaultUsage(ж<FlagSet> Ꮡf) {
 }); }
 public static ref Action Usage => ref ((StaticBox<Action>)ᏑUsage).ValueSlot;
 
+} partial class pflagᴛFlagSet {
+
 public static nint NFlag(this ref FlagSet f) { return len(f.actual); }
 
+} partial class pflag_package {
+
 public static nint NFlag() { return len(CommandLine.actual); }
+
+} partial class pflagᴛFlagSet {
 
 public static @string Arg(this ref FlagSet f, nint i) {
     if (i < 0 || i >= len(f.args)) {
@@ -639,17 +671,29 @@ public static @string Arg(this ref FlagSet f, nint i) {
     return f.args[i];
 }
 
+} partial class pflag_package {
+
 public static @string Arg(nint i) {
     return CommandLine.Arg(i);
 }
 
+} partial class pflagᴛFlagSet {
+
 public static nint NArg(this ref FlagSet f) { return len(f.args); }
+
+} partial class pflag_package {
 
 public static nint NArg() { return len(CommandLine.args); }
 
+} partial class pflagᴛFlagSet {
+
 public static slice<@string> Args(this ref FlagSet f) { return f.args; }
 
+} partial class pflag_package {
+
 public static slice<@string> Args() { return CommandLine.args; }
+
+} partial class pflagᴛFlagSet {
 
 public static void Var(this ж<FlagSet> Ꮡf, Value value, @string name, @string usage) {
     Ꮡf.VarP(value, name, "", usage);
@@ -725,6 +769,8 @@ public static void AddFlagSet(this ж<FlagSet> Ꮡf, ж<FlagSet> ᏑnewSet) {
     });
 }
 
+} partial class pflag_package {
+
 public static void Var(Value value, @string name, @string usage) {
     CommandLine.VarP(value, name, "", usage);
 }
@@ -732,6 +778,8 @@ public static void Var(Value value, @string name, @string usage) {
 public static void VarP(Value value, @string name, @string shorthand, @string usage) {
     CommandLine.VarP(value, name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 internal static error fail(this ж<FlagSet> Ꮡf, error err) {
     ref var f = ref Ꮡf.DerefOrNull();
@@ -754,6 +802,8 @@ internal static void usage(this ж<FlagSet> Ꮡf) {
     }
 }
 
+} partial class pflag_package {
+
 internal static slice<@string> stripUnknownFlagValue(slice<@string> args) {
     if (len(args) == 0) {
         return args;
@@ -769,6 +819,8 @@ internal static slice<@string> stripUnknownFlagValue(slice<@string> args) {
     }
     return default;
 }
+
+} partial class pflagᴛFlagSet {
 
 internal static (slice<@string> a, error err) parseLongArg(this ж<FlagSet> Ꮡf, @string s, slice<@string> args, Func<ж<Flag>, @string, error> fn) {
     slice<@string> a = default;
@@ -981,7 +1033,7 @@ public static error Parse(this ж<FlagSet> Ꮡf, slice<@string> arguments) {
 
     var set = (ж<Flag> flag, @string value) => Ꮡf.Set(flag.Name, value);
 
-    var err = Ꮡf.parseArgs(arguments, new Func<ж<Flag>, @string, error>(set));
+    var err = Ꮡf.parseArgs(arguments, set);
     if (err != nil) {
         switch (f.errorHandling) {
         case var ᴛ when ᴛ == ContinueOnError: {
@@ -1004,7 +1056,11 @@ public static error Parse(this ж<FlagSet> Ꮡf, slice<@string> arguments) {
     return default;
 }
 
+} partial class pflag_package {
+
 // type parseFunc is a methodless func type — rendered inline as its base delegate
+
+} partial class pflagᴛFlagSet {
 
 public static error ParseAll(this ж<FlagSet> Ꮡf, slice<@string> arguments, Func<ж<Flag>, @string, error> fn) {
     ref var f = ref Ꮡf.DerefOrNull();
@@ -1012,7 +1068,7 @@ public static error ParseAll(this ж<FlagSet> Ꮡf, slice<@string> arguments, Fu
     f.parsed = true;
     f.args = new slice<@string>(0, len(arguments));
 
-    var err = Ꮡf.parseArgs(arguments, new Func<ж<Flag>, @string, error>(fn));
+    var err = Ꮡf.parseArgs(arguments, fn);
     if (err != nil) {
         switch (f.errorHandling) {
         case var ᴛ when ᴛ == ContinueOnError: {
@@ -1038,6 +1094,8 @@ public static error ParseAll(this ж<FlagSet> Ꮡf, slice<@string> arguments, Fu
 public static bool Parsed(this ref FlagSet f) {
     return f.parsed;
 }
+
+} partial class pflag_package {
 
 public static void Parse() {
     CommandLine.Parse(os.Args[1..]);
@@ -1068,6 +1126,8 @@ public static ж<FlagSet> NewFlagSet(@string name, ErrorHandling errorHandling) 
     return f;
 }
 
+} partial class pflagᴛFlagSet {
+
 public static void SetInterspersed(this ref FlagSet f, bool interspersed) {
     f.interspersed = interspersed;
 }
@@ -1078,4 +1138,4 @@ public static void Init(this ref FlagSet f, @string name, ErrorHandling errorHan
     f.argsLenAtDash = -1;
 }
 
-} // end pflag_package
+} // end pflagᴛFlagSet

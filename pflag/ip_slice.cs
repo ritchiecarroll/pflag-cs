@@ -4,6 +4,7 @@ using fmt = fmt_package;
 using io = io_package;
 using net = net_package;
 using strings = strings_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -18,6 +19,8 @@ internal static ж<ipSliceValue> newIPSliceValue(slice<net.IP> val, ж<slice<net
     ipsv.value.ValueSlot = val;
     return ipsv;
 }
+
+} partial class pflagᴛipSliceValue {
 
 internal static error Set(this ref ipSliceValue s, @string val) {
     var rmQuote = strings.NewReplacer(@"""", "", @"'", "", "`", "");
@@ -100,6 +103,8 @@ internal static slice<@string> GetSlice(this ref ipSliceValue s) {
     return @out;
 }
 
+} partial class pflag_package {
+
 internal static (any, error) ipSliceConv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
@@ -117,6 +122,8 @@ internal static (any, error) ipSliceConv(@string val) {
     return (@out, default);
 }
 
+} partial class pflagᴛFlagSet {
+
 public static (slice<net.IP>, error) GetIPSlice(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "ipSlice", ipSliceConv);
     if (err != nil) {
@@ -133,6 +140,8 @@ public static void IPSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<net.IP>> p, @stri
     Ꮡf.VarP(new ipSliceValueжValue(newIPSliceValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void IPSliceVar(ж<slice<net.IP>> p, @string name, slice<net.IP> value, @string usage) {
     CommandLine.VarP(new ipSliceValueжValue(newIPSliceValue(value, p)), name, "", usage);
 }
@@ -140,6 +149,8 @@ public static void IPSliceVar(ж<slice<net.IP>> p, @string name, slice<net.IP> v
 public static void IPSliceVarP(ж<slice<net.IP>> p, @string name, @string shorthand, slice<net.IP> value, @string usage) {
     CommandLine.VarP(new ipSliceValueжValue(newIPSliceValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<slice<net.IP>> IPSlice(this ж<FlagSet> Ꮡf, @string name, slice<net.IP> value, @string usage) {
     ref var p = ref heap<slice<net.IP>>(slice<net.IP>([]), out var Ꮡp);
@@ -152,6 +163,8 @@ public static ж<slice<net.IP>> IPSliceP(this ж<FlagSet> Ꮡf, @string name, @s
     Ꮡf.IPSliceVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }
+
+} partial class pflag_package {
 
 public static ж<slice<net.IP>> IPSlice(@string name, slice<net.IP> value, @string usage) {
     return CommandLine.IPSliceP(name, "", value, usage);

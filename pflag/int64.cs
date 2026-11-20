@@ -1,6 +1,7 @@
 namespace go.github.com.spf13;
 
 using strconv = strconv_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -12,6 +13,8 @@ internal static ж<int64Value> newInt64Value(int64 val, ж<int64> Ꮡp) {
     p = val;
     return Ꮡp.Reinterpret<int64, int64Value>();
 }
+
+} partial class pflagᴛint64Value {
 
 internal static error Set(this ref int64Value i, @string s) {
     var (v, err) = strconv.ParseInt(s, 0, 64);
@@ -25,10 +28,14 @@ internal static @string Type(this ref int64Value i) {
 
 internal static @string String(this ref int64Value i) { return strconv.FormatInt((int64)(i), 10); }
 
+} partial class pflag_package {
+
 internal static (any, error) int64Conv(@string sval) {
     var (ᴛ1, ᴛ2) = strconv.ParseInt(sval, 0, 64);
     return (ᴛ1, ᴛ2);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (int64, error) GetInt64(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "int64", int64Conv);
@@ -46,6 +53,8 @@ public static void Int64VarP(this ж<FlagSet> Ꮡf, ж<int64> p, @string name, @
     Ꮡf.VarP(new int64ValueжValue(newInt64Value(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void Int64Var(ж<int64> p, @string name, int64 value, @string usage) {
     CommandLine.VarP(new int64ValueжValue(newInt64Value(value, p)), name, "", usage);
 }
@@ -53,6 +62,8 @@ public static void Int64Var(ж<int64> p, @string name, int64 value, @string usag
 public static void Int64VarP(ж<int64> p, @string name, @string shorthand, int64 value, @string usage) {
     CommandLine.VarP(new int64ValueжValue(newInt64Value(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<int64> Int64(this ж<FlagSet> Ꮡf, @string name, int64 value, @string usage) {
     var p = @new<int64>();
@@ -65,6 +76,8 @@ public static ж<int64> Int64P(this ж<FlagSet> Ꮡf, @string name, @string shor
     Ꮡf.Int64VarP(p, name, shorthand, value, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<int64> Int64(@string name, int64 value, @string usage) {
     return CommandLine.Int64P(name, "", value, usage);

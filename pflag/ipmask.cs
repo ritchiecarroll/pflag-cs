@@ -3,6 +3,7 @@ namespace go.github.com.spf13;
 using fmt = fmt_package;
 using net = net_package;
 using strconv = strconv_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -14,6 +15,8 @@ internal static ж<ipMaskValue> newIPMaskValue(net.IPMask val, ж<net.IPMask> �
     p = val;
     return Ꮡp.Reinterpret<net.IPMask, ipMaskValue>();
 }
+
+} partial class pflagᴛipMaskValue {
 
 internal static @string String(this ref ipMaskValue i) { return ((net.IPMask)(i)).String(); }
 internal static error Set(this ref ipMaskValue i, @string s) {
@@ -28,6 +31,8 @@ internal static error Set(this ref ipMaskValue i, @string s) {
 internal static @string Type(this ref ipMaskValue i) {
     return "ipMask";
 }
+
+} partial class pflag_package {
 
 public static net.IPMask ParseIPv4Mask(@string s) {
     var mᴷ = new stackAppend<nint>();
@@ -63,6 +68,8 @@ internal static (any, error) parseIPv4Mask(@string sval) {
     return (mask, default);
 }
 
+} partial class pflagᴛFlagSet {
+
 public static (net.IPMask, error) GetIPv4Mask(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "ipMask", parseIPv4Mask);
     if (err != nil) {
@@ -79,6 +86,8 @@ public static void IPMaskVarP(this ж<FlagSet> Ꮡf, ж<net.IPMask> p, @string n
     Ꮡf.VarP(new ipMaskValueжValue(newIPMaskValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void IPMaskVar(ж<net.IPMask> p, @string name, net.IPMask value, @string usage) {
     CommandLine.VarP(new ipMaskValueжValue(newIPMaskValue(value, p)), name, "", usage);
 }
@@ -86,6 +95,8 @@ public static void IPMaskVar(ж<net.IPMask> p, @string name, net.IPMask value, @
 public static void IPMaskVarP(ж<net.IPMask> p, @string name, @string shorthand, net.IPMask value, @string usage) {
     CommandLine.VarP(new ipMaskValueжValue(newIPMaskValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<net.IPMask> IPMask(this ж<FlagSet> Ꮡf, @string name, net.IPMask value, @string usage) {
     var p = @new<net.IPMask>();
@@ -98,6 +109,8 @@ public static ж<net.IPMask> IPMaskP(this ж<FlagSet> Ꮡf, @string name, @strin
     Ꮡf.IPMaskVarP(p, name, shorthand, value, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<net.IPMask> IPMask(@string name, net.IPMask value, @string usage) {
     return CommandLine.IPMaskP(name, "", value, usage);

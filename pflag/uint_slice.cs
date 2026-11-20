@@ -3,6 +3,7 @@ namespace go.github.com.spf13;
 using fmt = fmt_package;
 using strconv = strconv_package;
 using strings = strings_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -17,6 +18,8 @@ internal static ж<uintSliceValue> newUintSliceValue(slice<nuint> val, ж<slice<
     uisv.value.ValueSlot = val;
     return uisv;
 }
+
+} partial class pflagᴛuintSliceValue {
 
 internal static error Set(this ref uintSliceValue s, @string val) {
     var ss = strings.Split(val, ",");
@@ -91,6 +94,8 @@ internal static slice<@string> GetSlice(this ref uintSliceValue s) {
     return @out;
 }
 
+} partial class pflag_package {
+
 internal static (any, error) uintSliceConv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
@@ -108,6 +113,8 @@ internal static (any, error) uintSliceConv(@string val) {
     return (@out, default);
 }
 
+} partial class pflagᴛFlagSet {
+
 public static (slice<nuint>, error) GetUintSlice(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "uintSlice", uintSliceConv);
     if (err != nil) {
@@ -124,6 +131,8 @@ public static void UintSliceVarP(this ж<FlagSet> Ꮡf, ж<slice<nuint>> p, @str
     Ꮡf.VarP(new uintSliceValueжValue(newUintSliceValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void UintSliceVar(ж<slice<nuint>> p, @string name, slice<nuint> value, @string usage) {
     CommandLine.VarP(new uintSliceValueжValue(newUintSliceValue(value, p)), name, "", usage);
 }
@@ -131,6 +140,8 @@ public static void UintSliceVar(ж<slice<nuint>> p, @string name, slice<nuint> v
 public static void UintSliceVarP(ж<slice<nuint>> p, @string name, @string shorthand, slice<nuint> value, @string usage) {
     CommandLine.VarP(new uintSliceValueжValue(newUintSliceValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<slice<nuint>> UintSlice(this ж<FlagSet> Ꮡf, @string name, slice<nuint> value, @string usage) {
     ref var p = ref heap<slice<nuint>>(slice<nuint>([]), out var Ꮡp);
@@ -143,6 +154,8 @@ public static ж<slice<nuint>> UintSliceP(this ж<FlagSet> Ꮡf, @string name, @
     Ꮡf.UintSliceVarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }
+
+} partial class pflag_package {
 
 public static ж<slice<nuint>> UintSlice(@string name, slice<nuint> value, @string usage) {
     return CommandLine.UintSliceP(name, "", value, usage);

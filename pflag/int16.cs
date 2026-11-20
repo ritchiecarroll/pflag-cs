@@ -1,6 +1,7 @@
 namespace go.github.com.spf13;
 
 using strconv = strconv_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -12,6 +13,8 @@ internal static ж<int16Value> newInt16Value(int16 val, ж<int16> Ꮡp) {
     p = val;
     return Ꮡp.Reinterpret<int16, int16Value>();
 }
+
+} partial class pflagᴛint16Value {
 
 internal static error Set(this ref int16Value i, @string s) {
     var (v, err) = strconv.ParseInt(s, 0, 16);
@@ -25,6 +28,8 @@ internal static @string Type(this ref int16Value i) {
 
 internal static @string String(this ref int16Value i) { return strconv.FormatInt((int64)(i), 10); }
 
+} partial class pflag_package {
+
 internal static (any, error) int16Conv(@string sval) {
     var (v, err) = strconv.ParseInt(sval, 0, 16);
     if (err != nil) {
@@ -32,6 +37,8 @@ internal static (any, error) int16Conv(@string sval) {
     }
     return ((int16)v, default);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (int16, error) GetInt16(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "int16", int16Conv);
@@ -49,6 +56,8 @@ public static void Int16VarP(this ж<FlagSet> Ꮡf, ж<int16> p, @string name, @
     Ꮡf.VarP(new int16ValueжValue(newInt16Value(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void Int16Var(ж<int16> p, @string name, int16 value, @string usage) {
     CommandLine.VarP(new int16ValueжValue(newInt16Value(value, p)), name, "", usage);
 }
@@ -56,6 +65,8 @@ public static void Int16Var(ж<int16> p, @string name, int16 value, @string usag
 public static void Int16VarP(ж<int16> p, @string name, @string shorthand, int16 value, @string usage) {
     CommandLine.VarP(new int16ValueжValue(newInt16Value(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<int16> Int16(this ж<FlagSet> Ꮡf, @string name, int16 value, @string usage) {
     var p = @new<int16>();
@@ -68,6 +79,8 @@ public static ж<int16> Int16P(this ж<FlagSet> Ꮡf, @string name, @string shor
     Ꮡf.Int16VarP(p, name, shorthand, value, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<int16> Int16(@string name, int16 value, @string usage) {
     return CommandLine.Int16P(name, "", value, usage);

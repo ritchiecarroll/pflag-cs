@@ -3,10 +3,13 @@ namespace go.github.com.spf13;
 using fmt = fmt_package;
 using net = net_package;
 using strings = strings_package;
+using static pflag_package;
 
 partial class pflag_package {
 
 partial struct ipNetValue /*global::go.net_package.IPNet*/;
+
+} partial class pflagᴛipNetValue {
 
 internal static @string String(this ipNetValue ipnet) {
     ref var n = ref heap<net.IPNet>((net.IPNet)ipnet, out var Ꮡn);
@@ -26,6 +29,8 @@ internal static @string Type(this ref ipNetValue _) {
     return "ipNet";
 }
 
+} partial class pflag_package {
+
 internal static ж<ipNetValue> newIPNetValue(net.IPNet val, ж<net.IPNet> Ꮡp) {
     ref var p = ref Ꮡp.DerefOrNull();
 
@@ -40,6 +45,8 @@ internal static (any, error) ipNetConv(@string sval) {
     }
     return (default, fmt.Errorf("invalid string being converted to IPNet: %s"u8, sval));
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (net.IPNet, error) GetIPNet(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "ipNet", ipNetConv);
@@ -57,6 +64,8 @@ public static void IPNetVarP(this ж<FlagSet> Ꮡf, ж<net.IPNet> p, @string nam
     Ꮡf.VarP(new ipNetValueжValue(newIPNetValue(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void IPNetVar(ж<net.IPNet> p, @string name, net.IPNet value, @string usage) {
     CommandLine.VarP(new ipNetValueжValue(newIPNetValue(value, p)), name, "", usage);
 }
@@ -64,6 +73,8 @@ public static void IPNetVar(ж<net.IPNet> p, @string name, net.IPNet value, @str
 public static void IPNetVarP(ж<net.IPNet> p, @string name, @string shorthand, net.IPNet value, @string usage) {
     CommandLine.VarP(new ipNetValueжValue(newIPNetValue(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<net.IPNet> IPNet(this ж<FlagSet> Ꮡf, @string name, net.IPNet value, @string usage) {
     var p = @new<net.IPNet>();
@@ -76,6 +87,8 @@ public static ж<net.IPNet> IPNetP(this ж<FlagSet> Ꮡf, @string name, @string 
     Ꮡf.IPNetVarP(p, name, shorthand, value, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<net.IPNet> IPNet(@string name, net.IPNet value, @string usage) {
     return CommandLine.IPNetP(name, "", value, usage);

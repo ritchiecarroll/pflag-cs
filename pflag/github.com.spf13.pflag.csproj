@@ -34,7 +34,7 @@
     <InterceptorsNamespaces>$(InterceptorsNamespaces);go2cs.Interceptors</InterceptorsNamespaces>
     <WarningsAsErrors>$(WarningsAsErrors);CS8032;CS8034;CS8784;CS8785;CS9057</WarningsAsErrors>
     <!-- What this package's conversion is a function of; nugetgo-pack.ps1 checks its validation proof names the same -->
-    <GoInputDigest>sha256-7cfbdcf735ed5990fa66a7301fb078762d0f89c32f9f017c26f118e3c9a8d7bd</GoInputDigest>
+    <GoInputDigest>sha256-77c4a520bc617589b1d37c7846b0a195201c7458b56be5b414e60e1901163b81</GoInputDigest>
   </PropertyGroup>
 
   <!-- Same-package Go tests run in a separate assembly but retain package-private access. -->

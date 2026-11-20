@@ -3,6 +3,7 @@ namespace go.github.com.spf13;
 using encoding = encoding_package;
 using fmt = fmt_package;
 using reflect = reflect_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -26,6 +27,8 @@ internal static textValue newTextValue(encoding.TextMarshaler val, encoding.Text
     return new textValue(p);
 }
 
+} partial class pflagᴛtextValue {
+
 internal static error Set(this textValue v, @string s) {
     return v.p.UnmarshalText(slice<byte>(s));
 }
@@ -47,6 +50,8 @@ internal static @string Type(this textValue v) {
     return reflect.ValueOf(v.p).Type().Name();
 }
 
+} partial class pflagᴛFlagSet {
+
 public static error GetText(this ж<FlagSet> Ꮡf, @string name, encoding.TextUnmarshaler @out) {
     var flag = Ꮡf.Lookup(name);
     if (flag == nil) {
@@ -65,6 +70,8 @@ public static void TextVar(this ж<FlagSet> Ꮡf, encoding.TextUnmarshaler p, @s
 public static void TextVarP(this ж<FlagSet> Ꮡf, encoding.TextUnmarshaler p, @string name, @string shorthand, encoding.TextMarshaler value, @string usage) {
     Ꮡf.VarP(newTextValue(value, p), name, shorthand, usage);
 }
+
+} partial class pflag_package {
 
 public static void TextVar(encoding.TextUnmarshaler p, @string name, encoding.TextMarshaler value, @string usage) {
     CommandLine.VarP(newTextValue(value, p), name, "", usage);

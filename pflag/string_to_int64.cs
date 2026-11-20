@@ -4,6 +4,7 @@ using bytes = bytes_package;
 using fmt = fmt_package;
 using strconv = strconv_package;
 using strings = strings_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -18,6 +19,8 @@ internal static ж<stringToInt64Value> newStringToInt64Value(map<@string, int64>
     ssv.value.ValueSlot = val;
     return ssv;
 }
+
+} partial class pflagᴛstringToInt64Value {
 
 internal static error Set(this ref stringToInt64Value s, @string val) {
     var ss = strings.Split(val, ",");
@@ -63,6 +66,8 @@ internal static @string String(this ref stringToInt64Value s) {
     return "["u8 + Ꮡbuf.String() + "]"u8;
 }
 
+} partial class pflag_package {
+
 internal static (any, error) stringToInt64Conv(@string val) {
     val = strings.Trim(val, "[]");
     if (len(val) == 0) {
@@ -84,6 +89,8 @@ internal static (any, error) stringToInt64Conv(@string val) {
     return (@out, default);
 }
 
+} partial class pflagᴛFlagSet {
+
 public static (map<@string, int64>, error) GetStringToInt64(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "stringToInt64", stringToInt64Conv);
     if (err != nil) {
@@ -100,6 +107,8 @@ public static void StringToInt64VarP(this ж<FlagSet> Ꮡf, ж<map<@string, int6
     Ꮡf.VarP(new stringToInt64ValueжValue(newStringToInt64Value(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void StringToInt64Var(ж<map<@string, int64>> p, @string name, map<@string, int64> value, @string usage) {
     CommandLine.VarP(new stringToInt64ValueжValue(newStringToInt64Value(value, p)), name, "", usage);
 }
@@ -107,6 +116,8 @@ public static void StringToInt64Var(ж<map<@string, int64>> p, @string name, map
 public static void StringToInt64VarP(ж<map<@string, int64>> p, @string name, @string shorthand, map<@string, int64> value, @string usage) {
     CommandLine.VarP(new stringToInt64ValueжValue(newStringToInt64Value(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<map<@string, int64>> StringToInt64(this ж<FlagSet> Ꮡf, @string name, map<@string, int64> value, @string usage) {
     ref var p = ref heap<map<@string, int64>>(new map<@string, int64>{}, out var Ꮡp);
@@ -119,6 +130,8 @@ public static ж<map<@string, int64>> StringToInt64P(this ж<FlagSet> Ꮡf, @str
     Ꮡf.StringToInt64VarP(Ꮡp, name, shorthand, value, usage);
     return Ꮡp;
 }
+
+} partial class pflag_package {
 
 public static ж<map<@string, int64>> StringToInt64(@string name, map<@string, int64> value, @string usage) {
     return CommandLine.StringToInt64P(name, "", value, usage);

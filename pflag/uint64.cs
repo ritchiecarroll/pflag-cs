@@ -1,6 +1,7 @@
 namespace go.github.com.spf13;
 
 using strconv = strconv_package;
+using static pflag_package;
 
 partial class pflag_package {
 
@@ -12,6 +13,8 @@ internal static ж<uint64Value> newUint64Value(uint64 val, ж<uint64> Ꮡp) {
     p = val;
     return Ꮡp.Reinterpret<uint64, uint64Value>();
 }
+
+} partial class pflagᴛuint64Value {
 
 internal static error Set(this ref uint64Value i, @string s) {
     var (v, err) = strconv.ParseUint(s, 0, 64);
@@ -25,6 +28,8 @@ internal static @string Type(this ref uint64Value i) {
 
 internal static @string String(this ref uint64Value i) { return strconv.FormatUint((uint64)(i), 10); }
 
+} partial class pflag_package {
+
 internal static (any, error) uint64Conv(@string sval) {
     var (v, err) = strconv.ParseUint(sval, 0, 64);
     if (err != nil) {
@@ -32,6 +37,8 @@ internal static (any, error) uint64Conv(@string sval) {
     }
     return ((uint64)v, default);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static (uint64, error) GetUint64(this ж<FlagSet> Ꮡf, @string name) {
     var (val, err) = Ꮡf.getFlagType(name, "uint64", uint64Conv);
@@ -49,6 +56,8 @@ public static void Uint64VarP(this ж<FlagSet> Ꮡf, ж<uint64> p, @string name,
     Ꮡf.VarP(new uint64ValueжValue(newUint64Value(value, p)), name, shorthand, usage);
 }
 
+} partial class pflag_package {
+
 public static void Uint64Var(ж<uint64> p, @string name, uint64 value, @string usage) {
     CommandLine.VarP(new uint64ValueжValue(newUint64Value(value, p)), name, "", usage);
 }
@@ -56,6 +65,8 @@ public static void Uint64Var(ж<uint64> p, @string name, uint64 value, @string u
 public static void Uint64VarP(ж<uint64> p, @string name, @string shorthand, uint64 value, @string usage) {
     CommandLine.VarP(new uint64ValueжValue(newUint64Value(value, p)), name, shorthand, usage);
 }
+
+} partial class pflagᴛFlagSet {
 
 public static ж<uint64> Uint64(this ж<FlagSet> Ꮡf, @string name, uint64 value, @string usage) {
     var p = @new<uint64>();
@@ -68,6 +79,8 @@ public static ж<uint64> Uint64P(this ж<FlagSet> Ꮡf, @string name, @string sh
     Ꮡf.Uint64VarP(p, name, shorthand, value, usage);
     return p;
 }
+
+} partial class pflag_package {
 
 public static ж<uint64> Uint64(@string name, uint64 value, @string usage) {
     return CommandLine.Uint64P(name, "", value, usage);

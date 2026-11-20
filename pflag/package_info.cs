@@ -10,7 +10,6 @@
 // importing type aliases at a namespace level.
 
 // <ImportedTypeAliases>
-global using reflectꓸValue = go.reflect_package.ΔValue;
 // </ImportedTypeAliases>
 
 using go;
@@ -120,48 +119,48 @@ using static go.github.com.spf13.pflag_package;
 // or has none - golib, the BCL and hand-written conversions - and reports its own C# position.
 
 // <GoSourcePositionMaps>
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/bool.go", "bool.cs", "AA4eooKmgoKCpoKmlJSCuIKCgpSqgqiCgqqCqIKCqoKogoKCqoKogoI=")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/bool_func.go", "bool_func.cs", "7JSUlJyCqIKCgq6CqII=")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/bool_slice.go", "bool_slice.cs", "AA0egoKCgqqGloKCqIKCgoKUpoKUppSogqiEgoKmlKaCpoKmgoKClIKmgoKCgoKCpoKmgoKClKaChIKUgoKCgoKCpqiCgoKUqoKogqqCqIKqgoKCqIKCgqqCqII=")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/bytes.go", "bytes.cs", "AAwcgqiClIKmlKiCpqKCpoSUgqaogpSCpqqCqIKqgqiCqoKCgqiCgoKqgqiCzoKogpSCppSogqaigqaEgoKmqIKUgqaqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/count.go", "count.cs", "AAgQooKmhIKClIKCpoKmlIKCgpSogoKClKyCqIKCqIKogqyCgoKogoKCrIKogg==")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/duration.go", "duration.cs", "AAgUooKmgoKCpoKmlIK4goKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/duration_slice.go", "duration_slice.cs", "AA0egoKCgqaCgoKCgoKCqIKUlIKmgqaCgoKUpoKmgqaCgoKUgqaCgoKCgoKmgqaCgoKUpoKEgpSCgoKCgoKoqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/errors.go", "errors.cs", "ABQ4gpSmpqamgqaqgqyCAAgYgoKCpqiCqoKsggAIGIKCgoKUlKiCqIKoggAGFIKqgg==")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/flag.go", "flag.cs", "ABT8AQA+ygGCgoKCgpSCgoKUAAIQooKCgoKClIKCgoKCzoKClKaigqqCgpSogqqCrIKCpoKCgpSUpoK6gqqCgoKmrIKsgoKmgoKClJSmgr6CqKKsgoKUgoKClIKogqiCgoKCpoKCpoKCgpSsgqyCgoKUgpSCgqyCgoKUgpSCqoKCgpSCqoKqgqiigoKCpoKC7oKClIKUpoKUrKKCgoKUgpSCqoKEgpSogqqCgqqClKYADQSkxMSkpKSkpKQABBLEgoKCgoKCgqa4gqS0tLS0tLS0tLaugoKmgoKUgoKUrIKCqpSogoKCloKsgpiCloKUgqaugpSUgoKCpoKClKaCgpSCpLSCxoLG3IKCpoKCgpSmgqamgoKEpqqCqIKoooIAAhaCgriWmIKClKqCqJaWlgABEIKohO6CqIKospSCgoKClIKmgoKUgpSCgoKUgpSCgoKCgpSqooKUgoIABBaCqIKqooKUqqKCgoKUvoKEpoKEqIKUpsKCgoKCpoKClIKUgqSogqakgtiChIKEgoSClrimgoKUptKUgqaClIKClIKCpKiCgqaCpMrYgoSCgoSChIKChIKWyqaCpoKClKaygpaCgoK4prKCgoKCgoKClIKmgoKCgpSUlIKmrqKCgqaUlIKmmIKClKSClIK0xgAEFKKClIKClKSClIK0xqiCqoSshKiCqIKomILuqIKsgoKC", "271-271:1;711-764:1;913-917:1;1178-1180:1", "", "659=String/1/1/5")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/float32.go", "float32.cs", "AAgQooKmgoKCpoKmlIKCgpSogoKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/float32_slice.go", "float32_slice.cs", "AA0egoKCgqaCgoKCgoKCgpSWgpSUgqaCpoKCgpSmgoKClKaCpoKCgpSCpoKCgoKCgqaCpoKCgpSmgoSClIKCgoKCgoKUlqiCgoKUqoKogqqCqIKqgoKCqIKCgqqCqII=")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/float64.go", "float64.cs", "AAgQooKmgoKCpoKmlIK4goKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/float64_slice.go", "float64_slice.cs", "AA0egoKCgqaCgoKCgoKCqIKUlIKmgqaCgoKUpoKmgqaCgoKUgqaCgoKCgoKmgqaCgoKUpoKEgpSCgoKCgoKoqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/func.go", "func.cs", "7JSUnIKogoKugqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/golangflag.go", "golangflag.cs", "AA4egqaCAA0mhIKmuIKCpoKmgqaCpoKupAAFEoKUgpSoooKUgqiygpSClIKUroKCgoKmlLS0tLS0tMQABRCCgoKCpg==", "108-110:1;122-146:1", "", "67=wrapFlagValue/1/1/3,String/1/1/6")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int.go", "int.cs", "AAgQooKmgoKCpoKmlIK4goKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int16.go", "int16.cs", "AAgQooKmgoKCpoKmlIKCgpSogoKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int32.go", "int32.cs", "AAgQooKmgoKCpoKmlIKCgpSogoKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int32_slice.go", "int32_slice.cs", "AA0egoKCgqaCgoKCgoKCgpSWgpSUgqaCpoKCgpSmgoKClKaCpoKCgpSCpoKCgoKCgqaCpoKCgpSmgoSClIKCgoKCgoKUlqiCgoKUqoKogqqCqIKqgoKCqIKCgqqCqII=")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int64.go", "int64.cs", "AAgQooKmgoKCpoKmlIK4goKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int64_slice.go", "int64_slice.cs", "AA0egoKCgqaCgoKCgoKCqIKUlIKmgqaCgoKUpoKmgqaCgoKUgqaCgoKCgoKmgqaCgoKUpoKEgpSCgoKCgoKoqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int8.go", "int8.cs", "AAgQooKmgoKCpoKmlIKCgpSogoKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int_slice.go", "int_slice.cs", "AA0egoKCgqaCgoKCgoKCqIKUlIKmgqaCgoKUpoKCgpSCpoKCgoKCgqaCpoKCgpSmgoSClIKCgoKCgqiogoKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/ip.go", "ip.cs", "AAoYooKmgoKClIKClIKmgqaCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/ip_slice.go", "ip_slice.cs", "AA4ggoKCgqqGloKCqIKCgoKUpoKUppSogqiEgoKmlKaCpoKmgoKClIKmgoKCgoKCpoKmgoKClKaChIKUgoKCgoKUlKiCgoKUqoKogqqCqIKqgoKCqIKCgqqCqII=")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/ipmask.go", "ipmask.cs", "AAoYooKmgoKCgpSCpoKqooKCgpiCgoKCgpSUgoKCpqaCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/ipnet.go", "ipnet.cs", "AAoYgoKmgoKClIKmgqaigqaCgoKUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/ipnet_slice.go", "ipnet_slice.cs", "AA4ggoKCgqqGloKCqIKCgoKUpoKUppSogqiEgrKmgqaChIKUgoKCgoKUlKiCgoKUqoKogqqCqIKqgoKCqIKCgqqCqII=")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string.go", "string.cs", "7KKCpoKClIKmlIKogoKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string_array.go", "string_array.cs", "AAkSgoKCgqaCgoKUlKaCgqaCgoKUgqaCgoKUpoKmgoKmgoSClLiCgoKUrIKogqyCqIKsgoKCqIKCgqyCqII=")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string_slice.go", "string_slice.cs", "AA8egoKCgqaCgpSCgqaCgoKCgpSCpoKCgpSClJSCpoKmgoKmgoKmgoKmgqaChIKUuIKCgpQAAhSCqIIAAhSCqIIAAhSCgoKogoKCAAIUgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string_to_int.go", "string_to_int.cs", "AA4ggoKCgqiCgoKCgoKUgoKCpoKUgqaCpoKmgoKCgoKUgoKClKaChIKUgoKCgoKUgoKCpqiCgoKUrIKogqyCqIKsgoKCqIKCgqyCqII=")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string_to_int64.go", "string_to_int64.cs", "AA4ggoKCgqiCgoKCgoKUgoKCpoKUgqaCpoKmgoKCgoKUgoKClKaChIKUgoKCgoKUgoKCpqiCgoKUrIKogqyCqIKsgoKCqIKCgqyCqII=")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string_to_string.go", "string_to_string.cs", "ABEigoKCgqiigoKUpLSCgoKCyIKCgoKUlIKUgqaCpoKmsoKClJSCgoKmgoKClIKmgoSClIKCgpSCgoKClJSogoKClKyCqIKsgqiCrIKCgqiCgoKsgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/text.go", "text.cs", "AAwYgoKClIKClIKUgqaCpoKmgoKCpqqCqIKCgpSClKiCqIKogqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/time.go", "time.cs", "AA0eooLegoKCgoKUgqaCgoKUpqiCpoKClLqCgoKCpoKCpoKCpqqCqIKqgqiCqoKogoKCqoKogg==")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint.go", "uint.cs", "AAgQooKmgoKCpoKmlIKCgpSogoKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint16.go", "uint16.cs", "AAgQooKmgoKCpoKmlIKCgpSogoKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint32.go", "uint32.cs", "AAgQooKmgoKCpoKmlIKCgpSogoKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint64.go", "uint64.cs", "AAgQooKmgoKCpoKmlIKCgpSogoKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint8.go", "uint8.cs", "AAgQooKmgoKCpoKmlIKCgpSogoKClKqCqIKqgqiCqoKCgqiCgoKqgqiC")]
-[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint_slice.go", "uint_slice.cs", "AA0egoKCgqaCgoKCgoKUlIKUlIKmgqaCgoKUpoKCgpSmgqaCgoKUgqaCgoKCgoKmgqaCgoKUpoKEgpSCgoKCgpSUqIKCgpSqgqiCqoKogqqCgoKogoKCqoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/bool.go", "bool.cs", "AA8eooLGgoKCpoKmlLSC2IKCgpSqgqiCgsqCqIKCyoKogoKCyoKogoI=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/bool_func.go", "bool_func.cs", "AAoMlJSUvIKogoKCzoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/bool_slice.go", "bool_slice.cs", "AA4egoKCgsqGloKCqIKCgoKUpoKUppSogqiEgoKmlKaCpoKmgoKClIKmgoKCgoKCpoKmgoKClMaChIKUgoKCgoKCpsiCgoKUqoKogsqCqILKgoKCqIKCgsqCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/bytes.go", "bytes.cs", "AA8cgqiClIKmlKiCxqKCpoSUgqbIgpSCpqqCqILKgqiCyoKCgqiCgoLKgqiC7oKogpSCppSogsaigqaEgoKmyIKUgqaqgqiCyoKogsqCgoKogoKCyoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/count.go", "count.cs", "AAkQooLGhIKClIKCpoKmtIKCgpTIgoKClKyCqIKCyIKogsyCgoKogoKCzIKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/duration.go", "duration.cs", "AAkUooLGgoKCpoKmtILYgoKClKqCqILKgqiCyoKCgqiCgoLKgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/duration_slice.go", "duration_slice.cs", "AA4egoKCgsaCgoKCgoKCqIKUlIKmgqaCgoKUpoKmgqaCgoKUgqaCgoKCgoKmgqaCgoKUxoKEgpSCgoKCgoKoyIKCgpSqgqiCyoKogsqCgoKogoKCyoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/errors.go", "errors.cs", "ABc4gpSmpqamgqaqgqyCAAwYgoKCpqiCqoKsggAMGIKCgoKUlKiCqIKoggAKFIKqgg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/flag.go", "flag.cs", "ABX8AQA+ygGCgoKCgpSCgoKUAAQQooKCgoKClIKCgoKCzoKClKaigqqCgpSogqqCrIKCpoKCgpSUpoK6gqqCgoKmzILMgoKmgoKClJSmgt6CyKKsgoKUgoKClIKogqiCgoKCpoKCpoKCgpSsgqyCgoKUgpSCgqyCgoKUgpSCqoKCgpSCyoKqgsiigoKCpoKC7oKClIKUpoKUrKKCgoKUgpSCqoKEgpTIgsqCgsqClKYADQSkxMSkpKSkpKQABhLEgoKCgoKCgqa4gpS0tLS0tLS0tLaugoKmgoKUgoKUrIKCqpSogoKCloKsgpiCloKUgqbOgpSUgoKCpoKClKaCgpSCpLSCxoLG3IKCpoKCgpSmgqamgoKEpqqCyIKoooIAAhaCgti2uIKClMqCyLa2tgADEIKohO6CqIKospSCgoKClIKmgoKUgpSCgoKUgpSCgoKCgpSqooKUgoIABhaCqILKooKUqqKCgoKU3oKEpoKEqIKUxsKCgoKCpoKClIKUgqSogqakgtiChIKEgoSClrimgoKUptKUgqaClIKClIKCpKiCgqaCpMrYgoSCgoSChIKChIKWyqaCpoKClKaygpaCgoK4prKCgoKCgoKClIKmgoKCgpSUlIKmrqKCgqaUlIKmmIKClKSClIK0xgAIFKKClIKClKSClIK0xqiCyoSshKiCqIKomILuyIKsgoKC", "271-271:1;711-764:1;913-917:1;1178-1180:1", "", "703=String/1/1/5")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/float32.go", "float32.cs", "AAkQooLGgoKCpoKmtIKCgpTIgoKClKqCqILKgqiCyoKCgqiCgoLKgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/float32_slice.go", "float32_slice.cs", "AA4egoKCgsaCgoKCgoKCgpSWgpSUgqaCpoKCgpSmgoKClKaCpoKCgpSCpoKCgoKCgqaCpoKCgpTGgoSClIKCgoKCgoKUlsiCgoKUqoKogsqCqILKgoKCqIKCgsqCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/float64.go", "float64.cs", "AAkQooLGgoKCpoKmtILYgoKClKqCqILKgqiCyoKCgqiCgoLKgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/float64_slice.go", "float64_slice.cs", "AA4egoKCgsaCgoKCgoKCqIKUlIKmgqaCgoKUpoKmgqaCgoKUgqaCgoKCgoKmgqaCgoKUxoKEgpSCgoKCgoKoyIKCgpSqgqiCyoKogsqCgoKogoKCyoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/func.go", "func.cs", "AAoMlJS8gqiCgs6CqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/golangflag.go", "golangflag.cs", "AA8egqaCAA0mhIKmuIKCpoLGgqaCpoLOpAAFEoKUgpTIooKUgqiygpSClIKUroKCgoKmlLS0tLS0tMQABxCCgoKCpg==", "108-110:1;122-146:1", "", "72=wrapFlagValue/1/1/3,String/1/1/6")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int.go", "int.cs", "AAkQooLGgoKCpoKmtILYgoKClKqCqILKgqiCyoKCgqiCgoLKgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int16.go", "int16.cs", "AAkQooLGgoKCpoKmtIKCgpTIgoKClKqCqILKgqiCyoKCgqiCgoLKgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int32.go", "int32.cs", "AAkQooLGgoKCpoKmtIKCgpTIgoKClKqCqILKgqiCyoKCgqiCgoLKgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int32_slice.go", "int32_slice.cs", "AA4egoKCgsaCgoKCgoKCgpSWgpSUgqaCpoKCgpSmgoKClKaCpoKCgpSCpoKCgoKCgqaCpoKCgpTGgoSClIKCgoKCgoKUlsiCgoKUqoKogsqCqILKgoKCqIKCgsqCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int64.go", "int64.cs", "AAkQooLGgoKCpoKmtILYgoKClKqCqILKgqiCyoKCgqiCgoLKgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int64_slice.go", "int64_slice.cs", "AA4egoKCgsaCgoKCgoKCqIKUlIKmgqaCgoKUpoKmgqaCgoKUgqaCgoKCgoKmgqaCgoKUxoKEgpSCgoKCgoKoyIKCgpSqgqiCyoKogsqCgoKogoKCyoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int8.go", "int8.cs", "AAkQooLGgoKCpoKmtIKCgpTIgoKClKqCqILKgqiCyoKCgqiCgoLKgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/int_slice.go", "int_slice.cs", "AA4egoKCgsaCgoKCgoKCqIKUlIKmgqaCgoKUpoKCgpSCpoKCgoKCgqaCpoKCgpTGgoSClIKCgoKCgqjIgoKClKqCqILKgqiCyoKCgqiCgoLKgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/ip.go", "ip.cs", "AAsYooLGgoKClIKClIKmgsaCgoKUyIKCgpSqgqiCyoKogsqCgoKogoKCyoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/ip_slice.go", "ip_slice.cs", "AA8ggoKCgsqGloKCqIKCgoKUpoKUppSogqiEgoKmlKaCpoKmgoKClIKmgoKCgoKCpoKmgoKClMaChIKUgoKCgoKUlMiCgoKUqoKogsqCqILKgoKCqIKCgsqCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/ipmask.go", "ipmask.cs", "AAsYooLGgoKCgpSCpoLKooKCgpiCgoKCgpSUgoKCpqaCgoKUyIKCgpSqgqiCyoKogsqCgoKogoKCyoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/ipnet.go", "ipnet.cs", "AA0YgoKmgoKClIKmgsaigqaCgoKUyIKCgpSqgqiCyoKogsqCgoKogoKCyoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/ipnet_slice.go", "ipnet_slice.cs", "AA8ggoKCgsqGloKCqIKCgoKUpoKUppSogqiEgrKmgsaChIKUgoKCgoKUlMiCgoKUqoKogsqCqILKgoKCqIKCgsqCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string.go", "string.cs", "AAgMooLGgoKUgqa0gsiCgoKUqoKogsqCqILKgoKCqIKCgsqCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string_array.go", "string_array.cs", "AAsSgoKCgsaCgoKUlKaCgqaCgoKUgqaCgoKUpoKmgoLGgoSClNiCgoKUrIKogsyCqILMgoKCqIKCgsyCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string_slice.go", "string_slice.cs", "ABAegoKCgqaCgpSCgqaCgoKCgpSCxoKCgpSClJSCpoKmgoKmgoKmgoKmgsaChIKU2IKCgpQAAhSCqIIABBSCqIIABBSCgoKogoKCAAQUgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string_to_int.go", "string_to_int.cs", "AA8ggoKCgsiCgoKCgoKUgoKCpoKUgqaCpoKmgoKCgoKUgoKClMaChIKUgoKCgoKUgoKCpsiCgoKUrIKogsyCqILMgoKCqIKCgsyCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string_to_int64.go", "string_to_int64.cs", "AA8ggoKCgsiCgoKCgoKUgoKCpoKUgqaCpoKmgoKCgoKUgoKClMaChIKUgoKCgoKUgoKCpsiCgoKUrIKogsyCqILMgoKCqIKCgsyCqII=")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/string_to_string.go", "string_to_string.cs", "ABIigoKCgsiigoKUpLSCgoKCyIKCgoKUlIKUgqaCpoKmsoKClJSCgoKmgoKClILGgoSClIKCgpSCgoKClJTIgoKClKyCqILMgqiCzIKCgqiCgoLMgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/text.go", "text.cs", "AA0YgoKClIKClIKUgsaCpoKmgoKCpqqCyIKCgpSClKiCqILIgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/time.go", "time.cs", "AA4eooL+goKCgoKUgqaCgoKUpqiCpoKClNqCgoKCpoKCpoKCpqqCqILKgqiCyoKogoKCyoKogg==")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint.go", "uint.cs", "AAkQooLGgoKCpoKmtIKCgpTIgoKClKqCqILKgqiCyoKCgqiCgoLKgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint16.go", "uint16.cs", "AAkQooLGgoKCpoKmtIKCgpTIgoKClKqCqILKgqiCyoKCgqiCgoLKgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint32.go", "uint32.cs", "AAkQooLGgoKCpoKmtIKCgpTIgoKClKqCqILKgqiCyoKCgqiCgoLKgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint64.go", "uint64.cs", "AAkQooLGgoKCpoKmtIKCgpTIgoKClKqCqILKgqiCyoKCgqiCgoLKgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint8.go", "uint8.cs", "AAkQooLGgoKCpoKmtIKCgpTIgoKClKqCqILKgqiCyoKCgqiCgoLKgqiC")]
+[assembly: GoPositionMap("github.com/spf13/pflag@v1.0.9/uint_slice.go", "uint_slice.cs", "AA4egoKCgsaCgoKCgoKUlIKUlIKmgqaCgoKUpoKCgpSmgqaCgoKUgqaCgoKCgoKmgqaCgoKUxoKEgpSCgoKCgpSUyIKCgpSqgqiCyoKogsqCgoKogoKCyoKogg==")]
 // </GoSourcePositionMaps>
 
 namespace go.github.com.spf13;
@@ -255,3 +254,59 @@ public static partial class pflag_package
     [GoInit] internal static void initᴛᴛimportꓸtime() => builtin.initPackage(typeof(time_package));
     // </ImportInitializers>
 }
+
+// A Go method is an extension method on its receiver type. The methods of one type are
+// in a class of their own beside the package class, so that a method and a package-level
+// type, constant or variable can share a name as they do in Go. Each class is declared
+// below with the type it holds the methods of; its blocks are in the converted sources,
+// in Go's declaration order.
+
+// <MethodHolders>
+[GoMethodHost(typeof(pflag_package.Flag)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛFlag;
+[GoMethodHost(typeof(pflag_package.FlagSet)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛFlagSet;
+[GoMethodHost(typeof(pflag_package.InvalidSyntaxError)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛInvalidSyntaxError;
+[GoMethodHost(typeof(pflag_package.InvalidValueError)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛInvalidValueError;
+[GoMethodHost(typeof(pflag_package.NotExistError)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛNotExistError;
+[GoMethodHost(typeof(pflag_package.ValueRequiredError)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛValueRequiredError;
+[GoMethodHost(typeof(pflag_package.boolSliceValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛboolSliceValue;
+[GoMethodHost(typeof(pflag_package.boolValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛboolValue;
+[GoMethodHost(typeof(pflag_package.boolfuncValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛboolfuncValue;
+[GoMethodHost(typeof(pflag_package.bytesBase64Value)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛbytesBase64Value;
+[GoMethodHost(typeof(pflag_package.bytesHexValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛbytesHexValue;
+[GoMethodHost(typeof(pflag_package.countValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛcountValue;
+[GoMethodHost(typeof(pflag_package.durationSliceValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛdurationSliceValue;
+[GoMethodHost(typeof(pflag_package.durationValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛdurationValue;
+[GoMethodHost(typeof(pflag_package.flagValueWrapper)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛflagValueWrapper;
+[GoMethodHost(typeof(pflag_package.float32SliceValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛfloat32SliceValue;
+[GoMethodHost(typeof(pflag_package.float32Value)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛfloat32Value;
+[GoMethodHost(typeof(pflag_package.float64SliceValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛfloat64SliceValue;
+[GoMethodHost(typeof(pflag_package.float64Value)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛfloat64Value;
+[GoMethodHost(typeof(pflag_package.funcValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛfuncValue;
+[GoMethodHost(typeof(pflag_package.int16Value)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛint16Value;
+[GoMethodHost(typeof(pflag_package.int32SliceValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛint32SliceValue;
+[GoMethodHost(typeof(pflag_package.int32Value)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛint32Value;
+[GoMethodHost(typeof(pflag_package.int64SliceValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛint64SliceValue;
+[GoMethodHost(typeof(pflag_package.int64Value)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛint64Value;
+[GoMethodHost(typeof(pflag_package.int8Value)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛint8Value;
+[GoMethodHost(typeof(pflag_package.intSliceValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛintSliceValue;
+[GoMethodHost(typeof(pflag_package.intValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛintValue;
+[GoMethodHost(typeof(pflag_package.ipMaskValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛipMaskValue;
+[GoMethodHost(typeof(pflag_package.ipNetSliceValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛipNetSliceValue;
+[GoMethodHost(typeof(pflag_package.ipNetValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛipNetValue;
+[GoMethodHost(typeof(pflag_package.ipSliceValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛipSliceValue;
+[GoMethodHost(typeof(pflag_package.ipValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛipValue;
+[GoMethodHost(typeof(pflag_package.stringArrayValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛstringArrayValue;
+[GoMethodHost(typeof(pflag_package.stringSliceValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛstringSliceValue;
+[GoMethodHost(typeof(pflag_package.stringToInt64Value)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛstringToInt64Value;
+[GoMethodHost(typeof(pflag_package.stringToIntValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛstringToIntValue;
+[GoMethodHost(typeof(pflag_package.stringToStringValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛstringToStringValue;
+[GoMethodHost(typeof(pflag_package.stringValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛstringValue;
+[GoMethodHost(typeof(pflag_package.textValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛtextValue;
+[GoMethodHost(typeof(pflag_package.timeValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛtimeValue;
+[GoMethodHost(typeof(pflag_package.uint16Value)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛuint16Value;
+[GoMethodHost(typeof(pflag_package.uint32Value)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛuint32Value;
+[GoMethodHost(typeof(pflag_package.uint64Value)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛuint64Value;
+[GoMethodHost(typeof(pflag_package.uint8Value)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛuint8Value;
+[GoMethodHost(typeof(pflag_package.uintSliceValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛuintSliceValue;
+[GoMethodHost(typeof(pflag_package.uintValue)), global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)] public static partial class pflagᴛuintValue;
+// </MethodHolders>
